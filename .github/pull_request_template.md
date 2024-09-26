@@ -12,4 +12,6 @@
 
 ### More info
 
-- Jira: [RBC-](https://productdock.atlassian.net/browse/RBN-<pr-number>) <!-- include your PR number -->
+- Jira: [RBN-](https://productdock.atlassian.net/browse/RBN-<pr-number>) <!-- include your PR number -->
+
+- Figma: [Design](<!-- replace this comment with figma URL -->)
