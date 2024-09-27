@@ -1,0 +1,5 @@
+public/
+package-lock.json
+*.png
+*.ico
+*.jpg
