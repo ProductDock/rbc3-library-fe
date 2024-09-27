@@ -32,3 +32,31 @@
   max-height: 640px;
   object-fit: cover;
 }
+
+.content-holder {
+  padding-block: 218px;
+}
+
+.hello-text {
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 32px;
+  color: #353c43;
+}
+
+.library-text {
+  font-family: "Heading - 2/Semibold";
+  font-weight: 600;
+  font-size: 80px;
+  line-height: 104px;
+  color: #0a0c0e;
+}
+
+.long-text {
+  font-family: "Body - M/Regular";
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  color: #353c43;
+}
