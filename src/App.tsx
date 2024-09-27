@@ -3,11 +3,9 @@ import Homepage from "./pages/Homepage/Homepage";
 
 function App() {
   return (
-    <header className="App-header">
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-      </Routes>
-    </header>
+    <Routes>
+      <Route path="/" element={<Homepage />} />
+    </Routes>
   );
 }
 
