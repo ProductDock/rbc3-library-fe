@@ -8,7 +8,7 @@ export const LetsStartExploring = () => {
       height='1500px'
       className={styles.LetsStartExploring}
     >
-      <h1>Lets start exploring</h1>
+      <h1>Let's start exploring</h1>
       <h2>.</h2>
     </Stack>
   )
