@@ -11,11 +11,17 @@ export default function LoginPage() {
       </div>
       <div className='contentHolder'>
         <h2 className='helloText'>Hello, welcome to...</h2>
-        <h1 className='libraryText'>ProductDock Library.</h1>
+        <div className='libraryTextWrap'>
+          <span className='libraryText'>ProductDock Library</span>
+          <span className='dot'>.</span>
+        </div>
         <p className='longText'>
           Looking for the next book to read? Explore our collection and discover
           your new favorite that perfectly matches your interests.
         </p>
+        <button type='button' className='loginButton'>
+          Sign in with Google
+        </button>
       </div>
     </div>
   )
