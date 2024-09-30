@@ -6,7 +6,6 @@ import {
   Stack,
   TextField,
 } from '@mui/material'
-import CircleIcon from '@mui/icons-material/Circle'
 import SearchIcon from '@mui/icons-material/Search'
 import avatar from '../../assets/avatar.svg'
 
@@ -26,11 +25,12 @@ export const MenuItems = () => {
         </MenuItem>
         <MenuItem className={styles.menuItemsText}>My books</MenuItem>
         <MenuItem className={styles.menuItemsText}>Help</MenuItem>
-
-        <IconButton className={styles.logoIcon}>
-          <Avatar src={avatar} />
-          <CircleIcon className={styles.notificationBadge} />
-        </IconButton>
+        <div className={styles.notificationWrapper}>
+          <IconButton className={styles.logoIcon}>
+            <Avatar src={avatar} />
+          </IconButton>
+          <div className={styles.notificationBadge} />
+        </div>
 
         <Divider className={styles.divider} orientation='vertical' flexItem />
       </Stack>

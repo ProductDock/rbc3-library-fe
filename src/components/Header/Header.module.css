@@ -12,6 +12,7 @@
 
 .toolBar {
   height: 110px;
+  padding: 0;
 }
 
 .box {
@@ -25,15 +26,19 @@
 }
 
 .notificationBadge {
-  color: #ea592a;
+  background: #ea592a;
   z-index: 2;
-  margin-left: -10px;
-  margin-top: -20px;
-  width: 20px;
+  margin-left: 30px;
+  margin-top: -42px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-radius: 50%;
+  position: absolute;
 }
 
 .logoIcon {
-  margin-left: 30px;
+  padding: 0;
 }
 
 .divider {
@@ -52,4 +57,9 @@
 
 .searchIcon {
   color: black;
+}
+
+.notificationWrapper {
+  position: relative;
+  margin-left: 30px;
 }
