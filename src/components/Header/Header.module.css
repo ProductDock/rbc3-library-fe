@@ -1,0 +1,55 @@
+.logo {
+  margin-left: 160px;
+  width: 172px;
+  height: 24px;
+}
+
+.appBar {
+  background: #fff;
+  height: 110px;
+  box-shadow: none;
+}
+
+.toolBar {
+  height: 110px;
+}
+
+.box {
+  flex-grow: 1;
+}
+
+.menuItemsText {
+  color: black;
+  font-size: 16px;
+  text-align: left;
+}
+
+.notificationBadge {
+  color: #ea592a;
+  z-index: 2;
+  margin-left: -10px;
+  margin-top: -20px;
+  width: 20px;
+}
+
+.logoIcon {
+  margin-left: 30px;
+}
+
+.divider {
+  padding-top: 45px;
+}
+
+.searchTextField {
+  margin-left: 50px;
+}
+
+.searchTextField ::placeholder {
+  color: #000000;
+  font-size: 16px;
+  opacity: 1;
+}
+
+.searchIcon {
+  color: black;
+}
