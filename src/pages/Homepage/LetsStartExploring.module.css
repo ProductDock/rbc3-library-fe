@@ -1,0 +1,22 @@
+.letsStartExploring {
+  margin-left: 140px;
+}
+
+h1 {
+  margin-left: 320px;
+  margin-top: 130;
+  font-size: 96px;
+  font-weight: 600;
+  line-height: 108px;
+  letter-spacing: -0.04em;
+  text-align: left;
+}
+
+h2 {
+  font-size: 96px;
+  font-weight: 600;
+  line-height: 108px;
+  letter-spacing: -0.04em;
+  text-align: left;
+  color: #ea592a;
+}
