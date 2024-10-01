@@ -49,14 +49,16 @@ const SideBar = ({ open, toggleDrawer }: SidebarProps) => {
             <Typography className={styles.menuItemsText}>Library</Typography>
             <Typography className={styles.menuItemsText}>My books</Typography>
             <Typography className={styles.menuItemsText}>Help</Typography>
-            <Typography className={styles.menuItemsText}>
-              Notifications
-            </Typography>
+            <div className={styles.notificationWrapperResponsive}>
+              <span className={styles.menuItemsText}>Notifications</span>
+              <span>
+                <div className={styles.notificationBadgeResponsive} />
+              </span>
+            </div>
           </div>
         </div>
         <div className={styles.loginWrapper}>
           <Divider />
-
           <Typography className={styles.loggedUsername}>
             Milena Pavlovic
           </Typography>

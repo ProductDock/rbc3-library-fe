@@ -149,4 +149,17 @@
     font-weight: 400;
     font-size: 14px;
   }
+
+  .notificationBadgeResponsive {
+    background: #ea592a;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-left: 141px;
+    margin-top: -25px;
+  }
+
+  .notificationWrapperResponsive {
+    margin-left: 0;
+  }
 }
