@@ -1,25 +1,31 @@
 import LoginPagePhoto from '../../assets/LoginPagePhoto.svg'
 import CircleLogo from '../../assets/stamp.svg'
-import './LoginPage.css'
+import styles from './LoginPage.module.css'
 
 export default function LoginPage() {
   return (
-    <div className='wrap'>
-      <div className='imgHolder'>
-        <img src={CircleLogo} className='imgLogo' />
-        <img src={LoginPagePhoto} alt='photo' className='img' />
+    <div className={styles.loginPageContainer}>
+      <div className={styles.loginPageImageHolder}>
+        <img
+          src={CircleLogo}
+          alt='product-dock-logo'
+          className={styles.imageLogo}
+        />
+        <img
+          src={LoginPagePhoto}
+          alt='login-screen-image'
+          className={styles.loginScreenImage}
+        />
       </div>
-      <div className='contentHolder'>
-        <h2 className='helloText'>Hello, welcome to...</h2>
-        <div className='libraryTextWrap'>
-          <span className='libraryText'>ProductDock Library</span>
-          <span className='dot'>.</span>
-        </div>
-        <p className='longText'>
+      <div className={styles.loginContentHolder}>
+        <h2 className={styles.helloText}>Hello, welcome to...</h2>
+        <span className={styles.loginPageHeading}>ProductDock Library</span>
+        <span className={styles.dot}>.</span>
+        <p className={styles.loginPageContent}>
           Looking for the next book to read? Explore our collection and discover
           your new favorite that perfectly matches your interests.
         </p>
-        <button type='button' className='loginButton'>
+        <button type='button' className={styles.loginButton}>
           Sign in with Google
         </button>
       </div>
