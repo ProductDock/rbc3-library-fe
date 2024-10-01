@@ -1,4 +1,6 @@
+import { LetsStartExploring } from './LetsStartExploring'
+
 const Homepage = () => {
-  return <div>Homepage</div>
+  return <LetsStartExploring />
 }
 export default Homepage
