@@ -93,6 +93,14 @@
   .menuWrapperButton {
     margin-inline: 20px;
   }
+
+  .appBar {
+    height: 96px;
+  }
+
+  .toolBar {
+    height: 96px;
+  }
 }
 
 @media (max-width: 1094px) {
