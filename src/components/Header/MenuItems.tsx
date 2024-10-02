@@ -13,7 +13,7 @@ import avatar from '../../assets/avatar.svg'
 import styles from './Header.module.css'
 import { useState } from 'react'
 import menuIcon from '../../assets/menu.svg'
-import SideBar from './SideBar'
+import SideBar from './SideBar/SideBar'
 
 export const MenuItems = () => {
   const [open, setOpen] = useState(false)
@@ -25,6 +25,7 @@ export const MenuItems = () => {
   return (
     <>
       <Stack
+        className={styles.menuItems}
         direction='row'
         spacing='48px'
         marginLeft='auto'

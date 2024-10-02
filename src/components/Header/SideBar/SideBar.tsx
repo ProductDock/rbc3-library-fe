@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Divider,
   Drawer,
@@ -11,7 +10,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
 import LogoutIcon from '@mui/icons-material/Logout'
 
-import styles from './Header.module.css'
+import styles from './SideBar.module.css'
 
 interface SidebarProps {
   open: boolean
@@ -19,7 +18,7 @@ interface SidebarProps {
 }
 const SideBar = ({ open, toggleDrawer }: SidebarProps) => {
   const DrawerList = (
-    <Box className={styles.outerBox} sx={{ width: '100%' }} role='presentation'>
+    <>
       <div className={styles.closeBar}>
         <Button onClick={() => toggleDrawer(false)}>
           <CloseIcon className={styles.closeIcon}></CloseIcon>
@@ -72,7 +71,7 @@ const SideBar = ({ open, toggleDrawer }: SidebarProps) => {
           </div>
         </div>
       </div>
-    </Box>
+    </>
   )
   return (
     <Drawer
