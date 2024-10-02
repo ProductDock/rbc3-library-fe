@@ -1,0 +1,45 @@
+.catalogueWrapper {
+  margin-inline: 320px;
+  margin-top: 160px;
+}
+
+.titleButtonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+
+.catalogueText {
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.suggestButton {
+  height: 44px;
+  width: 164px;
+  background-color: #f1f5f8;
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+  color: #0a0c0e;
+}
+
+.categoryStatusWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.categoriesWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category {
+  /* margin-left: 100px; */
+  border: 1px solid #e9eef1;
+  border-radius: 2000px;
+  padding: 12px 24px 12px 24px;
+}
