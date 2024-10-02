@@ -13,7 +13,7 @@ import avatar from '../../assets/avatar.svg'
 import styles from './Header.module.css'
 import { useState } from 'react'
 import menuIcon from '../../assets/menu.svg'
-import SideBar from './SideBar/SideBar'
+import { SideBar } from './SideBar'
 
 export const MenuItems = () => {
   const [open, setOpen] = useState(false)
