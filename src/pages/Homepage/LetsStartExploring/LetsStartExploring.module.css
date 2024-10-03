@@ -15,4 +15,27 @@
 
 .text {
   font-size: 96px;
+  font-weight: 600;
+}
+
+@media (max-width: 1094px) {
+  .wrapper {
+    margin-left: 100px;
+  }
+}
+
+@media (max-width: 600px) {
+  .wrapper {
+    margin-left: 32px;
+    margin-top: 44px;
+  }
+
+  .text {
+    font-size: 48px;
+  }
+
+  .dot {
+    font-size: 48px;
+    font-weight: 800;
+  }
 }

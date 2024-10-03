@@ -1,0 +1,105 @@
+.sideBarDrawer {
+  @media (min-width: 780px) {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .searchTextField ::placeholder {
+    font-weight: 600;
+    font-size: 16px;
+    color: #0a0c0e;
+    opacity: 1;
+  }
+
+  .searchTextField {
+    margin-left: 0;
+    padding-bottom: 15px;
+  }
+
+  .closeBar {
+    height: 80px;
+    background-color: #0a0c0e;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .closeIcon {
+    color: #ffffff;
+    padding: 28px 28px 28px 0;
+  }
+
+  .menuWrapper {
+    padding: 48px 32px 0px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .menuItemsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding-top: 48px;
+  }
+
+  .menuItemsText {
+    font-size: 24px;
+    font-weight: 600;
+    color: #0a0c0e;
+  }
+
+  .maxWidth {
+    width: 100vw;
+  }
+
+  .searchIconWrapper {
+    padding-left: 0;
+    color: #0a0c0e;
+  }
+
+  .loggedUsername {
+    font-weight: 600;
+    font-size: 16px;
+    padding-top: 20px;
+  }
+
+  .loggedEmail {
+    font-weight: 400;
+    font-size: 14px;
+    padding-bottom: 22px;
+    color: #646d75;
+  }
+
+  .logoutWrapper {
+    display: flex;
+    flex-direction: row;
+    padding-top: 32px;
+  }
+
+  .logoutIcon {
+    font-size: 18px;
+    padding-right: 8px;
+    padding-top: 1px;
+  }
+
+  .logoutText {
+    font-weight: 400;
+    font-size: 14px;
+    padding-bottom: 48px;
+  }
+
+  .notificationBadgeResponsive {
+    background: #ea592a;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-left: 141px;
+    margin-top: -25px;
+  }
+
+  .notificationWrapperResponsive {
+    margin-left: 0;
+  }
+}
