@@ -1,5 +1,5 @@
 import Arrow from '../../assets/arrow.png'
-import styles from './BackToTop.module.css'
+import styles from './Footer.module.css'
 
 const BackToTop = () => {
   const scrollToTop = () => {
