@@ -1,4 +1,5 @@
 import Arrow from '../../assets/arrow.png'
+import styles from './BackToTop.module.css'
 
 const BackToTop = () => {
   const scrollToTop = () => {
@@ -6,19 +7,8 @@ const BackToTop = () => {
   }
 
   return (
-    <div style={{ marginTop: '50px', width: '110px' }} onClick={scrollToTop}>
-      <span
-        style={{
-          fontWeight: 600,
-          fontSize: '16px',
-          lineHeight: '28px',
-          color: 'white',
-          textDecoration: 'underline',
-          marginRight: '7px',
-        }}
-      >
-        Back to top
-      </span>
+    <div className={styles.backToTopButton} onClick={scrollToTop}>
+      <span className={styles.backToTop}>Back to top</span>
       <img src={Arrow} alt='arrow' />
     </div>
   )
