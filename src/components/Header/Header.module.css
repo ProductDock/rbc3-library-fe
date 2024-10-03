@@ -63,3 +63,58 @@
   position: relative;
   margin-left: 30px;
 }
+
+.searchWrapper {
+  height: 48px;
+  margin-top: 48px;
+}
+
+.menuWrapperButton {
+  @media (min-width: 780px) {
+    display: none;
+  }
+}
+
+@media (max-width: 780px) {
+  .menuItems {
+    display: none;
+  }
+
+  .searchTextField {
+    display: none;
+  }
+
+  .toolBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .menuWrapperButton {
+    margin-inline: 20px;
+  }
+
+  .appBar {
+    height: 96px;
+  }
+
+  .toolBar {
+    height: 96px;
+  }
+}
+
+@media (max-width: 1094px) {
+  .logo {
+    margin-left: 32px;
+    margin-right: 20px;
+  }
+
+  .menuItemsText {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .searchTextField {
+    margin-left: 25px;
+  }
+}
