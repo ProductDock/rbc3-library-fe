@@ -1,48 +1,63 @@
 .loginPageContainer {
   display: flex;
-  gap: 160px;
+  flex-direction: row;
+  gap: 10vw;
 }
 
 .loginPageImageHolder {
   position: relative;
-  padding: 160px 0 160px 145px;
+  margin-top: 120px;
+  margin-left: 14%;
+  min-width: 414px;
   display: flex;
+  flex-direction: column;
 }
 
 .imageLogo {
   z-index: 2;
-  height: 132px;
+  width: 25.5%;
+  background: white;
   border-radius: 100%;
-  margin-right: -65px;
-  margin-top: -66px;
+  margin-left: -12.5%;
+  margin-top: -13%;
+  position: absolute;
 }
 
 .loginScreenImage {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  min-height: 550px;
   max-height: 640px;
   max-width: 510px;
-  min-width: 300px;
+  position: relative;
 }
 
+.wrapper {
+  line-height: clamp(28px, 4vw + 10px, 60px);
+  width: 80%;
+  margin-top: 22px;
+}
 .loginContentHolder {
-  padding-block: 218px;
+  display: flex;
+  flex-direction: column;
+  padding-block: 10%;
   max-width: 730px;
   min-width: 400px;
 }
 
 .helloText {
+  display: flex;
+  flex-direction: column;
   font-weight: 400;
   font-size: 20px;
-  line-height: 32px;
+  line-height: 55px;
   color: #353c43;
 }
 
 .loginPageHeading {
+  flex-direction: column;
   font-weight: 600;
-  font-size: 80px;
-  line-height: 104px;
+  font-size: clamp(24px, 5vw + 10px, 80px);
   color: #0a0c0e;
 }
 
@@ -53,17 +68,91 @@
 }
 
 .loginPageContent {
+  display: flex;
+  flex-direction: column;
   font-weight: 400;
   font-size: 16px;
   line-height: 28px;
   color: #353c43;
-  width: 550px;
+  width: 70%;
   margin-top: 48px;
   margin-bottom: 80px;
 }
 
 .loginButton {
+  border: transparent;
+  background-color: #cbeaff41;
+  margin-top: -7px;
   width: 330px;
   height: 68px;
   padding: 0;
+}
+
+@media (max-width: 1100px) {
+  .loginPageContainer {
+    margin-bottom: 32px;
+    margin-left: 32px;
+    flex-direction: column;
+    gap: 0;
+  }
+  .loginPageImageHolder {
+    padding: 0;
+    margin: 0;
+  }
+
+  .imageLogo {
+    width: 80.76px;
+    height: 82px;
+    margin-left: -8px;
+    margin-top: 110px;
+    margin-bottom: 40px;
+  }
+
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .helloText {
+    font-size: 16px;
+    line-height: 32px;
+  }
+
+  .loginScreenImage {
+    display: none;
+  }
+  .loginContentHolder {
+    font-weight: 400;
+    padding-block: 0px;
+    line-height: 28px;
+    color: #353c43;
+    width: 80%;
+    margin-top: 254px;
+    margin-bottom: 20px;
+  }
+
+  .loginPageHeading {
+    line-height: 64px;
+    font-size: 48px;
+  }
+
+  .dot {
+    font-size: 48px;
+  }
+
+  .loginPageContent {
+    font-size: 14px;
+    margin-top: 26px;
+    width: 75%;
+    margin-bottom: 34px;
+  }
+
+  .loginButton {
+    margin-top: 13px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .loginPageContainer {
+    gap: 160px;
+  }
 }

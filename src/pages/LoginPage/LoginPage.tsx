@@ -19,8 +19,10 @@ export default function LoginPage() {
       </div>
       <div className={styles.loginContentHolder}>
         <h2 className={styles.helloText}>Hello, welcome to...</h2>
-        <span className={styles.loginPageHeading}>ProductDock Library</span>
-        <span className={styles.dot}>.</span>
+        <div className={styles.wrapper}>
+          <span className={styles.loginPageHeading}>ProductDock Library</span>
+          <span className={styles.dot}>.</span>
+        </div>
         <p className={styles.loginPageContent}>
           Looking for the next book to read? Explore our collection and discover
           your new favorite that perfectly matches your interests.
