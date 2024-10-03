@@ -30,7 +30,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 50px;
+  margin-top: 110px;
 }
 
 .categoriesWrapper {
@@ -47,16 +47,51 @@
   font-weight: 500;
   margin-right: 12px;
   margin-bottom: 12px;
+  color: #353c43;
+  text-transform: none;
+  background-color: white;
+}
+
+.clicked {
+  color: #0a0c0e;
+  border: 1px solid #0a0c0e;
 }
 
 .sortByWrapper {
   display: flex;
   flex-direction: row;
-  width: 200px;
+  width: 220px;
   margin-left: 50px;
+  padding-block: 12px;
 }
 
 .sortBy {
   font-size: 16px;
   font-weight: 400;
+  width: 58px;
+  padding-top: 4px;
+  padding-right: 8px;
+  color: #353c43;
 }
+
+.allStatusesMenuItem {
+  font-style: normal;
+}
+
+.statusForm {
+  font-weight: 800;
+  /* color: rgba(0, 0, 0) !important; */
+}
+
+/* .menuItem {
+  font-size: 16px;
+  font-weight: 400;
+} */
+
+/* .statusForm .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(0, 0, 0) !important;
+}
+
+.statusForm .MuiSvgIcon-root {
+  color: rgba(0, 0, 0) !important;
+} */
