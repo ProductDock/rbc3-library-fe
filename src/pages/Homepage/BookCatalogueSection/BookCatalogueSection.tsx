@@ -22,7 +22,10 @@ export const BookCatalogueSection = () => {
           <div className={styles.category}>Design</div>
           <div className={styles.category}>Psychology</div>
         </div>
-        <div>Hello</div>
+        <div className={styles.sortByWrapper}>
+          <Typography className={styles.sortBy}>Sort by:</Typography>
+          <div>All statuses</div>
+        </div>
       </div>
     </div>
   )

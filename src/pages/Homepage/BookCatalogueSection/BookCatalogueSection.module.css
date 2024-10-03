@@ -30,6 +30,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 50px;
 }
 
 .categoriesWrapper {
@@ -42,4 +43,20 @@
   border: 1px solid #e9eef1;
   border-radius: 2000px;
   padding: 12px 24px 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-right: 12px;
+  margin-bottom: 12px;
+}
+
+.sortByWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  margin-left: 50px;
+}
+
+.sortBy {
+  font-size: 16px;
+  font-weight: 400;
 }
