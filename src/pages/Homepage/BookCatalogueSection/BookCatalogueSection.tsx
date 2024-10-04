@@ -6,9 +6,11 @@ import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import { useState } from 'react'
+import Checkbox from '@mui/material/Checkbox'
+import ListItemText from '@mui/material/ListItemText'
 
 export const BookCatalogueSection = () => {
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState('All statuses')
 
   const handleChange = (event: SelectChangeEvent) => {
     setStatus(event.target.value)
@@ -25,6 +27,13 @@ export const BookCatalogueSection = () => {
     'Psychology',
   ]
 
+  const statusOptions = [
+    'All statuses',
+    'Available books',
+    'Reserved books',
+    'Rented books',
+  ]
+
   const handleButtonClick = (index: number) => {
     setActiveButton(index)
   }
@@ -38,14 +47,6 @@ export const BookCatalogueSection = () => {
       </div>
       <Divider />
       <div className={styles.categoryStatusWrapper}>
-        {/* <div className={styles.categoriesWrapper}>
-          <Button className={styles.category}>All</Button>
-          <Button className={styles.category}>Software development</Button>
-          <Button className={styles.category}>Marketing</Button>
-          <Button className={styles.category}>Product management</Button>
-          <Button className={styles.category}>Design</Button>
-          <Button className={styles.category}>Psychology</Button>
-        </div> */}
         <div className={styles.categoriesWrapper}>
           {categories.map((label, index) => (
             <Button
@@ -67,16 +68,14 @@ export const BookCatalogueSection = () => {
               sx={{ color: 'rgba(0, 0, 0)', fill: 'rgba(0, 0, 0)' }}
             >
               <Select
-                color={undefined}
+                // color={}
                 sx={{
                   color: 'black',
-                  // '& .MuiOutlinedInput-notchedOutline': {
-                  //   borderColor: 'black',
-                  // },
                   '& .MuiSvgIcon-root': {
                     color: 'black',
                   },
                 }}
+                renderValue={selected => selected || 'All statuses'}
                 className={styles.statusForm}
                 disableUnderline={true}
                 value={status}
@@ -84,22 +83,25 @@ export const BookCatalogueSection = () => {
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
               >
-                <MenuItem value=''>
-                  <em
-                    className={`${styles.allStatusesMenuItem} ${styles.menuItem}`}
+                {statusOptions.map(option => (
+                  <MenuItem
+                    key={option}
+                    value={option}
+                    className={styles.menuItem}
+                    sx={{
+                      '$ .css-spobta-MuiButtonBase-root-MuiMenuItem-root .Mui-selected':
+                        { backgroundColor: 'white' },
+                    }}
                   >
-                    All statuses
-                  </em>
-                </MenuItem>
-                <MenuItem className={styles.menuItem} value='Available'>
-                  Available books
-                </MenuItem>
-                <MenuItem className={styles.menuItem} value='Reserved'>
-                  Reserved books
-                </MenuItem>
-                <MenuItem className={styles.menuItem} value='Rented'>
-                  Rented books
-                </MenuItem>
+                    <input
+                      type='checkbox'
+                      checked={status === option}
+                      onChange={() => setStatus(option)}
+                      className={styles.customCheckbox}
+                    />
+                    <ListItemText primary={option} />
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </div>

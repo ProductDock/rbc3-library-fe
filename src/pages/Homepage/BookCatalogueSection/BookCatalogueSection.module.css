@@ -95,3 +95,28 @@
 .statusForm .MuiSvgIcon-root {
   color: rgba(0, 0, 0) !important;
 } */
+
+.customCheckbox {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #0a0c0e;
+  border-radius: 0px;
+  margin-right: 8px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.customCheckbox:checked {
+  border-color: #0a0c0e;
+  position: relative;
+}
+
+.customCheckbox:checked::after {
+  content: "—";
+  position: absolute;
+  top: -1px;
+}
+
+.MuiMenuItem-root.Mui-selected {
+  background: yellow;
+}
