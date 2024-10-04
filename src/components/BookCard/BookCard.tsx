@@ -20,7 +20,6 @@ const BookCard: React.FC<BookCardProps> = ({ inFavorites }) => {
             <h2 className={styles.title}>Book title placeholder</h2>
           </div>
           <Divider className={styles.divider} />
-          {/* <div className={styles.line}></div> */}
         </div>
       </div>
     </div>
