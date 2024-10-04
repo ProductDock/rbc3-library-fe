@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './BookCard.module.css'
-import Favorite from './Favorite/Favorite'
+import { Favorite } from './Favorite'
 import Divider from '@mui/material/Divider'
 
 type BookCardProps = {
