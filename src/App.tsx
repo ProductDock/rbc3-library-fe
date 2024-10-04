@@ -1,18 +1,18 @@
 import { Route, Routes } from 'react-router-dom'
 import { Homepage } from './pages/Homepage'
-import { Header } from './components/Header/Header'
-import { Footer } from './components/Footer/Footer'
+import { LoginPage } from './pages/LoginPage'
+import { AuthorisedLayout } from './pages/AuthorisedLayout'
 
 function App() {
   return (
     <>
-      <Header />
       <Routes>
-        <Route path='/' element={<Homepage />} />
+        <Route path='/' element={<AuthorisedLayout />}>
+          <Route index element={<Homepage />} />
+        </Route>
+        <Route path='/login' element={<LoginPage />} />
       </Routes>
-      <Footer />
     </>
   )
 }
-
 export default App
