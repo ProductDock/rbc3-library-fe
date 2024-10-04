@@ -1,5 +1,5 @@
 import { LetsStartExploring } from './LetsStartExploring'
-import BookCard from '../../components/BookCard/BookCard'
+import { BookCard } from '../../components/BookCard'
 
 const Homepage = () => {
   return (
@@ -10,13 +10,13 @@ const Homepage = () => {
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
-          gap: '1rem',
+          gap: '10rem',
         }}
       >
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
+        <BookCard inFavorites={true} />
+        <BookCard inFavorites={false} />
+        <BookCard inFavorites={true} />
+        <BookCard inFavorites={false} />
       </div>
     </div>
   )
