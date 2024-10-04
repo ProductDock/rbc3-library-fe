@@ -1,9 +1,12 @@
-import Arrow from '../../assets/arrow.png'
+import Arrow from '../../assets/arrow.svg'
 import styles from './Footer.module.css'
 
 const BackToTop = () => {
   const scrollToTop = () => {
-    window.scroll(0, 0)
+    window.scroll({
+      top: 0,
+      behavior: 'smooth',
+    })
   }
 
   return (

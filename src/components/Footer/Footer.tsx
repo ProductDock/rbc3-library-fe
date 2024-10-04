@@ -1,5 +1,5 @@
 import styles from './Footer.module.css'
-import stamp from '../../assets/stamp.png'
+import stamp from '../../assets/stamp.svg'
 import BackToTop from './BackToTop'
 
 export const Footer = () => {
