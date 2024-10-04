@@ -1,0 +1,19 @@
+.sideBarDrawer {
+  @media (min-width: 780px) {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .closeBar {
+    height: 80px;
+    background-color: #0a0c0e;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .closeIcon {
+    color: #ffffff;
+    padding: 28px 28px 28px 0;
+  }
+}

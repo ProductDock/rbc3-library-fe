@@ -6,16 +6,27 @@ import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import { useState } from 'react'
-import Checkbox from '@mui/material/Checkbox'
+import Checkbox, { checkboxClasses } from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import CheckBoxOutlineBlankSharpIcon from '@mui/icons-material/CheckBoxOutlineBlankSharp'
+import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
+import FiltersSideBar from './FiltersSideBar/FiltersSideBar'
+
+const ITEM_HEIGHT = 48
+const ITEM_PADDING_TOP = 8
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 200,
+    },
+  },
+}
+
+const statuses = ['Available books', 'Reserved books', 'Rented books']
 
 export const BookCatalogueSection = () => {
-  const [status, setStatus] = useState('All statuses')
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setStatus(event.target.value)
-  }
-
   const [activeButton, setActiveButton] = useState(0)
 
   const categories = [
@@ -27,16 +38,25 @@ export const BookCatalogueSection = () => {
     'Psychology',
   ]
 
-  const statusOptions = [
-    'All statuses',
-    'Available books',
-    'Reserved books',
-    'Rented books',
-  ]
-
   const handleButtonClick = (index: number) => {
     setActiveButton(index)
   }
+
+  const [bookStatus, setBookStatus] = useState<string[]>([])
+
+  const handleChange = (event: SelectChangeEvent<typeof bookStatus>) => {
+    const {
+      target: { value },
+    } = event
+    setBookStatus(typeof value === 'string' ? value.split(',') : value)
+  }
+
+  const [open, setOpen] = useState(false)
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen)
+  }
+
   return (
     <div className={styles.catalogueWrapper}>
       <div className={styles.titleButtonWrapper}>
@@ -45,7 +65,12 @@ export const BookCatalogueSection = () => {
         </Typography>
         <Button className={styles.suggestButton}>Suggest a book</Button>
       </div>
-      <Divider />
+      <Button className={styles.applyFilersButton} onClick={toggleDrawer(true)}>
+        Apply filters
+      </Button>
+      <FiltersSideBar open={open} toggleDrawer={toggleDrawer(false)} />
+
+      <Divider className={styles.dividerCatalogue} />
       <div className={styles.categoryStatusWrapper}>
         <div className={styles.categoriesWrapper}>
           {categories.map((label, index) => (
@@ -61,45 +86,61 @@ export const BookCatalogueSection = () => {
           ))}
         </div>
         <div className={styles.sortByWrapper}>
-          <Typography className={styles.sortBy}>Sort by:</Typography>
+          <Typography className={styles.sortBy}>Filter by:</Typography>
           <div>
             <FormControl
-              variant='standard'
-              sx={{ color: 'rgba(0, 0, 0)', fill: 'rgba(0, 0, 0)' }}
+              sx={{
+                width: 200,
+              }}
             >
+              {/* <InputLabel id='demo-multiple-checkbox-label'>Tag</InputLabel> */}
               <Select
-                // color={}
-                sx={{
-                  color: 'black',
-                  '& .MuiSvgIcon-root': {
-                    color: 'black',
-                  },
-                }}
-                renderValue={selected => selected || 'All statuses'}
+                labelId='demo-multiple-checkbox-label'
+                id='demo-multiple-checkbox'
                 className={styles.statusForm}
-                disableUnderline={true}
-                value={status}
+                multiple
+                value={bookStatus}
                 onChange={handleChange}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-              >
-                {statusOptions.map(option => (
-                  <MenuItem
-                    key={option}
-                    value={option}
-                    className={styles.menuItem}
+                input={
+                  <OutlinedInput
                     sx={{
-                      '$ .css-spobta-MuiButtonBase-root-MuiMenuItem-root .Mui-selected':
-                        { backgroundColor: 'white' },
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        border: 'none',
+                        padding: '0px',
+                      },
+                      color: 'black',
+                      '& .MuiSvgIcon-root': {
+                        color: 'black',
+                      },
+                      '& .MuiOutlinedInput-input': {
+                        // paddingTop: '10px',
+                      },
                     }}
-                  >
-                    <input
-                      type='checkbox'
-                      checked={status === option}
-                      onChange={() => setStatus(option)}
-                      className={styles.customCheckbox}
+                  />
+                }
+                renderValue={selected => selected.join(', ')}
+                MenuProps={MenuProps}
+                disableUnderline={true}
+              >
+                {statuses.map(status => (
+                  <MenuItem key={status} value={status}>
+                    <Checkbox
+                      checked={bookStatus.includes(status)}
+                      size='small'
+                      // sx={{ color: '#0A0C0E', borderRadius: '0px' }}
+                      style={{
+                        borderRadius: '0px',
+                      }}
+                      icon={
+                        <CheckBoxOutlineBlankSharpIcon
+                          sx={{ color: '#0A0C0E' }}
+                        />
+                      }
+                      checkedIcon={
+                        <CheckBoxSharpIcon sx={{ color: '#0A0C0E' }} />
+                      }
                     />
-                    <ListItemText primary={option} />
+                    <ListItemText primary={status} />
                   </MenuItem>
                 ))}
               </Select>
