@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import { useState } from 'react'
-import Checkbox, { checkboxClasses } from '@mui/material/Checkbox'
+import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import CheckBoxOutlineBlankSharpIcon from '@mui/icons-material/CheckBoxOutlineBlankSharp'
@@ -27,7 +27,9 @@ const MenuProps = {
 const statuses = ['Available books', 'Reserved books', 'Rented books']
 
 export const BookCatalogueSection = () => {
-  const [activeButton, setActiveButton] = useState(0)
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([
+    'All',
+  ])
 
   const categories = [
     'All',
@@ -38,10 +40,6 @@ export const BookCatalogueSection = () => {
     'Psychology',
   ]
 
-  const handleButtonClick = (index: number) => {
-    setActiveButton(index)
-  }
-
   const [bookStatus, setBookStatus] = useState<string[]>([])
 
   const handleChange = (event: SelectChangeEvent<typeof bookStatus>) => {
@@ -49,6 +47,22 @@ export const BookCatalogueSection = () => {
       target: { value },
     } = event
     setBookStatus(typeof value === 'string' ? value.split(',') : value)
+  }
+
+  const handleCategoryClick = (category: string) => {
+    if (category === 'All') {
+      setSelectedCategories(['All'])
+    } else {
+      setSelectedCategories(prevSelected => {
+        if (prevSelected.includes('All')) {
+          return [...prevSelected.filter(cat => cat !== 'All'), category]
+        } else {
+          return prevSelected.includes(category)
+            ? prevSelected.filter(cat => cat !== category)
+            : [...prevSelected, category]
+        }
+      })
+    }
   }
 
   const [open, setOpen] = useState(false)
@@ -68,20 +82,29 @@ export const BookCatalogueSection = () => {
       <Button className={styles.applyFilersButton} onClick={toggleDrawer(true)}>
         Apply filters
       </Button>
-      <FiltersSideBar open={open} toggleDrawer={toggleDrawer(false)} />
+      <FiltersSideBar
+        open={open}
+        toggleDrawer={toggleDrawer(false)}
+        categories={categories}
+        selectedCategories={selectedCategories}
+        setSelectedCategories={setSelectedCategories}
+        statuses={statuses}
+        selectedStatuses={bookStatus}
+        setSelectedStatuses={setBookStatus}
+      />
 
       <Divider className={styles.dividerCatalogue} />
       <div className={styles.categoryStatusWrapper}>
         <div className={styles.categoriesWrapper}>
-          {categories.map((label, index) => (
+          {categories.map(category => (
             <Button
-              key={index}
+              key={category}
               className={`${styles.category} ${
-                activeButton === index ? styles.clicked : ''
+                selectedCategories.includes(category) ? styles.clicked : ''
               }`}
-              onClick={() => handleButtonClick(index)}
+              onClick={() => handleCategoryClick(category)}
             >
-              {label}
+              {category}
             </Button>
           ))}
         </div>
@@ -93,7 +116,6 @@ export const BookCatalogueSection = () => {
                 width: 200,
               }}
             >
-              {/* <InputLabel id='demo-multiple-checkbox-label'>Tag</InputLabel> */}
               <Select
                 labelId='demo-multiple-checkbox-label'
                 id='demo-multiple-checkbox'
@@ -112,22 +134,17 @@ export const BookCatalogueSection = () => {
                       '& .MuiSvgIcon-root': {
                         color: 'black',
                       },
-                      '& .MuiOutlinedInput-input': {
-                        // paddingTop: '10px',
-                      },
                     }}
                   />
                 }
                 renderValue={selected => selected.join(', ')}
                 MenuProps={MenuProps}
-                disableUnderline={true}
               >
                 {statuses.map(status => (
                   <MenuItem key={status} value={status}>
                     <Checkbox
                       checked={bookStatus.includes(status)}
                       size='small'
-                      // sx={{ color: '#0A0C0E', borderRadius: '0px' }}
                       style={{
                         borderRadius: '0px',
                       }}

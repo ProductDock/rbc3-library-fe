@@ -41,7 +41,6 @@
 }
 
 .category {
-  /* margin-left: 100px; */
   border: 1px solid #e9eef1;
   border-radius: 2000px;
   padding: 12px 24px 12px 24px;
@@ -81,7 +80,6 @@
 
 .statusForm {
   font-weight: 800;
-  /* color: rgba(0, 0, 0) !important; */
 }
 
 .applyFilersButton {
@@ -98,27 +96,6 @@
     display: none;
   }
 }
-
-/* .customCheckbox {
-  width: 16px;
-  height: 16px;
-  border: 1px solid #0a0c0e;
-  border-radius: 0px;
-  margin-right: 8px;
-  appearance: none;
-  cursor: pointer;
-}
-
-.customCheckbox:checked {
-  border-color: #0a0c0e;
-  position: relative;
-}
-
-.customCheckbox:checked::after {
-  content: "—";
-  position: absolute;
-  top: -1px;
-} */
 
 @media (max-width: 1425px) {
   .catalogueWrapper {
@@ -145,7 +122,7 @@
   }
 
   .suggestButton {
-    margin-bottom: 24px;
+    margin-block: 24px;
   }
 }
 

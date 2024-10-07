@@ -1,5 +1,5 @@
 .sideBarDrawer {
-  @media (min-width: 780px) {
+  @media (min-width: 985px) {
     display: none;
   }
 }
@@ -7,13 +7,75 @@
 @media (max-width: 1000px) {
   .closeBar {
     height: 80px;
-    background-color: #0a0c0e;
     display: flex;
     justify-content: flex-end;
   }
 
   .closeIcon {
-    color: #ffffff;
+    color: #0a0c0e;
     padding: 28px 28px 28px 0;
+  }
+
+  .filtersWrapper {
+    padding: 0px 32px 40px 32px;
+  }
+
+  .filtersText {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .categoriesText {
+    font-size: 16px;
+    font-weight: 600;
+    padding-block: 48px 32px;
+  }
+
+  .categories {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 40px;
+  }
+
+  .category {
+    font-size: 16px;
+    color: #353c43;
+  }
+
+  .statusesText {
+    font-size: 16px;
+    font-weight: 600;
+    padding-block: 40px 32px;
+  }
+
+  .statuses {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 64px;
+  }
+
+  .showButton {
+    height: 52px;
+    width: 100%;
+    border-radius: 0;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: none;
+    color: #ffffff;
+    background-color: #0a0c0e;
+    margin-bottom: 24px;
+  }
+
+  .cancelButton {
+    height: 52px;
+    width: 100%;
+    border-radius: 0;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: none;
+    color: #0a0c0e;
+    border: 1px solid #0a0c0e;
   }
 }
