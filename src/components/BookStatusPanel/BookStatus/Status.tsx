@@ -1,0 +1,15 @@
+export enum Status {
+  AVAILABLE = 'Available',
+  RESERVED = 'Reserved',
+  RESERVED_BY_ME = 'Reserved by me',
+  RESERVED_BY = 'Reserved by',
+  RENTED = 'Rented',
+  RENTED_BY_ME = 'Rented by me',
+  RENTED_BY = 'Rented by',
+  ON_WAIT_LIST = 'On wait list',
+  PENDING = 'Pending',
+  APPROVED = 'Approved',
+  DENIED = 'Denied',
+  ORDERED = 'Ordered',
+  IN_LIBRARY = 'In library',
+}
