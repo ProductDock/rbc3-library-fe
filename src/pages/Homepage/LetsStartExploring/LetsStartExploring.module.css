@@ -23,7 +23,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 780px) {
   .wrapper {
     margin-inline: 32px;
     margin-top: 44px;

@@ -80,11 +80,11 @@ const SideBar = ({
                     size='small'
                     icon={
                       <CheckBoxOutlineBlankSharpIcon
-                        sx={{ color: '#0A0C0E' }}
+                        className={styles.checkboxColor}
                       />
                     }
                     checkedIcon={
-                      <CheckBoxSharpIcon sx={{ color: '#0A0C0E' }} />
+                      <CheckBoxSharpIcon className={styles.checkboxColor} />
                     }
                   />
                 }
@@ -108,11 +108,11 @@ const SideBar = ({
                     size='small'
                     icon={
                       <CheckBoxOutlineBlankSharpIcon
-                        sx={{ color: '#0A0C0E' }}
+                        className={styles.checkboxColor}
                       />
                     }
                     checkedIcon={
-                      <CheckBoxSharpIcon sx={{ color: '#0A0C0E' }} />
+                      <CheckBoxSharpIcon className={styles.checkboxColor} />
                     }
                   />
                 }

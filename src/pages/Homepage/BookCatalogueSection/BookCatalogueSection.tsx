@@ -11,7 +11,7 @@ import ListItemText from '@mui/material/ListItemText'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import CheckBoxOutlineBlankSharpIcon from '@mui/icons-material/CheckBoxOutlineBlankSharp'
 import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
-import FiltersSideBar from './FiltersSideBar/FiltersSideBar'
+import { FiltersSideBar } from './FiltersSideBar'
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -128,9 +128,7 @@ export const BookCatalogueSection = () => {
                     sx={{
                       '& .MuiOutlinedInput-notchedOutline': {
                         border: 'none',
-                        padding: '0px',
                       },
-                      color: 'black',
                       '& .MuiSvgIcon-root': {
                         color: 'black',
                       },
@@ -145,16 +143,13 @@ export const BookCatalogueSection = () => {
                     <Checkbox
                       checked={bookStatus.includes(status)}
                       size='small'
-                      style={{
-                        borderRadius: '0px',
-                      }}
                       icon={
                         <CheckBoxOutlineBlankSharpIcon
-                          sx={{ color: '#0A0C0E' }}
+                          className={styles.checkboxColor}
                         />
                       }
                       checkedIcon={
-                        <CheckBoxSharpIcon sx={{ color: '#0A0C0E' }} />
+                        <CheckBoxSharpIcon className={styles.checkboxColor} />
                       }
                     />
                     <ListItemText primary={status} />
