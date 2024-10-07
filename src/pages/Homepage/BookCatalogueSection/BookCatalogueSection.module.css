@@ -1,0 +1,151 @@
+.catalogueWrapper {
+  margin-inline: 320px;
+  margin-block: 160px;
+}
+
+.titleButtonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  align-items: center;
+}
+
+.catalogueText {
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.suggestButton {
+  height: 44px;
+  width: 164px;
+  background-color: #f1f5f8;
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+  color: #0a0c0e;
+}
+
+.categoryStatusWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 94px;
+}
+
+.categoriesWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 16px;
+}
+
+.category {
+  border: 1px solid #e9eef1;
+  border-radius: 2000px;
+  padding: 12px 24px 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  color: #353c43;
+  text-transform: none;
+  background-color: white;
+}
+
+.clicked {
+  color: #0a0c0e;
+  border: 1px solid #0a0c0e;
+}
+
+.sortByWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 270px;
+  margin-left: 30px;
+  padding-block: 12px;
+}
+
+.sortBy {
+  font-size: 16px;
+  font-weight: 400;
+  width: 65px;
+  padding-top: 16px;
+  color: #353c43;
+}
+
+.allStatusesMenuItem {
+  font-style: normal;
+}
+
+.statusForm {
+  font-weight: 800;
+}
+
+.applyFilersButton {
+  height: 44px;
+  width: 164px;
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+  color: #0a0c0e;
+  border: 1px solid #0a0c0e;
+
+  @media (min-width: 1094px) {
+    display: none;
+  }
+}
+
+.checkboxColor {
+  color: #0a0c0e;
+}
+
+@media (max-width: 1425px) {
+  .catalogueWrapper {
+    margin-inline: 100px;
+  }
+}
+
+@media (max-width: 1094px) {
+  .catalogueWrapper {
+    margin-inline: 100px;
+    margin-block: 64px;
+  }
+
+  .categoryStatusWrapper {
+    display: none;
+  }
+
+  .dividerCatalogue {
+    display: none;
+  }
+
+  .titleButtonWrapper {
+    display: block;
+    margin-bottom: 0;
+  }
+
+  .suggestButton {
+    margin-block: 24px;
+  }
+}
+
+@media (max-width: 780px) {
+  .catalogueWrapper {
+    margin-inline: 32px;
+  }
+
+  .catalogueText {
+    font-size: 24px;
+    margin-bottom: 48px;
+  }
+
+  .suggestButton {
+    width: 100%;
+  }
+
+  .applyFilersButton {
+    width: 100%;
+  }
+}
