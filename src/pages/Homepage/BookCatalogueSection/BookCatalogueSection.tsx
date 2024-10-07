@@ -25,22 +25,21 @@ const MenuProps = {
 }
 
 const statuses = ['Available books', 'Reserved books', 'Rented books']
+const categories = [
+  'All',
+  'Software development',
+  'Marketing',
+  'Product management',
+  'Design',
+  'Psychology',
+]
 
 export const BookCatalogueSection = () => {
+  const [bookStatus, setBookStatus] = useState<string[]>([])
   const [selectedCategories, setSelectedCategories] = useState<string[]>([
     'All',
   ])
-
-  const categories = [
-    'All',
-    'Software development',
-    'Marketing',
-    'Product management',
-    'Design',
-    'Psychology',
-  ]
-
-  const [bookStatus, setBookStatus] = useState<string[]>([])
+  const [open, setOpen] = useState(false)
 
   const handleChange = (event: SelectChangeEvent<typeof bookStatus>) => {
     const {
@@ -48,7 +47,6 @@ export const BookCatalogueSection = () => {
     } = event
     setBookStatus(typeof value === 'string' ? value.split(',') : value)
   }
-
   const handleCategoryClick = (category: string) => {
     if (category === 'All') {
       setSelectedCategories(['All'])
@@ -64,9 +62,6 @@ export const BookCatalogueSection = () => {
       })
     }
   }
-
-  const [open, setOpen] = useState(false)
-
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen)
   }
