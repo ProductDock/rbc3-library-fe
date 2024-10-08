@@ -9,13 +9,27 @@
 }
 
 .cardContent {
-  width: 400px;
+  width: 290px;
   height: 212px;
-  margin-top: 40px;
-  padding-left: 32px;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   @media (max-width: 450px) {
+    width: 316px;
     padding-left: 0;
+  }
+}
+
+.info {
+  width: 270px;
+  padding-left: 20px;
+
+  @media (max-width: 450px) {
+    width: 316px;
+    padding-left: 0px;
+    margin-top: 32px;
   }
 }
 
@@ -32,10 +46,18 @@
   width: 84%;
   background-color: #e9eef1;
   margin-top: 32px;
+
+  @media (max-width: 450px) {
+    width: 100%;
+  }
 }
 
 .bookStatusPanel {
   height: 64px;
-  width: 360px;
+  width: 290px;
   margin-top: 32px;
+
+  @media (max-width: 450px) {
+    margin-top: 20px;
+  }
 }
