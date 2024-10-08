@@ -1,5 +1,5 @@
 import LoginPagePhoto from '../../assets/LoginPagePhoto.svg'
-import CircleLogo from '../../assets/stamp.svg'
+import CircleLogo from '../../assets/homePageStamp.svg'
 import styles from './LoginPage.module.css'
 
 export default function LoginPage() {

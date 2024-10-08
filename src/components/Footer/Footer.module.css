@@ -1,0 +1,87 @@
+.footerContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  margin-left: 160px;
+  margin-bottom: 160px;
+  padding: 120px 0;
+
+  @media (max-width: 1094px) {
+    margin: 0;
+  }
+}
+
+.content {
+  margin: 0 200px;
+
+  @media (max-width: 1094px) {
+    margin: 0 50px;
+  }
+
+  @media (max-width: 1520px) {
+    margin: 0 100px;
+  }
+}
+
+.author {
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 28px;
+  margin-bottom: 30px;
+}
+
+.wrapper {
+  display: flex;
+  gap: 196px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quote {
+  height: 200px;
+}
+
+.quoteText {
+  font-weight: 600;
+  font-size: 80px;
+  line-height: 104px;
+  color: white;
+
+  @media (max-width: 950px) {
+    font-size: 36px;
+    line-height: 48px;
+  }
+}
+
+.dot {
+  color: #ea592a;
+  font-size: 96px;
+
+  @media (max-width: 950px) {
+    font-size: 36px;
+    line-height: 48px;
+  }
+}
+
+.stampBox {
+  @media (max-width: 1520px) {
+    display: none;
+  }
+}
+
+.backToTop {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 28px;
+  color: white;
+  text-decoration: underline;
+  margin-right: 7px;
+}
+
+.backToTopButton {
+  margin-top: 50px;
+  width: 110px;
+  cursor: pointer;
+}

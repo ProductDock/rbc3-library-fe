@@ -3,8 +3,8 @@
 }
 
 .wrapper {
-  height: 500px;
-  margin-left: 320px;
+  margin-inline: 320px;
+  margin-top: 130;
 }
 
 .dot {
@@ -17,15 +17,15 @@
   font-weight: 600;
 }
 
-@media (max-width: 1094px) {
+@media (max-width: 1425px) {
   .wrapper {
-    margin-left: 100px;
+    margin-inline: 100px;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 780px) {
   .wrapper {
-    margin-left: 32px;
+    margin-inline: 32px;
     margin-top: 44px;
   }
 
