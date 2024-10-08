@@ -149,3 +149,14 @@
     width: 100%;
   }
 }
+
+.books {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10rem;
+
+  @media (max-width: 780px) {
+    margin-top: 40px;
+  }
+}

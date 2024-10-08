@@ -33,3 +33,9 @@
   background-color: #e9eef1;
   margin-top: 32px;
 }
+
+.bookStatusPanel {
+  height: 64px;
+  width: 360px;
+  margin-top: 32px;
+}
