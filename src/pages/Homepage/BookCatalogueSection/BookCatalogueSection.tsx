@@ -12,6 +12,7 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import CheckBoxOutlineBlankSharpIcon from '@mui/icons-material/CheckBoxOutlineBlankSharp'
 import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
 import { FiltersSideBar } from './FiltersSideBar'
+import { BookCard } from '../../../components/BookCard'
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -155,6 +156,13 @@ export const BookCatalogueSection = () => {
           </div>
         </div>
       </div>
+      <div className={styles.books}>
+        <BookCard inFavorites={true} />
+        <BookCard inFavorites={false} />
+        <BookCard inFavorites={true} />
+        <BookCard inFavorites={false} />
+      </div>
+      
     </div>
   )
 }
