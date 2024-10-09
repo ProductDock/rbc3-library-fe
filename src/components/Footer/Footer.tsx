@@ -1,18 +1,39 @@
 import styles from './Footer.module.css'
 import stamp from '../../assets/stamp.svg'
 import BackToTop from './BackToTop'
+import { Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 export const Footer = () => {
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 950)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 950)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   return (
     <div className={styles.footerContent}>
       <div className={styles.content}>
-        <div className={styles.author}>Paulo Freire</div>
+        <Typography variant='h6' className={styles.author}>
+          Paulo Freire
+        </Typography>
         <div className={styles.wrapper}>
           <div className={styles.quote}>
-            <span className={styles.quoteText}>
+            <Typography
+              variant={isSmallScreen ? 'subtitle2' : 'h2'}
+              className={styles.quoteText}
+            >
               The world belongs to those who read
-            </span>
-            <span className={styles.dot}>.</span>
+              <span className={styles.dot}>.</span>
+            </Typography>
           </div>
           <div className={styles.stampBox}>
             <img src={stamp} alt='stamp' />

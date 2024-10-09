@@ -12,10 +12,11 @@ const typography: TypographyOptions = {
       lineHeight: '64px',
     },
   },
+
   h2: {
     fontSize: 'clamp(24px, 5vw + 10px, 80px)',
     fontWeight: 600,
-    lineHeight: '135%',
+    lineHeight: '104px',
     letterSpacing: '-4%',
     '@media (max-width:1100px)': {
       fontSize: '48px',
@@ -62,6 +63,7 @@ const typography: TypographyOptions = {
     letterSpacing: '-3%',
     '@media (max-width:1100px)': {
       fontSize: '14px',
+      lineHeight: '24px',
     },
   },
   body1: {
