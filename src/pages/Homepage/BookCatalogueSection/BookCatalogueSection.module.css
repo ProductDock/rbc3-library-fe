@@ -154,7 +154,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10rem;
+  row-gap: 120px;
+  column-gap: 40px;
 
   @media (max-width: 780px) {
     margin-top: 40px;
