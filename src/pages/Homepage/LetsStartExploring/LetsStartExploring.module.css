@@ -8,8 +8,7 @@
 }
 
 .dot {
-  /* color: #ea592a; */
-  /* color: var(--mui-color-secondary-300); */
+  color: #ea592a;
   font-size: 96px;
 }
 
