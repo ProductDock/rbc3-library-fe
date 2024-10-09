@@ -21,7 +21,6 @@
 
 .menuItemsText {
   color: black;
-  font-size: 16px;
   text-align: left;
 }
 
@@ -51,7 +50,6 @@
 
 .searchTextField ::placeholder {
   color: #000000;
-  font-size: 16px;
   opacity: 1;
 }
 
