@@ -24,7 +24,7 @@
   font-size: 14px;
   font-weight: 600;
   text-transform: none;
-  color: var(--mui-palette-neutral-50);
+  color: var(--mui-palette-neutral-600);
 }
 
 .categoryStatusWrapper {
@@ -98,7 +98,7 @@
 }
 
 .checkboxColor {
-  color: var(--mui-palette-neutral-50);
+  color: var(--mui-palette-neutral-600);
 }
 
 @media (max-width: 1425px) {
