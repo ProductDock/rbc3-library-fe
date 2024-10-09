@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material'
 import LoginPagePhoto from '../../assets/LoginPagePhoto.svg'
 import CircleLogo from '../../assets/homePageStamp.svg'
 import styles from './LoginPage.module.css'
@@ -18,15 +19,19 @@ export default function LoginPage() {
         />
       </div>
       <div className={styles.loginContentHolder}>
-        <h2 className={styles.helloText}>Hello, welcome to...</h2>
+        <Typography variant='h5' className={styles.helloText}>
+          Hello, welcome to...
+        </Typography>
         <div className={styles.wrapper}>
-          <span className={styles.loginPageHeading}>ProductDock Library</span>
-          <span className={styles.dot}>.</span>
+          <Typography variant='h2' className={styles.loginPageHeading}>
+            ProductDock Library
+            <span className={styles.dot}>.</span>
+          </Typography>
         </div>
-        <p className={styles.loginPageContent}>
+        <Typography variant='h6' className={styles.loginPageContent}>
           Looking for the next book to read? Explore our collection and discover
           your new favorite that perfectly matches your interests.
-        </p>
+        </Typography>
         <button type='button' className={styles.loginButton}>
           Sign in with Google
         </button>
