@@ -5,7 +5,6 @@ import { AuthorisedLayout } from './pages/AuthorisedLayout'
 import theme from './theme/theme'
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
-import { Theme } from './theme'
 
 function App() {
   return (
