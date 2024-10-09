@@ -1,6 +1,6 @@
 import { PaletteColorOptions } from '@mui/material'
 
-const neutral = {
+const neutral: PaletteColorOptions | undefined = {
   50: '#FFFFFF',
   100: '#F1F5F8',
   200: '#E9EFF1',

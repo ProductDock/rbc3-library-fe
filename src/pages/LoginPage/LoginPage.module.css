@@ -16,7 +16,7 @@
 .imageLogo {
   z-index: 2;
   width: 25.5%;
-  background: white;
+  background: var(--mui-palette-neutral-50);
   border-radius: 100%;
   margin-left: -12.5%;
   margin-top: -13%;
@@ -51,19 +51,19 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 55px;
-  color: #353c43;
+  color: var(--mui-palette-neutral-500);
 }
 
 .loginPageHeading {
   flex-direction: column;
   font-weight: 600;
   font-size: clamp(24px, 5vw + 10px, 80px);
-  color: #0a0c0e;
+  color: var(--mui-palette-neutral-50);
 }
 
 .dot {
   font-size: 80px;
-  color: #ea592a;
+  color: var(--mui-palette-secondary-300);
   font-weight: 600;
 }
 
@@ -73,7 +73,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 28px;
-  color: #353c43;
+  color: var(--mui-palette-neutral-500);
   width: 70%;
   margin-top: 48px;
   margin-bottom: 80px;
@@ -81,7 +81,7 @@
 
 .loginButton {
   border: transparent;
-  background-color: #cbeaff41;
+  background-color: var(--mui-palette-neutral-100);
   margin-top: -7px;
   width: 330px;
   height: 68px;
@@ -124,7 +124,7 @@
     font-weight: 400;
     padding-block: 0px;
     line-height: 28px;
-    color: #353c43;
+    color: var(--mui-palette-neutral-500);
     width: 80%;
     margin-top: 254px;
     margin-bottom: 20px;

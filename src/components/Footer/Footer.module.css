@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: var(--mui-palette-neutral-600);
   margin-left: 160px;
   margin-bottom: 160px;
   padding: 120px 0;
@@ -25,7 +25,8 @@
 }
 
 .author {
-  color: white;
+  color: var(--mui-palette-neutral-100);
+  color: var(--mui-palette-neutral-100);
   font-weight: 500;
   font-size: 16px;
   line-height: 28px;
@@ -47,7 +48,7 @@
   font-weight: 600;
   font-size: 80px;
   line-height: 104px;
-  color: white;
+  color: var(--mui-palette-neutral-100);
 
   @media (max-width: 950px) {
     font-size: 36px;
@@ -56,7 +57,7 @@
 }
 
 .dot {
-  color: #ea592a;
+  color: var(--mui-palette-secondary-300);
   font-size: 96px;
 
   @media (max-width: 950px) {
@@ -75,7 +76,7 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 28px;
-  color: white;
+  color: var(--mui-palette-neutral-50);
   text-decoration: underline;
   margin-right: 7px;
 }

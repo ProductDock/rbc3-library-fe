@@ -8,7 +8,7 @@
   .searchTextField ::placeholder {
     font-weight: 600;
     font-size: 16px;
-    color: #0a0c0e;
+    color: var(--mui-palette-neutral-50);
     opacity: 1;
   }
 
@@ -19,13 +19,13 @@
 
   .closeBar {
     height: 80px;
-    background-color: #0a0c0e;
+    background-color: var(--mui-palette-neutral-50);
     display: flex;
     justify-content: flex-end;
   }
 
   .closeIcon {
-    color: #ffffff;
+    color: var(--mui-palette-neutral-50);
     padding: 28px 28px 28px 0;
   }
 
@@ -47,7 +47,7 @@
   .menuItemsText {
     font-size: 24px;
     font-weight: 600;
-    color: #0a0c0e;
+    color: var(--mui-palette-neutral-50);
   }
 
   .maxWidth {
@@ -56,7 +56,7 @@
 
   .searchIconWrapper {
     padding-left: 0;
-    color: #0a0c0e;
+    color: var(--mui-palette-neutral-50);
   }
 
   .loggedUsername {
@@ -69,7 +69,7 @@
     font-weight: 400;
     font-size: 14px;
     padding-bottom: 22px;
-    color: #646d75;
+    color: var(--mui-palette-neutral-400);
   }
 
   .logoutWrapper {
@@ -91,7 +91,7 @@
   }
 
   .notificationBadgeResponsive {
-    background: #ea592a;
+    background: var(--mui-palette-secondary-300);
     width: 6px;
     height: 6px;
     border-radius: 50%;
