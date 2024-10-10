@@ -20,7 +20,6 @@ import { SideBar } from './SideBar'
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& input::placeholder': {
     fontSize: theme.typography.h6.fontSize,
-    fontWeight: theme.typography.h6.fontWeight,
     lineHeight: theme.typography.h6.lineHeight,
     letterSpacing: theme.typography.h6.letterSpacing,
     opacity: 1,
