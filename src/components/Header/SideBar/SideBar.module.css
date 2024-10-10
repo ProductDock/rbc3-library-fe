@@ -7,7 +7,6 @@
 @media (max-width: 1000px) {
   .searchTextField ::placeholder {
     font-weight: 600;
-    font-size: 16px;
     color: var(--mui-palette-neutral-50);
     opacity: 1;
   }
