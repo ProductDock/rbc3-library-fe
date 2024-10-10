@@ -1,23 +1,16 @@
 import styles from './Footer.module.css'
 import stamp from '../../assets/stamp.svg'
 import BackToTop from './BackToTop'
-import { Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { Typography, useMediaQuery } from '@mui/material'
 
 export const Footer = () => {
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 950)
-  const handleResize = () => {
-    setIsSmallScreen(window.innerWidth < 950)
-  }
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-  }, [])
+  const matches = useMediaQuery('(min-width:950px)')
 
   return (
     <div className={styles.footerContent}>
       <div className={styles.content}>
         <Typography
-          variant={isSmallScreen ? 'body1' : 'h6'}
+          variant={matches ? 'h6' : 'body1'}
           className={styles.author}
         >
           Paulo Freire
@@ -25,7 +18,7 @@ export const Footer = () => {
         <div className={styles.wrapper}>
           <div className={styles.quote}>
             <Typography
-              variant={isSmallScreen ? 'subtitle2' : 'h2'}
+              variant={matches ? 'h2' : 'subtitle2'}
               className={styles.quoteText}
             >
               The world belongs to those who read

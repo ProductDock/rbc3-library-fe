@@ -1,17 +1,10 @@
-import { Typography } from '@mui/material'
+import { Typography, useMediaQuery } from '@mui/material'
 import LoginPagePhoto from '../../assets/LoginPagePhoto.svg'
 import CircleLogo from '../../assets/homePageStamp.svg'
 import styles from './LoginPage.module.css'
-import { useEffect, useState } from 'react'
 
 export default function LoginPage() {
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1100)
-  const handleResize = () => {
-    setIsSmallScreen(window.innerWidth < 1100)
-  }
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-  }, [])
+  const matches = useMediaQuery('(min-width:1100px)')
 
   return (
     <div className={styles.loginPageContainer}>
@@ -29,14 +22,14 @@ export default function LoginPage() {
       </div>
       <div className={styles.loginContentHolder}>
         <Typography
-          variant={isSmallScreen ? 'h6' : 'h5'}
+          variant={matches ? 'h5' : 'h6'}
           className={styles.helloText}
         >
           Hello, welcome to...
         </Typography>
         <div className={styles.wrapper}>
           <Typography
-            variant={isSmallScreen ? 'subtitle1' : 'h2'}
+            variant={matches ? 'h2' : 'subtitle1'}
             className={styles.loginPageHeading}
           >
             ProductDock Library
@@ -44,7 +37,7 @@ export default function LoginPage() {
           </Typography>
         </div>
         <Typography
-          variant={isSmallScreen ? 'body1' : 'h6'}
+          variant={matches ? 'h6' : 'body1'}
           className={styles.loginPageContent}
         >
           Looking for the next book to read? Explore our collection and discover

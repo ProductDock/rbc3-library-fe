@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
 import OutlinedInput from '@mui/material/OutlinedInput'
@@ -13,6 +13,7 @@ import CheckBoxOutlineBlankSharpIcon from '@mui/icons-material/CheckBoxOutlineBl
 import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
 import { FiltersSideBar } from './FiltersSideBar'
 import { BookCard } from '../../../components/BookCard'
+import { useMediaQuery } from '@mui/material'
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -67,20 +68,14 @@ export const BookCatalogueSection = () => {
     setOpen(newOpen)
   }
 
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1100)
-  const handleResize = () => {
-    setIsSmallScreen(window.innerWidth < 1100)
-  }
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-  }, [])
+  const matches = useMediaQuery('(min-width:1100px)')
 
   return (
     <div className={styles.catalogueWrapper}>
       <div className={styles.titleButtonWrapper}>
         <Typography
           className={styles.catalogueText}
-          variant={isSmallScreen ? 'h4' : 'subtitle2'}
+          variant={matches ? 'subtitle2' : 'h4'}
         >
           Book catalogue (72)
         </Typography>

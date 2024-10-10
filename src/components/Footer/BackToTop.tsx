@@ -1,7 +1,6 @@
-import { Typography } from '@mui/material'
+import { Typography, useMediaQuery } from '@mui/material'
 import Arrow from '../../assets/arrow.svg'
 import styles from './Footer.module.css'
-import { useEffect, useState } from 'react'
 
 const BackToTop = () => {
   const scrollToTop = () => {
@@ -11,18 +10,12 @@ const BackToTop = () => {
     })
   }
 
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 950)
-  const handleResize = () => {
-    setIsSmallScreen(window.innerWidth < 950)
-  }
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-  }, [])
+  const matches = useMediaQuery('(min-width:950px)')
 
   return (
     <div className={styles.backToTopButton} onClick={scrollToTop}>
       <Typography
-        variant={isSmallScreen ? 'body1' : 'h6'}
+        variant={matches ? 'h6' : 'body1'}
         className={styles.backToTop}
       >
         Back to top
