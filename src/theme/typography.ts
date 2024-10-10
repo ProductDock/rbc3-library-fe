@@ -18,10 +18,6 @@ const typography: TypographyOptions = {
     fontWeight: 600,
     lineHeight: '104px',
     letterSpacing: '-4%',
-    '@media (max-width:1100px)': {
-      fontSize: '48px',
-      lineHeight: '64px',
-    },
   },
   h3: {
     fontSize: '64px',
@@ -52,19 +48,12 @@ const typography: TypographyOptions = {
     fontWeight: 400,
     lineHeight: '32px',
     letterSpacing: '-3%',
-    '@media (max-width:1100px)': {
-      fontSize: '16px',
-    },
   },
   h6: {
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '28px',
     letterSpacing: '-3%',
-    '@media (max-width:1100px)': {
-      fontSize: '14px',
-      lineHeight: '24px',
-    },
   },
   body1: {
     fontSize: '14px',
