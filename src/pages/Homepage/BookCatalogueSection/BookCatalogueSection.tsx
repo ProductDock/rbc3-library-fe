@@ -80,13 +80,13 @@ export const BookCatalogueSection = () => {
           Book catalogue (72)
         </Typography>
         <Button className={styles.suggestButton}>
-          <Typography variant='body1' className={styles.suggetButtonText}>
+          <Typography variant='body1' className={styles.suggestButtonText}>
             Suggest a book
           </Typography>
         </Button>
       </div>
       <Button className={styles.applyFilersButton} onClick={toggleDrawer(true)}>
-        <Typography variant='body1' className={styles.ApplyFiltersButtonText}>
+        <Typography variant='body1' className={styles.applyFiltersButtonText}>
           Apply filters
         </Typography>
       </Button>
