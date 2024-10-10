@@ -162,7 +162,6 @@ export const BookCatalogueSection = () => {
         <BookCard inFavorites={true} />
         <BookCard inFavorites={false} />
       </div>
-      
     </div>
   )
 }

@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 1280px) {
+    margin: 0 30px;
+  }
+}
+
+.exploringWrapper {
+  max-width: 1280px;
+  align-self: flex-start;
+  display: flex;
+  margin-block: 130px;
+
+  @media (max-width: 1094px) {
+    margin-inline: 100px;
+  }
+
+  @media (max-width: 780px) {
+    margin-inline: 0;
+  }
+}
+
+.catalogueWrapper {
+  max-width: 1280px;
+  margin: 0 30px;
+}
