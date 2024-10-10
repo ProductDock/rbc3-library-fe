@@ -3,14 +3,14 @@
   justify-content: center;
   align-items: center;
   padding: 3px 16px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1px;
-  letter-spacing: -0.03em;
   text-align: center;
   border: none;
   border-radius: 17px;
   margin: 2px;
+}
+
+.statusText {
+  font-weight: 500;
 }
 
 .green {
