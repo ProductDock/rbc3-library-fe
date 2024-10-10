@@ -32,13 +32,13 @@
 
 .wrapper {
   display: flex;
-  gap: 150px;
+  gap: 100px;
   justify-content: space-between;
   align-items: center;
 }
 
 .quote {
-  height: 20%;
+  height: 200px;
 }
 
 .quoteText {
