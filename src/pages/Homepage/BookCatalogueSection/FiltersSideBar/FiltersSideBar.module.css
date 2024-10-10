@@ -21,12 +21,10 @@
   }
 
   .filtersText {
-    font-size: 24px;
     font-weight: 600;
   }
 
   .categoriesText {
-    font-size: 16px;
     font-weight: 600;
     padding-block: 48px 32px;
   }
@@ -39,12 +37,10 @@
   }
 
   .category {
-    font-size: 16px;
     color: #353c43;
   }
 
   .statusesText {
-    font-size: 16px;
     font-weight: 600;
     padding-block: 40px 32px;
   }
@@ -60,23 +56,27 @@
     height: 52px;
     width: 100%;
     border-radius: 0;
-    font-size: 16px;
-    font-weight: 600;
     text-transform: none;
     color: #ffffff;
     background-color: #0a0c0e;
     margin-bottom: 24px;
   }
 
+  .showButtonText {
+    font-weight: 600;
+  }
+
   .cancelButton {
     height: 52px;
     width: 100%;
     border-radius: 0;
-    font-size: 16px;
-    font-weight: 600;
     text-transform: none;
     color: #0a0c0e;
     border: 1px solid #0a0c0e;
+  }
+
+  .cancelButtonText {
+    font-weight: 600;
   }
 
   .checkboxColor {

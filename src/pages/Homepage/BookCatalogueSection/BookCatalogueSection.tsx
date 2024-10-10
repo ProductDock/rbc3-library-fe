@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
 import OutlinedInput from '@mui/material/OutlinedInput'
@@ -67,16 +67,33 @@ export const BookCatalogueSection = () => {
     setOpen(newOpen)
   }
 
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1100)
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth < 1100)
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleResize)
+  }, [])
+
   return (
     <div className={styles.catalogueWrapper}>
       <div className={styles.titleButtonWrapper}>
-        <Typography className={styles.catalogueText}>
+        <Typography
+          className={styles.catalogueText}
+          variant={isSmallScreen ? 'h4' : 'subtitle2'}
+        >
           Book catalogue (72)
         </Typography>
-        <Button className={styles.suggestButton}>Suggest a book</Button>
+        <Button className={styles.suggestButton}>
+          <Typography variant='body1' className={styles.suggetButtonText}>
+            Suggest a book
+          </Typography>
+        </Button>
       </div>
       <Button className={styles.applyFilersButton} onClick={toggleDrawer(true)}>
-        Apply filters
+        <Typography variant='body1' className={styles.ApplyFiltersButtonText}>
+          Apply filters
+        </Typography>
       </Button>
       <FiltersSideBar
         open={open}
@@ -100,12 +117,14 @@ export const BookCatalogueSection = () => {
               }`}
               onClick={() => handleCategoryClick(category)}
             >
-              {category}
+              <Typography variant='h6'>{category}</Typography>
             </Button>
           ))}
         </div>
         <div className={styles.sortByWrapper}>
-          <Typography className={styles.sortBy}>Filter by:</Typography>
+          <Typography variant='h6' className={styles.sortBy}>
+            Filter by:
+          </Typography>
           <div>
             <FormControl
               sx={{
@@ -148,7 +167,9 @@ export const BookCatalogueSection = () => {
                         <CheckBoxSharpIcon className={styles.checkboxColor} />
                       }
                     />
-                    <ListItemText primary={status} />
+                    <ListItemText
+                      primary={<Typography variant='h6'>{status}</Typography>}
+                    />
                   </MenuItem>
                 ))}
               </Select>
@@ -162,7 +183,6 @@ export const BookCatalogueSection = () => {
         <BookCard inFavorites={true} />
         <BookCard inFavorites={false} />
       </div>
-      
     </div>
   )
 }
