@@ -42,15 +42,7 @@
 }
 
 .quoteText {
-  font-weight: 600;
-  font-size: 80px;
-  line-height: 104px;
   color: var(--mui-palette-neutral-100);
-
-  @media (max-width: 950px) {
-    font-size: 36px;
-    line-height: 48px;
-  }
 }
 
 .dot {
@@ -71,8 +63,6 @@
 
 .backToTop {
   font-weight: 600;
-  font-size: 16px;
-  line-height: 28px;
   color: var(--mui-palette-neutral-50);
   text-decoration: underline;
   margin-right: 7px;
