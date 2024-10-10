@@ -6,23 +6,20 @@ import { useEffect, useState } from 'react'
 
 export const Footer = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 950)
-
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth < 950)
+  }
   useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 950)
-    }
-
     window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
   }, [])
 
   return (
     <div className={styles.footerContent}>
       <div className={styles.content}>
-        <Typography variant='h6' className={styles.author}>
+        <Typography
+          variant={isSmallScreen ? 'body1' : 'h6'}
+          className={styles.author}
+        >
           Paulo Freire
         </Typography>
         <div className={styles.wrapper}>
