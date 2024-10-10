@@ -7,7 +7,6 @@
 @media (max-width: 1000px) {
   .searchTextField ::placeholder {
     font-weight: 600;
-    font-size: 16px;
     color: #0a0c0e;
     opacity: 1;
   }
@@ -45,7 +44,6 @@
   }
 
   .menuItemsText {
-    font-size: 24px;
     font-weight: 600;
     color: #0a0c0e;
   }
@@ -61,13 +59,10 @@
 
   .loggedUsername {
     font-weight: 600;
-    font-size: 16px;
     padding-top: 20px;
   }
 
   .loggedEmail {
-    font-weight: 400;
-    font-size: 14px;
     padding-bottom: 22px;
     color: #646d75;
   }
@@ -85,8 +80,6 @@
   }
 
   .logoutText {
-    font-weight: 400;
-    font-size: 14px;
     padding-bottom: 48px;
   }
 
@@ -95,8 +88,8 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    margin-left: 141px;
-    margin-top: -25px;
+    margin-left: 152px;
+    margin-top: -30px;
   }
 
   .notificationWrapperResponsive {

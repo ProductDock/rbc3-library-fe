@@ -11,17 +11,11 @@
   align-items: center;
 }
 
-.catalogueText {
-  font-size: 36px;
-  font-weight: 600;
-}
-
 .suggestButton {
   height: 44px;
   width: 164px;
   background-color: #f1f5f8;
   border-radius: 0;
-  font-size: 14px;
   font-weight: 600;
   text-transform: none;
   color: #0a0c0e;
@@ -44,7 +38,6 @@
   border: 1px solid #e9eef1;
   border-radius: 2000px;
   padding: 12px 24px 12px 24px;
-  font-size: 16px;
   font-weight: 500;
   margin-right: 12px;
   margin-bottom: 12px;
@@ -67,8 +60,6 @@
 }
 
 .sortBy {
-  font-size: 16px;
-  font-weight: 400;
   width: 65px;
   padding-top: 16px;
   color: #353c43;
@@ -82,12 +73,14 @@
   font-weight: 800;
 }
 
+.suggestButtonText {
+  font-weight: 600;
+}
+
 .applyFilersButton {
   height: 44px;
   width: 164px;
   border-radius: 0;
-  font-size: 14px;
-  font-weight: 600;
   text-transform: none;
   color: #0a0c0e;
   border: 1px solid #0a0c0e;
@@ -95,6 +88,10 @@
   @media (min-width: 1094px) {
     display: none;
   }
+}
+
+.applyFiltersButtonText {
+  font-weight: 600;
 }
 
 .checkboxColor {
@@ -137,7 +134,7 @@
   }
 
   .catalogueText {
-    font-size: 24px;
+    font-weight: 600;
     margin-bottom: 48px;
   }
 
