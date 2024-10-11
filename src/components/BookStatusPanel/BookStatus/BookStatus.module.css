@@ -15,7 +15,7 @@
 
 .green {
   background-color: var(--mui-palette-tertiary-100);
-  color: var(--mui-palette-tertiary-300);
+  color: var(--mui-palette-success-300);
 }
 
 .yellow {
@@ -25,7 +25,7 @@
 
 .red {
   background-color: var(--mui-palette-secondary-100);
-  color: var(--mui-palette-secondary-300);
+  color: var(--mui-palette-error-300);
 }
 
 .grey {

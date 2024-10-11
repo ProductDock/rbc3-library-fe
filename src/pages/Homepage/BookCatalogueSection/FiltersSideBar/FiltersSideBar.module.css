@@ -12,7 +12,6 @@
   }
 
   .closeIcon {
-    color: var(--mui-palette-neutral-50);
     padding: 28px 28px 28px 0;
   }
 
@@ -58,7 +57,7 @@
     border-radius: 0;
     text-transform: none;
     color: var(--mui-palette-neutral-50);
-    background-color: var(--mui-palette-neutral-50);
+    background-color: var(--mui-palette-neutral-600);
     margin-bottom: 24px;
   }
 
@@ -72,14 +71,15 @@
     border-radius: 0;
     text-transform: none;
     color: var(--mui-palette-neutral-50);
-    border: 1px solid var(--mui-palette-neutral-50);
+    border: 1px solid var(--mui-palette-neutral-600);
   }
 
   .cancelButtonText {
+    color: var(--mui-palette-neutral-600);
     font-weight: 600;
   }
 
   .checkboxColor {
-    color: var(--mui-palette-neutral-50);
+    color: var(--mui-palette-neutral-600);
   }
 }

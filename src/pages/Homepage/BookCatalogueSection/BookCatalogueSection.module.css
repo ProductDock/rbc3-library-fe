@@ -82,8 +82,8 @@
   width: 164px;
   border-radius: 0;
   text-transform: none;
-  color: var(--mui-palette-neutral-50);
-  border: 1px solid var(--mui-palette-neutral-50);
+  color: var(--mui-palette-neutral-600);
+  border: 1px solid var(--mui-palette-neutral-600);
 
   @media (min-width: 1094px) {
     display: none;
