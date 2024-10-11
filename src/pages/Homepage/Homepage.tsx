@@ -5,7 +5,7 @@ const Homepage = () => {
   return (
     <div>
       <LetsStartExploring />
-      <BookCatalogueSection />
+      <BookCatalogueSection isAdmin={false} />
     </div>
   )
 }

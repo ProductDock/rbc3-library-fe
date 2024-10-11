@@ -60,7 +60,7 @@
 }
 
 .sortBy {
-  width: 65px;
+  width: 66px;
   padding-top: 16px;
   color: #353c43;
 }
@@ -74,6 +74,21 @@
 }
 
 .suggestButtonText {
+  font-weight: 600;
+}
+
+.newBookButton {
+  height: 44px;
+  width: 164px;
+  background-color: var(--mui-palette-neutral-600);
+  border-radius: 0;
+  font-weight: 600;
+  text-transform: none;
+  color: var(--mui-palette-neutral-50);
+  margin-left: 24px;
+}
+
+.newBookButtonText {
   font-weight: 600;
 }
 

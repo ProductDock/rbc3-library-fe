@@ -26,6 +26,10 @@ const MenuProps = {
   },
 }
 
+type BookCatalogueProps = {
+  isAdmin: boolean
+}
+
 const statuses = ['Available books', 'Reserved books', 'Rented books']
 const categories = [
   'All',
@@ -36,7 +40,9 @@ const categories = [
   'Psychology',
 ]
 
-export const BookCatalogueSection = () => {
+export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
+  isAdmin,
+}) => {
   const [bookStatus, setBookStatus] = useState<string[]>([])
   const [selectedCategories, setSelectedCategories] = useState<string[]>([
     'All',
@@ -79,11 +85,21 @@ export const BookCatalogueSection = () => {
         >
           Book catalogue (72)
         </Typography>
-        <Button className={styles.suggestButton}>
-          <Typography variant='body1' className={styles.suggestButtonText}>
-            Suggest a book
-          </Typography>
-        </Button>
+        <div className={styles.buttons}>
+          <Button className={styles.suggestButton}>
+            <Typography variant='body1' className={styles.suggestButtonText}>
+              Suggest a book
+            </Typography>
+          </Button>
+
+          {isAdmin && (
+            <Button className={styles.newBookButton}>
+              <Typography variant='body1' className={styles.newBookButtonText}>
+                Add a new book
+              </Typography>
+            </Button>
+          )}
+        </div>
       </div>
       <Button className={styles.applyFilersButton} onClick={toggleDrawer(true)}>
         <Typography variant='body1' className={styles.applyFiltersButtonText}>
@@ -172,12 +188,14 @@ export const BookCatalogueSection = () => {
           </div>
         </div>
       </div>
-      <div className={styles.books}>
-        <BookCard inFavorites={true} />
-        <BookCard inFavorites={false} />
-        <BookCard inFavorites={true} />
-        <BookCard inFavorites={false} />
-      </div>
+      {!isAdmin && (
+        <div className={styles.books}>
+          <BookCard inFavorites={true} />
+          <BookCard inFavorites={false} />
+          <BookCard inFavorites={true} />
+          <BookCard inFavorites={false} />
+        </div>
+      )}
     </div>
   )
 }

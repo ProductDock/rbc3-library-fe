@@ -5,6 +5,7 @@ import { AuthorisedLayout } from './pages/AuthorisedLayout'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme/theme'
 import { CssBaseline } from '@mui/material'
+import { ManagerHomepage } from './pages/ManagerHomepage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route index element={<Homepage />} />
           </Route>
           <Route path='/login' element={<LoginPage />} />
+          <Route path='/admin' element={<ManagerHomepage />} />
         </Routes>
       </ThemeProvider>
     </>
