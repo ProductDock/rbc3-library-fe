@@ -12,6 +12,8 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import CheckBoxOutlineBlankSharpIcon from '@mui/icons-material/CheckBoxOutlineBlankSharp'
 import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
 import { FiltersSideBar } from './FiltersSideBar'
+import { BookCard } from '../../../components/BookCard'
+import { useMediaQuery } from '@mui/material'
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -66,16 +68,27 @@ export const BookCatalogueSection = () => {
     setOpen(newOpen)
   }
 
+  const matches = useMediaQuery('(min-width:1100px)')
+
   return (
     <div className={styles.catalogueWrapper}>
       <div className={styles.titleButtonWrapper}>
-        <Typography className={styles.catalogueText}>
+        <Typography
+          className={styles.catalogueText}
+          variant={matches ? 'subtitle2' : 'h4'}
+        >
           Book catalogue (72)
         </Typography>
-        <Button className={styles.suggestButton}>Suggest a book</Button>
+        <Button className={styles.suggestButton}>
+          <Typography variant='body1' className={styles.suggestButtonText}>
+            Suggest a book
+          </Typography>
+        </Button>
       </div>
       <Button className={styles.applyFilersButton} onClick={toggleDrawer(true)}>
-        Apply filters
+        <Typography variant='body1' className={styles.applyFiltersButtonText}>
+          Apply filters
+        </Typography>
       </Button>
       <FiltersSideBar
         open={open}
@@ -99,12 +112,14 @@ export const BookCatalogueSection = () => {
               }`}
               onClick={() => handleCategoryClick(category)}
             >
-              {category}
+              <Typography variant='h6'>{category}</Typography>
             </Button>
           ))}
         </div>
         <div className={styles.sortByWrapper}>
-          <Typography className={styles.sortBy}>Filter by:</Typography>
+          <Typography variant='h6' className={styles.sortBy}>
+            Filter by:
+          </Typography>
           <div>
             <FormControl
               sx={{
@@ -147,13 +162,21 @@ export const BookCatalogueSection = () => {
                         <CheckBoxSharpIcon className={styles.checkboxColor} />
                       }
                     />
-                    <ListItemText primary={status} />
+                    <ListItemText
+                      primary={<Typography variant='h6'>{status}</Typography>}
+                    />
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
           </div>
         </div>
+      </div>
+      <div className={styles.books}>
+        <BookCard inFavorites={true} />
+        <BookCard inFavorites={false} />
+        <BookCard inFavorites={true} />
+        <BookCard inFavorites={false} />
       </div>
     </div>
   )

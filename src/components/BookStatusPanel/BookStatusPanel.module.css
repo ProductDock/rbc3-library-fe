@@ -1,9 +1,13 @@
 .statusPanel {
-  width: 299.33px;
+  width: 250px;
   height: 32px;
   gap: 0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 450px) {
+    width: 316px;
+  }
 }

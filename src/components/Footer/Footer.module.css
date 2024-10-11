@@ -28,14 +28,12 @@
   color: var(--mui-palette-neutral-100);
   color: var(--mui-palette-neutral-100);
   font-weight: 500;
-  font-size: 16px;
-  line-height: 28px;
   margin-bottom: 30px;
 }
 
 .wrapper {
   display: flex;
-  gap: 196px;
+  gap: 100px;
   justify-content: space-between;
   align-items: center;
 }
@@ -45,15 +43,7 @@
 }
 
 .quoteText {
-  font-weight: 600;
-  font-size: 80px;
-  line-height: 104px;
   color: var(--mui-palette-neutral-100);
-
-  @media (max-width: 950px) {
-    font-size: 36px;
-    line-height: 48px;
-  }
 }
 
 .dot {
@@ -74,8 +64,6 @@
 
 .backToTop {
   font-weight: 600;
-  font-size: 16px;
-  line-height: 28px;
   color: var(--mui-palette-neutral-50);
   text-decoration: underline;
   margin-right: 7px;
@@ -85,4 +73,9 @@
   margin-top: 50px;
   width: 110px;
   cursor: pointer;
+}
+
+.arrow {
+  margin-right: -60px;
+  margin-left: 8px;
 }
