@@ -78,34 +78,44 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
 
   return (
     <div className={styles.catalogueWrapper}>
-      <div className={styles.titleButtonWrapper}>
-        <Typography
-          className={styles.catalogueText}
-          variant={matches ? 'subtitle2' : 'h4'}
-        >
-          Book catalogue (72)
-        </Typography>
-        <div className={styles.buttons}>
-          <Button className={styles.suggestButton}>
-            <Typography variant='body1' className={styles.suggestButtonText}>
-              Suggest a book
-            </Typography>
-          </Button>
-
-          {isAdmin && (
-            <Button className={styles.newBookButton}>
-              <Typography variant='body1' className={styles.newBookButtonText}>
-                Add a new book
+      <div className={styles.buttons}>
+        <div className={styles.titleButtonWrapper}>
+          <Typography
+            className={styles.catalogueText}
+            variant={matches ? 'subtitle2' : 'h4'}
+          >
+            Book catalogue (72)
+          </Typography>
+          <div>
+            <Button className={styles.suggestButton}>
+              <Typography variant='body1' className={styles.suggestButtonText}>
+                Suggest a book
               </Typography>
             </Button>
-          )}
+
+            {isAdmin && (
+              <Button className={styles.newBookButton}>
+                <Typography
+                  variant='body1'
+                  className={styles.newBookButtonText}
+                >
+                  Add a new book
+                </Typography>
+              </Button>
+            )}
+          </div>
         </div>
+        <Divider className={styles.buttonDivider} />
+        <Button
+          className={styles.applyFilersButton}
+          onClick={toggleDrawer(true)}
+        >
+          <Typography variant='body1' className={styles.applyFiltersButtonText}>
+            Apply filters
+          </Typography>
+        </Button>
       </div>
-      <Button className={styles.applyFilersButton} onClick={toggleDrawer(true)}>
-        <Typography variant='body1' className={styles.applyFiltersButtonText}>
-          Apply filters
-        </Typography>
-      </Button>
+
       <FiltersSideBar
         open={open}
         toggleDrawer={toggleDrawer(false)}
