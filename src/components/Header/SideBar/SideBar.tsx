@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
-import CloseIcon from '@mui/icons-material/Close'
+import close from '../../../assets/closeWhite.svg'
 import LogoutIcon from '@mui/icons-material/Logout'
 
 import styles from './SideBar.module.css'
@@ -31,7 +31,7 @@ const SideBar = ({ open, toggleDrawer }: SidebarProps) => {
     <>
       <div className={styles.closeBar}>
         <Button onClick={() => toggleDrawer(false)}>
-          <CloseIcon className={styles.closeIcon}></CloseIcon>
+          <img src={close} alt='close' className={styles.closeIcon} />
         </Button>
       </div>
 

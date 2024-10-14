@@ -5,7 +5,7 @@
 }
 
 .appBar {
-  background: #fff;
+  background: var(--mui-palette-neutral-50);
   height: 110px;
   box-shadow: none;
 }
@@ -20,18 +20,18 @@
 }
 
 .menuItemsText {
-  color: black;
+  color: var(--mui-palette-neutral-600);
   text-align: left;
 }
 
 .notificationBadge {
-  background: #ea592a;
+  background: var(--mui-palette-secondary-300);
   z-index: 2;
   margin-left: 30px;
   margin-top: -42px;
   width: 16px;
   height: 16px;
-  border: 2px solid white;
+  border: 2px solid var(--mui-palette-neutral-50);
   border-radius: 50%;
   position: absolute;
 }
@@ -49,8 +49,8 @@
 }
 
 .searchTextField ::placeholder {
+  color: var(--mui-palette-neutral-600);
   font-weight: 500;
-  color: #000000;
   opacity: 1;
 }
 

@@ -14,21 +14,21 @@
 }
 
 .green {
-  background-color: #eff9f6;
-  color: #117859;
+  background-color: var(--mui-palette-tertiary-100);
+  color: var(--mui-palette-success-300);
 }
 
 .yellow {
-  background-color: #fff7e7;
-  color: #815305;
+  background-color: var(--mui-palette-warning-100);
+  color: var(--mui-palette-warning-300);
 }
 
 .red {
-  background-color: #fff4f0;
-  color: #a71515;
+  background-color: var(--mui-palette-secondary-100);
+  color: var(--mui-palette-error-300);
 }
 
 .grey {
-  background-color: #f1f5f8;
-  color: #0a0c0e;
+  background-color: var(--mui-palette-neutral-100);
+  color: var(--mui-palette-neutral-50);
 }

@@ -6,9 +6,9 @@ import {
   FormControlLabel,
   Typography,
 } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
 import CheckBoxOutlineBlankSharpIcon from '@mui/icons-material/CheckBoxOutlineBlankSharp'
 import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
+import close from '../../../../assets/closeBlack.svg'
 
 import styles from './FiltersSideBar.module.css'
 
@@ -61,7 +61,7 @@ const SideBar = ({
     <>
       <div className={styles.closeBar}>
         <Button onClick={() => toggleDrawer(false)}>
-          <CloseIcon className={styles.closeIcon}></CloseIcon>
+          <img src={close} alt='close' className={styles.closeIcon} />
         </Button>
       </div>
       <div className={styles.filtersWrapper}>

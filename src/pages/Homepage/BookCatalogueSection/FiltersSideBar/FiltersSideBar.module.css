@@ -12,7 +12,6 @@
   }
 
   .closeIcon {
-    color: #0a0c0e;
     padding: 28px 28px 28px 0;
   }
 
@@ -37,7 +36,7 @@
   }
 
   .category {
-    color: #353c43;
+    color: var(--mui-palette-neutral-500);
   }
 
   .statusesText {
@@ -57,8 +56,8 @@
     width: 100%;
     border-radius: 0;
     text-transform: none;
-    color: #ffffff;
-    background-color: #0a0c0e;
+    color: var(--mui-palette-neutral-50);
+    background-color: var(--mui-palette-neutral-600);
     margin-bottom: 24px;
   }
 
@@ -71,15 +70,16 @@
     width: 100%;
     border-radius: 0;
     text-transform: none;
-    color: #0a0c0e;
-    border: 1px solid #0a0c0e;
+    color: var(--mui-palette-neutral-50);
+    border: 1px solid var(--mui-palette-neutral-600);
   }
 
   .cancelButtonText {
+    color: var(--mui-palette-neutral-600);
     font-weight: 600;
   }
 
   .checkboxColor {
-    color: #0a0c0e;
+    color: var(--mui-palette-neutral-600);
   }
 }
