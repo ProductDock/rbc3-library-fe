@@ -7,7 +7,7 @@ import styles from './BookStatusPanel.module.css'
 export const BookStatusPanel = () => {
   return (
     <div className={styles.statusPanel}>
-      <BookStatus status={Status.APPROVED} />
+      <BookStatus status={Status.RENTED} />
       <BookRating rating={4.5} />
     </div>
   )
