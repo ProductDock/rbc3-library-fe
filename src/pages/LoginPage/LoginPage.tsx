@@ -1,8 +1,11 @@
+import { Typography, useMediaQuery } from '@mui/material'
 import LoginPagePhoto from '../../assets/LoginPagePhoto.svg'
 import CircleLogo from '../../assets/homePageStamp.svg'
 import styles from './LoginPage.module.css'
 
 export default function LoginPage() {
+  const matches = useMediaQuery('(min-width:1100px)')
+
   return (
     <div className={styles.loginPageContainer}>
       <div className={styles.loginPageImageHolder}>
@@ -18,15 +21,28 @@ export default function LoginPage() {
         />
       </div>
       <div className={styles.loginContentHolder}>
-        <h2 className={styles.helloText}>Hello, welcome to...</h2>
+        <Typography
+          variant={matches ? 'h5' : 'h6'}
+          className={styles.helloText}
+        >
+          Hello, welcome to...
+        </Typography>
         <div className={styles.wrapper}>
-          <span className={styles.loginPageHeading}>ProductDock Library</span>
-          <span className={styles.dot}>.</span>
+          <Typography
+            variant={matches ? 'h2' : 'subtitle1'}
+            className={styles.loginPageHeading}
+          >
+            ProductDock Library
+            <span className={styles.dot}>.</span>
+          </Typography>
         </div>
-        <p className={styles.loginPageContent}>
+        <Typography
+          variant={matches ? 'h6' : 'body1'}
+          className={styles.loginPageContent}
+        >
           Looking for the next book to read? Explore our collection and discover
           your new favorite that perfectly matches your interests.
-        </p>
+        </Typography>
         <button type='button' className={styles.loginButton}>
           Sign in with Google
         </button>

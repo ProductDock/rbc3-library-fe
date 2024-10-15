@@ -1,6 +1,7 @@
 import { Status } from './Status'
 import styles from './BookStatus.module.css'
 import cx from 'classnames'
+import { Typography } from '@mui/material'
 
 interface BookProps {
   status: Status
@@ -27,7 +28,9 @@ const BookStatus = ({ status }: BookProps) => {
 
   return (
     <div className={statusClass}>
-      <p>{status}</p>
+      <Typography variant='h6' className={styles.statusText}>
+        {status}
+      </Typography>
     </div>
   )
 }

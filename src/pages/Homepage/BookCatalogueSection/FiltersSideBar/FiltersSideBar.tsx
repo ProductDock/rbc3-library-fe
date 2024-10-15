@@ -6,9 +6,9 @@ import {
   FormControlLabel,
   Typography,
 } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
 import CheckBoxOutlineBlankSharpIcon from '@mui/icons-material/CheckBoxOutlineBlankSharp'
 import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
+import close from '../../../../assets/closeBlack.svg'
 
 import styles from './FiltersSideBar.module.css'
 
@@ -61,13 +61,17 @@ const SideBar = ({
     <>
       <div className={styles.closeBar}>
         <Button onClick={() => toggleDrawer(false)}>
-          <CloseIcon className={styles.closeIcon}></CloseIcon>
+          <img src={close} alt='close' className={styles.closeIcon} />
         </Button>
       </div>
       <div className={styles.filtersWrapper}>
-        <Typography className={styles.filtersText}>Filters</Typography>
+        <Typography variant='h4' className={styles.filtersText}>
+          Filters
+        </Typography>
         <div className={styles.categoriesWrapper}>
-          <Typography className={styles.categoriesText}>Categories</Typography>
+          <Typography variant='h6' className={styles.categoriesText}>
+            Categories
+          </Typography>
           <div className={styles.categories}>
             {categories.map(category => (
               <FormControlLabel
@@ -88,7 +92,7 @@ const SideBar = ({
                     }
                   />
                 }
-                label={category}
+                label={<Typography variant='h6'>{category}</Typography>}
               />
             ))}
           </div>
@@ -96,7 +100,9 @@ const SideBar = ({
         <Divider />
 
         <div className={styles.statusWrapper}>
-          <Typography className={styles.statusesText}>Statuses</Typography>
+          <Typography variant='h6' className={styles.statusesText}>
+            Statuses
+          </Typography>
           <div className={styles.statuses}>
             {statuses.map(status => (
               <FormControlLabel
@@ -116,17 +122,23 @@ const SideBar = ({
                     }
                   />
                 }
-                label={status}
+                label={<Typography variant='h6'>{status}</Typography>}
               />
             ))}
           </div>
         </div>
-        <Button className={styles.showButton}>Show 46 results</Button>
+        <Button className={styles.showButton}>
+          <Typography variant='h6' className={styles.showButtonText}>
+            Show 46 results
+          </Typography>
+        </Button>
         <Button
           onClick={() => toggleDrawer(false)}
           className={styles.cancelButton}
         >
-          Cancel
+          <Typography variant='h6' className={styles.cancelButtonText}>
+            Cancel
+          </Typography>
         </Button>
       </div>
     </>

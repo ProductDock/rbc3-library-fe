@@ -7,13 +7,8 @@
 }
 
 .dot {
-  color: #ea592a;
+  color: var(--mui-palette-secondary-300);
   font-size: 96px;
-}
-
-.text {
-  font-size: 96px;
-  font-weight: 600;
 }
 
 @media (max-width: "1095px") and (min-width: 780px) {
@@ -25,10 +20,6 @@
 @media (max-width: 780px) {
   .wrapper {
     margin-top: 44px;
-  }
-
-  .text {
-    font-size: 48px;
   }
 
   .dot {

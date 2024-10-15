@@ -1,18 +1,29 @@
 import styles from './Footer.module.css'
 import stamp from '../../assets/stamp.svg'
 import BackToTop from './BackToTop'
+import { Typography, useMediaQuery } from '@mui/material'
 
 export const Footer = () => {
+  const matches = useMediaQuery('(min-width:950px)')
+
   return (
     <div className={styles.footerContent}>
       <div className={styles.content}>
-        <div className={styles.author}>Paulo Freire</div>
+        <Typography
+          variant={matches ? 'h6' : 'body1'}
+          className={styles.author}
+        >
+          Paulo Freire
+        </Typography>
         <div className={styles.wrapper}>
           <div className={styles.quote}>
-            <span className={styles.quoteText}>
+            <Typography
+              variant={matches ? 'h2' : 'subtitle2'}
+              className={styles.quoteText}
+            >
               The world belongs to those who read
-            </span>
-            <span className={styles.dot}>.</span>
+              <span className={styles.dot}>.</span>
+            </Typography>
           </div>
           <div className={styles.stampBox}>
             <img src={stamp} alt='stamp' />

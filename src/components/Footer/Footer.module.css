@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: var(--mui-palette-neutral-600);
   margin-left: 160px;
   margin-bottom: 160px;
   padding: 120px 0;
@@ -25,16 +25,14 @@
 }
 
 .author {
-  color: white;
+  color: var(--mui-palette-neutral-100);
   font-weight: 500;
-  font-size: 16px;
-  line-height: 28px;
   margin-bottom: 30px;
 }
 
 .wrapper {
   display: flex;
-  gap: 196px;
+  gap: 100px;
   justify-content: space-between;
   align-items: center;
 }
@@ -44,19 +42,11 @@
 }
 
 .quoteText {
-  font-weight: 600;
-  font-size: 80px;
-  line-height: 104px;
-  color: white;
-
-  @media (max-width: 950px) {
-    font-size: 36px;
-    line-height: 48px;
-  }
+  color: var(--mui-palette-neutral-100);
 }
 
 .dot {
-  color: #ea592a;
+  color: var(--mui-palette-secondary-300);
   font-size: 96px;
 
   @media (max-width: 950px) {
@@ -73,9 +63,7 @@
 
 .backToTop {
   font-weight: 600;
-  font-size: 16px;
-  line-height: 28px;
-  color: white;
+  color: var(--mui-palette-neutral-50);
   text-decoration: underline;
   margin-right: 7px;
 }
@@ -84,4 +72,9 @@
   margin-top: 50px;
   width: 110px;
   cursor: pointer;
+}
+
+.arrow {
+  margin-right: -60px;
+  margin-left: 8px;
 }

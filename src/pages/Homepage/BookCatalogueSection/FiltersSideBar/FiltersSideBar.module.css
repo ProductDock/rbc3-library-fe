@@ -12,7 +12,6 @@
   }
 
   .closeIcon {
-    color: #0a0c0e;
     padding: 28px 28px 28px 0;
   }
 
@@ -21,12 +20,10 @@
   }
 
   .filtersText {
-    font-size: 24px;
     font-weight: 600;
   }
 
   .categoriesText {
-    font-size: 16px;
     font-weight: 600;
     padding-block: 48px 32px;
   }
@@ -39,12 +36,10 @@
   }
 
   .category {
-    font-size: 16px;
-    color: #353c43;
+    color: var(--mui-palette-neutral-500);
   }
 
   .statusesText {
-    font-size: 16px;
     font-weight: 600;
     padding-block: 40px 32px;
   }
@@ -60,26 +55,31 @@
     height: 52px;
     width: 100%;
     border-radius: 0;
-    font-size: 16px;
-    font-weight: 600;
     text-transform: none;
-    color: #ffffff;
-    background-color: #0a0c0e;
+    color: var(--mui-palette-neutral-50);
+    background-color: var(--mui-palette-neutral-600);
     margin-bottom: 24px;
+  }
+
+  .showButtonText {
+    font-weight: 600;
   }
 
   .cancelButton {
     height: 52px;
     width: 100%;
     border-radius: 0;
-    font-size: 16px;
-    font-weight: 600;
     text-transform: none;
-    color: #0a0c0e;
-    border: 1px solid #0a0c0e;
+    color: var(--mui-palette-neutral-50);
+    border: 1px solid var(--mui-palette-neutral-600);
+  }
+
+  .cancelButtonText {
+    color: var(--mui-palette-neutral-600);
+    font-weight: 600;
   }
 
   .checkboxColor {
-    color: #0a0c0e;
+    color: var(--mui-palette-neutral-600);
   }
 }
