@@ -15,9 +15,9 @@ function App() {
         <Routes>
           <Route path='/' element={<AuthorisedLayout />}>
             <Route index element={<Homepage />} />
+            <Route path='/admin' element={<ManagerHomepage />} />
           </Route>
           <Route path='/login' element={<LoginPage />} />
-          <Route path='/admin' element={<ManagerHomepage />} />
         </Routes>
       </ThemeProvider>
     </>
