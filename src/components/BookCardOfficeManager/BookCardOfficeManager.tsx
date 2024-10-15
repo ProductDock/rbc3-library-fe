@@ -1,10 +1,8 @@
 import styles from './BookCardOfficeManager.module.css'
-import cover from '../../assets/bookDesignForMotion.svg'
-import favorite from '../../assets/favoriteBookManagment.svg'
-import edit from '../../assets/edit.svg'
-import remove from '../../assets/delete.svg'
+import cover from '../../assets/bookExample.svg'
 import { Typography } from '@mui/material'
 import { BookStatusPanel } from '../BookStatusPanel'
+import BookManagmentIcons from './BookManagmentIcons/BookManagmentIcons'
 
 const BookCardOfficeManager = () => {
   return (
@@ -22,20 +20,8 @@ const BookCardOfficeManager = () => {
           </Typography>
           <BookStatusPanel />
         </div>
-        <div className={styles.bookManagmentIconsWrapper}>
-          <div className={styles.iconContainer}>
-            <img
-              src={favorite}
-              alt='favoriteIcon'
-              className={styles.favoriteIcon}
-            />
-          </div>
-          <div className={styles.iconContainer}>
-            <img src={remove} alt='removeIcon' className={styles.removeIcon} />
-          </div>
-          <div className={styles.iconContainer}>
-            <img src={edit} alt='editIcon' className={styles.editIcon} />
-          </div>
+        <div className={styles.bookManagmentIconsView}>
+          <BookManagmentIcons />
         </div>
       </div>
     </div>
