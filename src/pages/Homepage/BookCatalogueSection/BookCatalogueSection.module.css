@@ -1,9 +1,5 @@
 .catalogueWrapper {
   margin-block: 160px;
-
-  /* @media (max-width: 1425px) {
-    margin-block: 100px;
-  } */
 }
 
 .titleButtonWrapper {
@@ -99,13 +95,6 @@
 
 .checkboxColor {
   color: var(--mui-palette-neutral-600);
-}
-
-@media (max-width: 1425px) {
-  .catalogueWrapper {
-    /* margin: 0 30px; */
-    /* margin-top: 100px; */
-  }
 }
 
 @media (max-width: 1094px) {
