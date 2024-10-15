@@ -143,7 +143,6 @@
 .books {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   row-gap: 120px;
   column-gap: 40px;
   margin-top: 40px;
