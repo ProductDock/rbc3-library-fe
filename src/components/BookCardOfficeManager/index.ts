@@ -1,1 +1,1 @@
-export { default as BookCardOfficeManager } from './BookCardOfficeManager'
+export { default as BookCatalogueCardOfficeManager } from './BookCatalogueCardOfficeManager'

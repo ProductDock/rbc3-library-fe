@@ -1,4 +1,4 @@
-import styles from '../BookCardOfficeManager.module.css'
+import styles from '../BookCardOfficeManager/BookCardOfficeManager.module.css'
 import favorite from '../../../assets/favoriteBookManagment.svg'
 import edit from '../../../assets/edit.svg'
 import remove from '../../../assets/delete.svg'
