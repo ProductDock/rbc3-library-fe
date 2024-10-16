@@ -1,12 +1,11 @@
 import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
 
 export default defineConfig({
   // depending on your application, base can also be "/"
   base: '',
-  plugins: [react(), viteTsconfigPaths(), svelte()],
+  plugins: [react(), viteTsconfigPaths()],
   server: {
     // this ensures that the browser opens upon server start
     open: true,

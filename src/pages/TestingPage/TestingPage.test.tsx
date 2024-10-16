@@ -8,13 +8,7 @@ import {
   afterEach,
   vi,
 } from 'vitest'
-import {
-  prettyDOM,
-  render,
-  screen,
-  waitFor,
-  within,
-} from '@testing-library/react'
+import { prettyDOM, render, screen, within } from '@testing-library/react'
 import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
 import { TestingPage } from './TestingPage'
@@ -118,7 +112,7 @@ describe('TestingPage', () => {
     expect(successSnackbar).toBeInTheDocument()
   })
 
-  test.only('shows error notification when adding new book fails', async () => {
+  test('shows error notification when adding new book fails', async () => {
     const user = userEvent.setup()
     server.use(
       http.post('http://localhost:3000/add-book', () => {
@@ -139,15 +133,12 @@ describe('TestingPage', () => {
     const titleInput = await screen.findByLabelText('Title')
 
     await user.type(titleInput, 'User Input Title')
-    waitFor(() => expect(titleInput).toHaveValue('User Input Title'))
 
-    user.type(authorInput, 'John doe')
-
-    console.log(prettyDOM())
+    await user.type(authorInput, 'John doe')
 
     expect(await screen.findByTestId('submit-button')).not.toBeDisabled()
 
-    user.click(button)
+    await user.click(button)
 
     const errorSnackbar = await screen.findByTestId('error')
     expect(errorSnackbar).toBeInTheDocument()
