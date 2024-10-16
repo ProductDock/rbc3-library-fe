@@ -11,3 +11,13 @@
     width: 316px;
   }
 }
+
+.statusPanelAdmin {
+  width: 172px;
+  height: 32px;
+  gap: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
