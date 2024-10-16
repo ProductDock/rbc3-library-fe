@@ -1,5 +1,4 @@
 .catalogueWrapper {
-  margin-inline: 320px;
   margin-block: 160px;
 }
 
@@ -118,12 +117,6 @@
   color: var(--mui-palette-neutral-600);
 }
 
-@media (max-width: 1425px) {
-  .catalogueWrapper {
-    margin-inline: 100px;
-  }
-}
-
 @media (max-width: 1094px) {
   .catalogueWrapper {
     margin-inline: 100px;
@@ -190,6 +183,7 @@
   flex-wrap: wrap;
   row-gap: 120px;
   column-gap: 40px;
+  margin-top: 40px;
 
   @media (max-width: 780px) {
     margin-top: 40px;
