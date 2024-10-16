@@ -26,6 +26,10 @@ const MenuProps = {
   },
 }
 
+type BookCatalogueProps = {
+  isAdmin: boolean
+}
+
 const statuses = ['Available books', 'Reserved books', 'Rented books']
 const categories = [
   'All',
@@ -36,7 +40,9 @@ const categories = [
   'Psychology',
 ]
 
-export const BookCatalogueSection = () => {
+export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
+  isAdmin,
+}) => {
   const [bookStatus, setBookStatus] = useState<string[]>([])
   const [selectedCategories, setSelectedCategories] = useState<string[]>([
     'All',
@@ -72,24 +78,44 @@ export const BookCatalogueSection = () => {
 
   return (
     <div className={styles.catalogueWrapper}>
-      <div className={styles.titleButtonWrapper}>
-        <Typography
-          className={styles.catalogueText}
-          variant={matches ? 'subtitle2' : 'h4'}
+      <div className={styles.buttons}>
+        <div className={styles.titleButtonWrapper}>
+          <Typography
+            className={styles.catalogueText}
+            variant={matches ? 'subtitle2' : 'h4'}
+          >
+            Book catalogue (72)
+          </Typography>
+          <div>
+            <Button className={styles.suggestButton}>
+              <Typography variant='body1' className={styles.suggestButtonText}>
+                Suggest a book
+              </Typography>
+            </Button>
+
+            {isAdmin && (
+              <Button className={styles.newBookButton}>
+                <Typography
+                  variant='body1'
+                  className={styles.newBookButtonText}
+                >
+                  Add a new book
+                </Typography>
+              </Button>
+            )}
+          </div>
+        </div>
+        <Divider className={styles.buttonDivider} />
+        <Button
+          className={styles.applyFilersButton}
+          onClick={toggleDrawer(true)}
         >
-          Book catalogue (72)
-        </Typography>
-        <Button className={styles.suggestButton}>
-          <Typography variant='body1' className={styles.suggestButtonText}>
-            Suggest a book
+          <Typography variant='body1' className={styles.applyFiltersButtonText}>
+            Apply filters
           </Typography>
         </Button>
       </div>
-      <Button className={styles.applyFilersButton} onClick={toggleDrawer(true)}>
-        <Typography variant='body1' className={styles.applyFiltersButtonText}>
-          Apply filters
-        </Typography>
-      </Button>
+
       <FiltersSideBar
         open={open}
         toggleDrawer={toggleDrawer(false)}
@@ -172,12 +198,14 @@ export const BookCatalogueSection = () => {
           </div>
         </div>
       </div>
-      <div className={styles.books}>
-        <BookCard inFavorites={true} />
-        <BookCard inFavorites={false} />
-        <BookCard inFavorites={true} />
-        <BookCard inFavorites={false} />
-      </div>
+      {!isAdmin && (
+        <div className={styles.books}>
+          <BookCard inFavorites={true} />
+          <BookCard inFavorites={false} />
+          <BookCard inFavorites={true} />
+          <BookCard inFavorites={false} />
+        </div>
+      )}
     </div>
   )
 }

@@ -59,7 +59,7 @@
 }
 
 .sortBy {
-  width: 65px;
+  width: 66px;
   padding-top: 16px;
   color: var(--mui-palette-neutral-500);
 }
@@ -73,6 +73,26 @@
 }
 
 .suggestButtonText {
+  font-weight: 600;
+}
+
+.newBookButton {
+  height: 44px;
+  width: 164px;
+  background-color: var(--mui-palette-neutral-600);
+  border-radius: 0;
+  font-weight: 600;
+  text-transform: none;
+  color: var(--mui-palette-neutral-50);
+  margin-left: 24px;
+
+  @media (max-width: 1094px) {
+    margin-left: 0;
+    margin-bottom: 24px;
+  }
+}
+
+.newBookButtonText {
   font-weight: 600;
 }
 
@@ -119,6 +139,10 @@
   .suggestButton {
     margin-block: 24px;
   }
+
+  .newBookButton {
+    display: block;
+  }
 }
 
 @media (max-width: 780px) {
@@ -140,6 +164,20 @@
   }
 }
 
+.newBookButton {
+  margin-left: 24px;
+
+  @media (max-width: 1094px) {
+    margin-left: 0;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 780px) {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
 .books {
   display: flex;
   flex-wrap: wrap;
@@ -149,5 +187,15 @@
 
   @media (max-width: 780px) {
     margin-top: 40px;
+  }
+}
+
+.buttonDivider {
+  display: none;
+  color: var(--mui-palette-neutral-200);
+
+  @media (max-width: 780px) {
+    display: block;
+    margin: 40px 0;
   }
 }
