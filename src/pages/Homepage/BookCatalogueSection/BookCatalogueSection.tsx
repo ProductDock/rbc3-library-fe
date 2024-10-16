@@ -203,15 +203,15 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
         <div
           className={matches ? styles.booksAdmin : styles.smallScreenAdminBooks}
         >
-          <Divider />
+          <Divider className={styles.dividerView} />
           <BookCatalogueCardOfficeManager />
-          <Divider />
+          <Divider className={styles.dividerView} />
           <BookCatalogueCardOfficeManager />
-          <Divider />
+          <Divider className={styles.dividerView} />
           <BookCatalogueCardOfficeManager />
-          <Divider />
+          <Divider className={styles.dividerView} />
           <BookCatalogueCardOfficeManager />
-          <Divider />
+          <Divider className={styles.dividerView} />
         </div>
       )}
       {!isAdmin && (
