@@ -1,7 +1,6 @@
 .statusPanel {
   width: 250px;
   height: 32px;
-  gap: 0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -15,7 +14,6 @@
 .statusPanelAdmin {
   width: 172px;
   height: 32px;
-  gap: 0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
