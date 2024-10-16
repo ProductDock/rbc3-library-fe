@@ -1,0 +1,46 @@
+.formContainer {
+  width: 560px;
+  height: 682px;
+  margin-left: 120px;
+  margin-top: 80px;
+  gap: 48px;
+}
+
+.headerAndRatingContainer {
+  width: 560px;
+  height: 249px;
+}
+
+.headerContainer {
+  width: 560px;
+  height: 48px;
+  display: flex;
+  justify-content: start;
+  margin-bottom: 64px;
+}
+
+.ratingContainer {
+  width: 560px;
+  height: 88px;
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.rateText {
+  font-weight: 600;
+}
+
+.star {
+  color: var(--mui-palette-neutral-400);
+  margin-left: 1px;
+}
+
+.starContainer {
+  height: 28px;
+  width: 172px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
