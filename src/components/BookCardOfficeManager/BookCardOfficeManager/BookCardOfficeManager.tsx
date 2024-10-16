@@ -1,8 +1,8 @@
 import styles from './BookCardOfficeManager.module.css'
-import cover from '../../assets/bookExample.svg'
+import cover from '../../../assets/bookExample.svg'
 import { Typography } from '@mui/material'
-import { BookStatusPanel } from '../BookStatusPanel'
-import BookManagmentIcons from './BookManagmentIcons/BookManagmentIcons'
+import { BookStatusPanel } from '../../BookStatusPanel'
+import { BookManagmentIcons } from '../BookManagmentIcons'
 
 const BookCardOfficeManager = () => {
   return (
@@ -18,7 +18,9 @@ const BookCardOfficeManager = () => {
           <Typography variant='h6' className={styles.bookTitle}>
             Book Title placeholder
           </Typography>
-          <BookStatusPanel />
+          <div className={styles.bookStatusPanelAdmin}>
+            <BookStatusPanel isAdmin={true} />
+          </div>
         </div>
         <div className={styles.bookManagmentIconsView}>
           <BookManagmentIcons />
