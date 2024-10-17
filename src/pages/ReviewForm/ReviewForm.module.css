@@ -44,3 +44,34 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.recomendationContainer {
+  width: 580px;
+  height: 96px;
+  margin-top: 48px;
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.recomentationHeaderText {
+  font-weight: 600;
+}
+
+.filledStar {
+  color: var(--mui-palette-warning-300);
+}
+
+.checkBoxElements {
+  width: 580px;
+  height: 28px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 32px;
+}
+
+.checkBox:checked {
+  color: var(--mui-palette-neutral-500);
+}
