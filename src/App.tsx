@@ -7,6 +7,7 @@ import theme from './theme/theme'
 import { CssBaseline } from '@mui/material'
 import { ManagerHomepage } from './pages/ManagerHomepage'
 import { TestingPage } from './pages/TestingPage'
+import { BookDetailsPage } from './pages/BookDetailsPage'
 
 function App() {
   return (
@@ -17,6 +18,16 @@ function App() {
           <Route path='/' element={<AuthorisedLayout />}>
             <Route index element={<Homepage />} />
             <Route path='/admin' element={<ManagerHomepage />} />
+            <Route
+              path='/book'
+              index
+              element={<BookDetailsPage isUserAdmin={false} />}
+            />
+            <Route
+              path='/manager/book'
+              index
+              element={<BookDetailsPage isUserAdmin={true} />}
+            />
           </Route>
           <Route path='/login' element={<LoginPage />} />
           <Route path='/testing' element={<TestingPage />} />

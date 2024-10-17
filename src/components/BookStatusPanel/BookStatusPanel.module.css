@@ -1,5 +1,4 @@
 .statusPanel {
-  width: 250px;
   height: 32px;
   display: flex;
   flex-direction: row;
@@ -18,4 +17,12 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.regularView {
+  width: 250px;
+}
+
+.bookDetailsView {
+  width: 662px;
 }
