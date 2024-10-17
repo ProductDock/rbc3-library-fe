@@ -1,0 +1,85 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  APPLICATION_NAME: rbc3-library-fe
+  AWS_REGION: eu-west-1
+  AWS_ECS_CLUSTER_NAME: ecs-eu-west-1-nonprod
+  AWS_ECS_SERVICE_NAME: rbc-library-fe
+  AWS_ECS_TASK_DEFINITION_NAME: rbc-library-fe
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::654654270781:role/github-actions
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Extract Git commit SHA
+        id: git-info
+        run: |
+          echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ env.APPLICATION_NAME }}:${{ env.COMMIT_SHA }} .
+          docker tag ${{ env.APPLICATION_NAME }}:${{ env.COMMIT_SHA }} ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:${{ env.COMMIT_SHA }}
+          docker tag ${{ env.APPLICATION_NAME }}:${{ env.COMMIT_SHA }} ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:latest
+
+      - name: Push Docker image to ECR
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:${{ env.COMMIT_SHA }}
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:latest
+    outputs:
+      commit_sha: ${{ steps.git-info.outputs.COMMIT_SHA }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::654654270781:role/github-actions
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Register new task definition revision
+        id: task-def
+        run: |
+          SHA="${{ needs.build.outputs.commit_sha }}"
+          export TASK_DEFINITION=$(cat deployment-config/ecs-task-definition.json)
+          export UPDATED_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq \
+            --arg IMAGE "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:$SHA"
+          echo $UPDATED_TASK_DEFINITION > new-task-def.json
+          aws ecs register-task-definition --cli-input-json file://new-task-def.json
+
+      - name: Update ECS service with new task definition
+        run: |
+          aws ecs update-service --cluster ${{ env.AWS_ECS_CLUSTER_NAME }} \
+            --service ${{ env.AWS_ECS_SERVICE_NAME }} \
+            --task-definition ${{ env.AWS_ECS_TASK_DEFINITION_NAME }}
+
