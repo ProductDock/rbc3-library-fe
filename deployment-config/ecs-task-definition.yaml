@@ -1,0 +1,103 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:eu-west-1:654654270781:task-definition/rbc-library-fe:1",
+    "containerDefinitions": [
+        {
+            "name": "rbc-lib-fe",
+            "image": "docker.io/nginx:latest",
+            "cpu": 512,
+            "memory": 512,
+            "portMappings": [
+                {
+                    "name": "rbc-lib-fe",
+                    "containerPort": 81,
+                    "hostPort": 81,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "linuxParameters": {
+                "initProcessEnabled": false
+            },
+            "startTimeout": 30,
+            "stopTimeout": 120,
+            "user": "0",
+            "privileged": false,
+            "readonlyRootFilesystem": false,
+            "interactive": false,
+            "pseudoTerminal": false,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/aws/ecs/rbc-library-fe/rbc-lib-fe",
+                    "awslogs-region": "eu-west-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "systemControls": []
+        }
+    ],
+    "family": "rbc-library-fe",
+    "taskRoleArn": "arn:aws:iam::654654270781:role/rbc-library-fe-20241016144507599100000001",
+    "executionRoleArn": "arn:aws:iam::654654270781:role/rbc-library-fe-20241016144507640300000004",
+    "networkMode": "awsvpc",
+    "revision": 1,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.container-ordering"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "registeredAt": "2024-10-16T14:45:09.292Z",
+    "registeredBy": "arn:aws:sts::654654270781:assumed-role/terraform/GitHubActions",
+    "tags": [
+        {
+            "key": "Owner",
+            "value": "rbc"
+        },
+        {
+            "key": "GithubRepo",
+            "value": "rbc3-infra-aws"
+        },
+        {
+            "key": "GithubOrg",
+            "value": "ProductDock"
+        }
+    ]
+}
