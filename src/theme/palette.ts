@@ -42,7 +42,7 @@ const tertiary: PaletteColorOptions | undefined = {
 }
 
 const warning: PaletteColorOptions | undefined = {
-  100: '#FFFE7',
+  100: '#FFF7E7',
   200: '#F5C8B0',
   300: '#FB8443',
   400: '#D09020',

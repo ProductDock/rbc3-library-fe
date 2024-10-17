@@ -1,0 +1,84 @@
+.bookCardWrapper {
+  height: 260px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardImageWrapper {
+  background: var(--mui-palette-neutral-100);
+  margin-top: 40px;
+  width: 150px;
+  height: 180px;
+}
+
+.cardDetailsWrapper {
+  width: 84%;
+  height: 180px;
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardDetails {
+  width: 586px;
+  height: 156px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.bookManagmentIconsWrapper {
+  width: 164px;
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.imageHolder {
+  width: 56px;
+  height: 78px;
+  margin-left: 47px;
+  margin-top: 51px;
+}
+
+.bookTitle {
+  font-weight: 600;
+}
+
+.bookAuthor {
+  font-weight: 500;
+  text-decoration: underline;
+  color: var(--mui-palette-neutral-400);
+}
+
+.iconContainer {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  width: 44px;
+  border-radius: 50%;
+  background-color: var(--mui-palette-neutral-100);
+}
+
+.favoriteIcon {
+  height: 18px;
+  width: 18px;
+}
+
+.removeIcon {
+  height: 18px;
+  width: 18px;
+}
+
+.editIcon {
+  height: 18px;
+  width: 18px;
+}
+
+.bookManagmentIconsView {
+  margin-top: 68px;
+}
