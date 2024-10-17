@@ -1,6 +1,7 @@
-import { Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 import styles from './ReviewForm.module.css'
-import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
+import { StarRating } from './StarRating'
+import { RecomendationCheckBox } from './RecomendationCheckBox'
 
 export const ReviewForm = () => {
   return (
@@ -14,15 +15,23 @@ export const ReviewForm = () => {
             Rate
             <span className={styles.star}>*</span>
           </Typography>
-          <div className={styles.starContainer}>
-            <StarBorderOutlinedIcon />
-            <StarBorderOutlinedIcon />
-            <StarBorderOutlinedIcon />
-            <StarBorderOutlinedIcon />
-            <StarBorderOutlinedIcon />
+          <div>
+            <StarRating />
           </div>
         </div>
       </div>
+      <Divider />
+      <div className={styles.recomendationContainer}>
+        <div className={styles.recomendationContainerHeader}>
+          <Typography variant='h6' className={styles.recomentationHeaderText}>
+            Who would benefit from this book?
+          </Typography>
+        </div>
+        <div>
+          <RecomendationCheckBox />
+        </div>
+      </div>
+      <Divider />
     </div>
   )
 }
