@@ -4,10 +4,16 @@ import { Status } from './BookStatus/Status'
 
 import styles from './BookStatusPanel.module.css'
 
-export const BookStatusPanel = () => {
+type BookStatusPanelProps = {
+  isAdmin?: boolean
+}
+
+export const BookStatusPanel: React.FC<BookStatusPanelProps> = ({
+  isAdmin,
+}) => {
   return (
-    <div className={styles.statusPanel}>
-      <BookStatus status={Status.APPROVED} />
+    <div className={isAdmin ? styles.statusPanelAdmin : styles.statusPanel}>
+      <BookStatus status={Status.RENTED} />
       <BookRating rating={4.5} />
     </div>
   )

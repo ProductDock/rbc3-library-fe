@@ -11,7 +11,7 @@ const Homepage = () => {
             <LetsStartExploring />
           </div>
         </div>
-        <BookCatalogueSection />
+        <BookCatalogueSection isAdmin={false} />
       </div>
     </div>
   )

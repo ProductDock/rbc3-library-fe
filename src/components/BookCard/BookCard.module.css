@@ -58,10 +58,32 @@
 
 .bookStatusPanel {
   height: 64px;
-  width: 290px;
+  width: 320px;
   margin-top: 32px;
 
   @media (max-width: 450px) {
     margin-top: 20px;
+  }
+}
+
+.managmentIcons {
+  width: 316px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+}
+
+.bookManagmentIcons {
+  margin-top: 20px;
+}
+
+.infoAdminView {
+  width: 270px;
+  padding-left: 20px;
+
+  @media (max-width: 1100px) {
+    width: 316px;
+    padding-left: 0px;
+    margin-top: 32px;
   }
 }
