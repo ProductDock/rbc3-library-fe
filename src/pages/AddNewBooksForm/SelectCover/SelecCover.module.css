@@ -1,0 +1,45 @@
+.imgDropWrapper {
+  border: 1px dashed var(--mui-palette-neutral-500);
+  padding: 20px;
+  width: 330px;
+  height: 420px;
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.imgUploadedWrapper {
+  border: none;
+  padding: 20px;
+  width: 330px;
+  height: 420px;
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--mui-palette-neutral-100);
+}
+
+.imgDropText {
+  /* font-weight: 600; */
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px 0px 8px 0px;
+}
+
+.imgDropTextUnderline {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.imgDropTextFilesAllowed {
+  color: var(--mui-palette-neutral-300);
+}
+
+.coverImg {
+  height: 200px;
+  width: 140px;
+}

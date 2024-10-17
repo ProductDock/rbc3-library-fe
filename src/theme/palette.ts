@@ -4,7 +4,7 @@ const neutral: PaletteColorOptions | undefined = {
   50: '#FFFFFF',
   100: '#F1F5F8',
   200: '#E9EFF1',
-  300: '#BC959C',
+  300: '#8C959C', // was wrong color #BC959C, correct is #8C959C
   400: '#646D75',
   500: '#353C43',
   600: '#0A0C0E',

@@ -5,6 +5,7 @@ import { AuthorisedLayout } from './pages/AuthorisedLayout'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme/theme'
 import { CssBaseline } from '@mui/material'
+import AddNewBooksForm from './pages/AddNewBooksForm/AddNewBooksForm'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path='/' element={<AuthorisedLayout />}>
             <Route index element={<Homepage />} />
+            <Route path='/add-books' element={<AddNewBooksForm />} />
           </Route>
           <Route path='/login' element={<LoginPage />} />
         </Routes>

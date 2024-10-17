@@ -1,0 +1,89 @@
+.formWrapper {
+  /* max-width: 840px; */
+  margin-inline: 320px;
+  margin-block: 100px;
+  display: flex;
+  justify-content: center;
+  /* flex-direction: column; */
+}
+
+.formLabelText {
+  font-weight: 600;
+  color: var(--mui-palette-neutral-600);
+}
+
+.bookTextField {
+  /* border-radius: 0; */
+  margin-top: 16px;
+  width: 430px;
+  /* height: 48px; */
+}
+
+.bookDescriptionTextField {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.formLabelWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.formColumnWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.formFlex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.checkboxColor {
+  color: var(--mui-palette-neutral-600);
+}
+
+.bookTextFieldSelect {
+  height: 48px;
+  border-radius: 0;
+  /* border: 1px solid var(--mui-palette-neutral-300); */
+  margin-top: 16px;
+  width: 430px;
+}
+
+.letsStartExploring {
+  margin-left: 140px;
+}
+
+.wrapper {
+  margin-inline: 320px;
+  margin-top: 130;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.dot {
+  color: var(--mui-palette-secondary-300);
+  font-size: 96px;
+}
+
+@media (max-width: 1425px) {
+  .wrapper {
+    margin-inline: 100px;
+  }
+}
+
+@media (max-width: 780px) {
+  .wrapper {
+    margin-inline: 32px;
+    margin-top: 44px;
+  }
+
+  .dot {
+    font-size: 48px;
+    font-weight: 800;
+  }
+}
