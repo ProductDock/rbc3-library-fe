@@ -65,7 +65,7 @@
 }
 
 .divider {
-  width: 250px;
+  background-color: #e9eef1;
   margin-top: 32px;
 
   @media (max-width: 450px) {
@@ -74,7 +74,6 @@
 }
 
 .adminDivider {
-  width: 250px;
   margin-top: 32px;
 
   @media (max-width: 450px) {
@@ -104,7 +103,6 @@
 }
 
 .managmentIcons {
-  width: 316px;
   height: 84px;
   display: flex;
   align-items: center;
@@ -112,4 +110,15 @@
 
 .bookManagmentIcons {
   margin-top: 20px;
+}
+
+.infoAdminView {
+  padding-left: 20px;
+  width: 270px;
+
+  @media (max-width: 1100px) {
+    width: 100%;
+    padding: 0 20px;
+    margin-top: 32px;
+  }
 }
