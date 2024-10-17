@@ -14,6 +14,7 @@ import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
 import { FiltersSideBar } from './FiltersSideBar'
 import { BookCard } from '../../../components/BookCard'
 import { useMediaQuery } from '@mui/material'
+import { BookCatalogueCardOfficeManager } from '../../../components/BookCardOfficeManager'
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -198,6 +199,21 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
           </div>
         </div>
       </div>
+      {isAdmin && (
+        <div
+          className={matches ? styles.booksAdmin : styles.smallScreenAdminBooks}
+        >
+          <Divider className={styles.dividerView} />
+          <BookCatalogueCardOfficeManager />
+          <Divider className={styles.dividerView} />
+          <BookCatalogueCardOfficeManager />
+          <Divider className={styles.dividerView} />
+          <BookCatalogueCardOfficeManager />
+          <Divider className={styles.dividerView} />
+          <BookCatalogueCardOfficeManager />
+          <Divider className={styles.dividerView} />
+        </div>
+      )}
       {!isAdmin && (
         <div className={styles.books}>
           <BookCard inFavorites={true} />

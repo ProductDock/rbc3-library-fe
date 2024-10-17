@@ -53,7 +53,7 @@
 
 .loginPageHeading {
   flex-direction: column;
-  color: var(--mui-palette-neutral-50);
+  color: var(--mui-palette-neutral-500);
 }
 
 .dot {
