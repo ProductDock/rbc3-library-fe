@@ -1,9 +1,14 @@
-import { Button, Divider, styled, Typography } from '@mui/material'
+import {
+  Button,
+  Divider,
+  styled,
+  Typography,
+  useMediaQuery,
+} from '@mui/material'
 import styles from './ReviewForm.module.css'
 import { StarRating } from './StarRating'
 import { RecomendationCheckBox } from './RecomendationCheckBox'
 import TextField from '@mui/material/TextField'
-import close from '../../assets/closeBlack.svg'
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& input::placeholder': {
@@ -15,16 +20,19 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 }))
 
 export const ReviewForm = () => {
+  const matches = useMediaQuery('(min-width:700px)')
   return (
     <>
       <div className={styles.reviewFormContainer}>
         <div className={styles.formContainer}>
-          <div className={styles.closeBar}>
-            <img src={close} alt='close' className={styles.closeIcon} />
-          </div>
           <div className={styles.headerAndRatingContainer}>
             <div className={styles.headerContainer}>
-              <Typography variant='subtitle2'>Write a review</Typography>
+              <Typography
+                variant={matches ? 'subtitle2' : 'h4'}
+                className={styles.headerText}
+              >
+                Write a review
+              </Typography>
             </div>
             <div className={styles.ratingContainer}>
               <Typography variant='h6' className={styles.rateText}>
@@ -50,7 +58,7 @@ export const ReviewForm = () => {
               <RecomendationCheckBox />
             </div>
           </div>
-          <Divider />
+          <Divider className={styles.divider} />
           <div className={styles.textFieldContainer}>
             <div className={styles.reviewHeader}>
               <Typography variant='h6' className={styles.rateText}>
@@ -58,7 +66,7 @@ export const ReviewForm = () => {
                 <span className={styles.star}>*</span>
               </Typography>
             </div>
-            <div>
+            <div className={styles.textAreaWrapper}>
               <StyledTextField
                 variant='outlined'
                 multiline
@@ -84,8 +92,8 @@ export const ReviewForm = () => {
             </div>
           </div>
           <div className={styles.buttonContainer}>
-            <Button className={styles.suggestButton}>
-              <Typography variant='h6' className={styles.suggestButtonText}>
+            <Button className={styles.cancelButton}>
+              <Typography variant='h6' className={styles.cancelButtonText}>
                 Cancel
               </Typography>
             </Button>
