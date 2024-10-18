@@ -2,7 +2,6 @@ import { Button, Typography } from '@mui/material'
 import backButton from '../../assets/back.svg'
 import styles from './BackButton.module.css'
 import React from 'react'
-import classNames from 'classnames'
 
 type BackButtonProps = {
   onClick?: () => void
