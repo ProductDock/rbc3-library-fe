@@ -75,7 +75,7 @@ jobs:
           export UPDATED_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq \
             --arg IMAGE "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:$SHA")
           echo "debug ==============================="
-          cat $UPDATED_TASK_DEFINITION
+          cat "$UPDATED_TASK_DEFINITION"
           echo "end debug ==========================="
           echo $UPDATED_TASK_DEFINITION > new-task-def.json
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
