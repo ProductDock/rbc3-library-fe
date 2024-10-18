@@ -22,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::654654270781:role/github-actions
           aws-region: ${{ env.AWS_REGION }}
@@ -59,10 +59,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::654654270781:role/github-actions
           aws-region: ${{ env.AWS_REGION }}
@@ -73,7 +73,8 @@ jobs:
           SHA="${{ needs.build.outputs.commit_sha }}"
           export TASK_DEFINITION=$(cat deployment-config/ecs-task-definition.json)
           export UPDATED_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq \
-            --arg IMAGE "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:$SHA"
+            --arg IMAGE "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:$SHA" \
+            '.containerDefinitions[0].image = $IMAGE')
           echo $UPDATED_TASK_DEFINITION > new-task-def.json
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
 
