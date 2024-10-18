@@ -29,8 +29,10 @@ const BookCard: React.FC<BookCardProps> = ({ inFavorites, isAdmin }) => {
           </Typography>
           {!isAdmin && <Divider className={styles.divider} />}
           <div className={styles.bookStatusPanel}>
-            <div>{isAdmin && <Divider className={styles.divider} />}</div>
-            <BookStatusPanel isRegularView={false} />
+            <div className={styles.statusPanel}>
+              <BookStatusPanel layoutDirection={'rating-left'} />
+            </div>
+            <div>{isAdmin && <Divider className={styles.adminDivider} />}</div>
           </div>
           {isAdmin && (
             <div className={styles.managmentIcons}>

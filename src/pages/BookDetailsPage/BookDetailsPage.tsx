@@ -1,24 +1,28 @@
 import styles from './BookDetailsPage.module.css'
-import backButton from '../../assets/backButton.svg'
-import editButton from '../../assets/edit.svg'
-import deleteButton from '../../assets/delete.svg'
 import { Button, Divider, Typography, useMediaQuery } from '@mui/material'
 import { BookStatusPanel } from '../../components/BookStatusPanel'
 import bookCover from '../../assets/bookCover.svg'
+import { BackButton } from '../../components/BackButton'
+import { EditButton } from '../../components/EditButton'
+import { DeleteButton } from '../../components/DeleteButton'
 
 type BookDetailsPageProps = {
   isUserAdmin: boolean
 }
 
 const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
-  const matches = useMediaQuery('(min-width:1100px)')
+  const matchesMobile = useMediaQuery('(max-width: 600px)')
+
+  const handleBackClick = () => {
+    //TODO: Implement back button functionality
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.bookInfo}>
         <div className={styles.buttons}>
           <div className={styles.back}>
-            <img src={backButton} alt='back' className={styles.backIcon} />
-            <Typography variant='h6'>Back</Typography>
+            {!matchesMobile && <BackButton onClick={handleBackClick} />}
           </div>
           <div
             className={
@@ -26,12 +30,10 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
             }
           >
             <div className={styles.edit}>
-              <img src={editButton} alt='edit' />
-              <Typography variant='h6'>Edit</Typography>
+              <EditButton />
             </div>
             <div className={styles.delete}>
-              <img src={deleteButton} alt='delete' />
-              <Typography variant={matches ? 'h3' : 'h6'}>Delete</Typography>
+              <DeleteButton />
             </div>
           </div>
         </div>
@@ -47,7 +49,7 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
             </Typography>
           </div>
           <div className={styles.statusPanel}>
-            <BookStatusPanel isRegularView={false} />
+            <BookStatusPanel layoutDirection={'status-left'} />
           </div>
         </div>
         <Divider />

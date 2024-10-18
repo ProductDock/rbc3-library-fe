@@ -12,7 +12,7 @@
   width: 290px;
   height: 212px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 
   @media (max-width: 450px) {
@@ -22,8 +22,28 @@
 }
 
 .info {
-  width: 270px;
+  width: 100%;
+  height: 100%;
   padding-left: 20px;
+  margin-top: 40px;
+
+  @media (max-width: 450px) {
+    width: 316px;
+    padding-left: 0px;
+    margin-top: 32px;
+  }
+}
+
+.infoAdminView {
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+  margin-top: 40px;
+
+  @media (max-width: 1100px) and (min-width: 450px) {
+    width: 100%;
+    padding: 0 20px;
+  }
 
   @media (max-width: 450px) {
     width: 316px;
@@ -35,9 +55,12 @@
 .author {
   text-decoration: underline;
   font-weight: 500;
-  margin-top: 40px;
   font-weight: 500;
   color: #646d75;
+
+  @media (max-width: 450px) {
+    /* margin-top: ; */
+  }
 }
 
 .bookTitle {
@@ -47,8 +70,7 @@
 }
 
 .divider {
-  width: 84%;
-  background-color: #e9eef1;
+  width: 250px;
   margin-top: 32px;
 
   @media (max-width: 450px) {
@@ -56,13 +78,33 @@
   }
 }
 
-.bookStatusPanel {
-  height: 64px;
-  width: 320px;
+.adminDivider {
+  width: 250px;
   margin-top: 32px;
 
   @media (max-width: 450px) {
+    width: 100%;
+    margin-top: 32px;
+  }
+}
+
+.bookStatusPanel {
+  width: 100%;
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+
+  @media (max-width: 450px) {
     margin-top: 20px;
+    padding-left: 0;
+    justify-content: flex-start;
+  }
+}
+
+.statusPanel {
+  @media (max-width: 450px) {
+    width: 100%;
   }
 }
 
@@ -75,15 +117,4 @@
 
 .bookManagmentIcons {
   margin-top: 20px;
-}
-
-.infoAdminView {
-  width: 270px;
-  padding-left: 20px;
-
-  @media (max-width: 1100px) {
-    width: 316px;
-    padding-left: 0px;
-    margin-top: 32px;
-  }
 }
