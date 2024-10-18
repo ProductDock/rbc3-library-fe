@@ -9,8 +9,8 @@
             "portMappings": [
                 {
                     "name": "rbc-lib-fe",
-                    "containerPort": 81,
-                    "hostPort": 81,
+                    "containerPort":4000 ,
+                    "hostPort": 80,
                     "protocol": "tcp"
                 }
             ],
