@@ -5,9 +5,9 @@ import { AuthorisedLayout } from './pages/AuthorisedLayout'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme/theme'
 import { CssBaseline } from '@mui/material'
-import AddNewBooksForm from './pages/AddNewBooksForm/AddNewBooksForm'
 import { ManagerHomepage } from './pages/ManagerHomepage'
 import { TestingPage } from './pages/TestingPage'
+import { AddNewBooksForm } from './pages/AddNewBooksForm'
 
 function App() {
   return (
