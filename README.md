@@ -48,3 +48,10 @@ To run the application locally, follow these steps:
    
 
 By default, the application will run on [http://localhost:3000](http://localhost:3000).
+
+### CICD
+Merge to master will trigger CICD pipeline that has following stages:
+- Build App and the Docker image
+- Push Docker image to the registry
+- Update deployment configuration file to contain newly built image tag
+- Deploy new deployment configuration
