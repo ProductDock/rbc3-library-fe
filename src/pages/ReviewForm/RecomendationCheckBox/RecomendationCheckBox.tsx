@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography'
 import styles from '../ReviewForm.module.css'
 import CheckBoxOutlineBlankSharpIcon from '@mui/icons-material/CheckBoxOutlineBlankSharp'
 import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import IndeterminateCheckBoxSharpIcon from '@mui/icons-material/IndeterminateCheckBoxSharp'
 
 const labels = [
@@ -13,8 +13,18 @@ const labels = [
   { label: 'Senior', value: 'Senior', checked: false },
 ]
 
-export default function Checkboxes() {
+export default function RecomendationCheckBox() {
   const [checkBoxState, setCheckBoxState] = useState(labels)
+
+  useEffect(() => {
+    return () => {
+      const newCheckboxState = checkBoxState.map(el => {
+        el.checked = false
+        return el
+      })
+      setCheckBoxState(newCheckboxState)
+    }
+  }, [])
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,

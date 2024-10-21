@@ -88,18 +88,20 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 rows={4}
                 className={styles.textArea}
                 placeholder='What is your personal opinion about this book'
-                InputProps={{
-                  sx: {
-                    borderRadius: 0,
-                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'var(--mui-palette-neutral-600)',
-                    },
-                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'var(--mui-palette-neutral-600)',
-                      opacity: 0.5,
-                    },
-                    '& .MuiOutlinedInput-input': {
-                      padding: '0px 16px',
+                slotProps={{
+                  input: {
+                    sx: {
+                      borderRadius: 0,
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'var(--mui-palette-neutral-600)',
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'var(--mui-palette-neutral-600)',
+                        opacity: 0.5,
+                      },
+                      '& .MuiOutlinedInput-input': {
+                        padding: '0px 16px',
+                      },
                     },
                   },
                 }}
@@ -107,12 +109,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             </div>
           </div>
           <div className={styles.buttonContainer}>
-            <Button className={styles.cancelButton}>
-              <Typography
-                variant='h6'
-                className={styles.cancelButtonText}
-                onClick={() => toggleDrawer(false)}
-              >
+            <Button
+              className={styles.cancelButton}
+              onClick={() => toggleDrawer(false)}
+            >
+              <Typography variant='h6' className={styles.cancelButtonText}>
                 Cancel
               </Typography>
             </Button>
@@ -139,7 +140,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         },
       }}
     >
-      <Box role='presentation' sx={{ overflowY: 'auto', minHeight: '100vh' }}>
+      <Box role='presentation' sx={{ overflowY: 'auto', minHeight: '100px' }}>
         {formContent}
       </Box>
     </Drawer>

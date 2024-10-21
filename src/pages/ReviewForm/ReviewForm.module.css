@@ -38,7 +38,7 @@
   width: 28px;
   margin-left: 604px;
   margin-top: 48px;
-  @media (max-width: 780px) {
+  @media (max-width: 800px) {
     margin-left: 520px;
   }
   @media (max-width: 700px) {
@@ -126,7 +126,7 @@
   align-items: center;
   margin-left: -10px;
   gap: 32px;
-  @media (max-width: 750px) {
+  @media (max-width: 800px) {
     max-height: 244px;
     flex-direction: column;
     align-items: start;
@@ -142,7 +142,7 @@
 .customCheckBox {
   color: var(--mui-palette-neutral-50);
   stroke: var(--mui-palette-neutral-600);
-  stroke-width: 1px;
+  stroke-width: 2px;
 }
 
 .checkBoxElements {
