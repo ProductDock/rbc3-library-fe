@@ -72,6 +72,14 @@
   margin-top: 48px;
 }
 
+.toolBarAddBooks {
+  height: 80px;
+}
+
+.appBarAddBooks {
+  height: 80px;
+}
+
 .menuWrapperButton {
   @media (min-width: 780px) {
     display: none;
