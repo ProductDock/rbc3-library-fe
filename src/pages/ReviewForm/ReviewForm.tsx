@@ -1,6 +1,8 @@
 import {
+  Box,
   Button,
   Divider,
+  Drawer,
   styled,
   Typography,
   useMediaQuery,
@@ -9,6 +11,7 @@ import styles from './ReviewForm.module.css'
 import { StarRating } from './StarRating'
 import { RecomendationCheckBox } from './RecomendationCheckBox'
 import TextField from '@mui/material/TextField'
+import close from '../../assets/closeBlack.svg'
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& input::placeholder': {
@@ -19,12 +22,24 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 }))
 
-export const ReviewForm = () => {
+interface ReviewFormProps {
+  open: boolean
+  toggleDrawer: (newOpen: boolean) => void
+}
+
+export const ReviewForm: React.FC<ReviewFormProps> = ({
+  open,
+  toggleDrawer,
+}) => {
   const matches = useMediaQuery('(min-width:700px)')
-  return (
+
+  const formContent = (
     <>
       <div className={styles.reviewFormContainer}>
         <div className={styles.formContainer}>
+          <div className={styles.closeBar} onClick={() => toggleDrawer(false)}>
+            <img src={close} alt='close' className={styles.closeIcon} />
+          </div>
           <div className={styles.headerAndRatingContainer}>
             <div className={styles.headerContainer}>
               <Typography
@@ -93,7 +108,11 @@ export const ReviewForm = () => {
           </div>
           <div className={styles.buttonContainer}>
             <Button className={styles.cancelButton}>
-              <Typography variant='h6' className={styles.cancelButtonText}>
+              <Typography
+                variant='h6'
+                className={styles.cancelButtonText}
+                onClick={() => toggleDrawer(false)}
+              >
                 Cancel
               </Typography>
             </Button>
@@ -106,6 +125,24 @@ export const ReviewForm = () => {
         </div>
       </div>
     </>
+  )
+
+  return (
+    <Drawer
+      anchor='right'
+      open={open}
+      onClose={() => toggleDrawer(false)}
+      PaperProps={{
+        sx: {
+          width: '100%',
+          maxWidth: '800px',
+        },
+      }}
+    >
+      <Box role='presentation' sx={{ overflowY: 'auto', minHeight: '100vh' }}>
+        {formContent}
+      </Box>
+    </Drawer>
   )
 }
 
