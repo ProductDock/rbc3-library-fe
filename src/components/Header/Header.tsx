@@ -4,7 +4,7 @@ import { MenuItems } from './MenuItems'
 import styles from './Header.module.css'
 import { useLocation } from 'react-router-dom'
 import classNames from 'classnames'
-import { BackButton } from '../BackButton'
+import { BackButton } from '../Shared'
 
 export const Header = () => {
   const location = useLocation()
