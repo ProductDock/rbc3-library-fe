@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material'
+import { Button, Divider, Typography } from '@mui/material'
 import style from './ReviewList.module.css'
 import { ReviewComponent } from './ReviewComponent'
 import reviewStar from './../../../assets/reviewStar.svg'
@@ -23,12 +23,21 @@ const ReviewList = () => {
             Reviews (24){' '}
           </Typography>
         </div>
-        <div className={style.leaveReviewButton}>
-          <Button>Leave a review</Button>
+        <div className={style.leaveReviewButtonWrapper}>
+          <Button className={style.leaveReviewButton}>
+            <Typography variant='body1' className={style.leaveReviewButtonText}>
+              Leave a review
+            </Typography>
+          </Button>
         </div>
       </div>
       <div>
         <ReviewComponent />
+        <Divider className={style.reviewDivider} />
+
+        <ReviewComponent />
+
+        <Divider className={style.reviewDivider} />
       </div>
     </div>
   )
