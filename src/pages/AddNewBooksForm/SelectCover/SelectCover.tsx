@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import style from './SelecCover.module.css'
-import { Typography } from '@mui/material'
+import { IconButton, Typography } from '@mui/material'
 import uploadIcon from '../../../assets/upload.svg'
+import editIcon from '../../../assets/edit.svg'
 
 interface PreviewFile {
   name: string
@@ -10,7 +11,11 @@ interface PreviewFile {
   preview: string
 }
 
-function SelectCover() {
+interface SelectCoverProps {
+  imageUpload: (imageUrl: string) => void
+}
+
+function SelectCover({ imageUpload }: SelectCoverProps) {
   const [previews, setPreviews] = useState<PreviewFile[]>([])
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -24,52 +29,59 @@ function SelectCover() {
         preview: URL.createObjectURL(file),
       }))
       setPreviews(previewFiles)
+
+      if (previewFiles.length > 0) {
+        imageUpload(previewFiles[0].preview)
+      }
     },
   })
 
-  const fileList = previews.map(file => (
+  const fileList = previews.map((file, index) => (
     <img
+      key={index}
       src={file.preview}
       alt={file.name}
-      style={{
-        height: '200px',
-        width: '140px',
-        objectFit: 'cover',
-      }}
+      className={style.coverImg}
     />
   ))
 
   const imgIsUploaded = previews.length >= 1
 
+  const emptyPreviews = () => {
+    setPreviews([])
+    imageUpload('')
+  }
+
   return (
-    <section className='container'>
-      <div
-        {...getRootProps({ className: 'dropzone' })}
-        className={
-          imgIsUploaded ? style.imgUploadedWrapper : style.imgDropWrapper
-        }
-      >
-        {imgIsUploaded ? (
-          <div className={style.coverImg}>{fileList}</div>
-        ) : (
-          <>
-            <input {...getInputProps()} />
-            <img src={uploadIcon} alt='logo' />
-            <Typography variant='body1' className={style.imgDropText}>
-              <Typography className={style.imgDropTextUnderline}>
-                Select a cover
-              </Typography>
-              &nbsp; or drag it into this area
+    <section>
+      {imgIsUploaded ? (
+        <div
+          {...getRootProps({ className: 'dropzone' })}
+          className={style.imgUploadedWrapper}
+        >
+          <IconButton className={style.editImgButton} onClick={emptyPreviews}>
+            <img src={editIcon} alt='edit_icon' />
+          </IconButton>
+          <div className={style.coverImgWrapper}>{fileList}</div>
+        </div>
+      ) : (
+        <div
+          {...getRootProps({ className: 'dropzone' })}
+          className={style.imgDropWrapper}
+        >
+          <input {...getInputProps()} />
+          <img src={uploadIcon} alt='logo' />
+          <Typography variant='body1' className={style.imgDropText}>
+            <Typography component='span' className={style.imgDropTextUnderline}>
+              Select a cover
             </Typography>
-            <Typography
-              variant='body2'
-              className={style.imgDropTextFilesAllowed}
-            >
-              (PDF, PNG and JPG files are allowed)
-            </Typography>
-          </>
-        )}
-      </div>
+            &nbsp; or drag it into this area
+          </Typography>
+          <Typography variant='body2' className={style.imgDropTextFilesAllowed}>
+            (PDF, PNG and JPG files are allowed)
+          </Typography>
+        </div>
+      )}
     </section>
   )
 }

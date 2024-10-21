@@ -8,6 +8,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 950px) {
+    margin-top: 0;
+  }
+  @media (max-width: 460px) {
+    width: 100%;
+  }
 }
 
 .imgUploadedWrapper {
@@ -21,13 +27,22 @@
   justify-content: center;
   align-items: center;
   background-color: var(--mui-palette-neutral-100);
+  position: relative;
+  @media (max-width: 950px) {
+    margin-top: 0;
+  }
+  @media (max-width: 460px) {
+    width: 100%;
+  }
 }
 
 .imgDropText {
-  /* font-weight: 600; */
   display: flex;
   flex-wrap: wrap;
   margin: 20px 0px 8px 0px;
+  @media (max-width: 460px) {
+    justify-content: center;
+  }
 }
 
 .imgDropTextUnderline {
@@ -39,7 +54,24 @@
   color: var(--mui-palette-neutral-300);
 }
 
+.coverImgWrapper {
+  height: 200px;
+  width: 140px;
+}
+
 .coverImg {
   height: 200px;
   width: 140px;
+  object-fit: cover;
+}
+
+.editImgButton {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background-color: var(--mui-palette-neutral-50);
+  height: 40px;
+  width: 40px;
+  padding: 0;
+  margin: 0;
 }
