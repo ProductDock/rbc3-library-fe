@@ -47,6 +47,7 @@ const AddNewBooksForm = () => {
   const [amount, setAmount] = useState(1)
   const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
+  // const [newBook, setNewBook] = useState([])
 
   const handleCategoryChange = (
     event: SelectChangeEvent<typeof bookCategory>
@@ -127,7 +128,13 @@ const AddNewBooksForm = () => {
       imageUrl,
     }
 
-    console.log(newBook)
+    fetch('/add-book', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newBook),
+    }).then(response => response.json())
   }
 
   return (
