@@ -1,5 +1,4 @@
 import style from './ReviewComponent.module.css'
-import avatarZoran from './../../../../assets/avatarZoran.svg'
 import Typography from '@mui/material/Typography'
 import { Divider, IconButton } from '@mui/material'
 import editIcon from './../../../../assets/editIcon.svg'
@@ -7,20 +6,44 @@ import deleteIcon from './../../../../assets/deleteIcon.svg'
 import starGrey from './../../../../assets/ratingStarGrey.svg'
 import starYellow from './../../../../assets/ratingStarYellow.svg'
 
-const ReviewComponent = () => {
+interface User {
+  id: string
+  fullName: string
+  email: string
+  imageUrl: string
+  role: string
+}
+
+interface Review {
+  id: string
+  rating: number
+  content: string
+  recommendedFor: {
+    seniority: string[]
+  }
+  dateTime: string
+  bookId: string
+  user: User
+}
+
+interface ReviewProps {
+  review: Review
+}
+
+const ReviewComponent = ({ review }: ReviewProps) => {
   return (
     <div className={style.reviewWrapper}>
       <div className={style.reviewTopSectionWrapper}>
         <div className={style.avatarWrapper}>
           <div className={style.avatarImgWrapper}>
-            <img src={avatarZoran} alt='avatar_zoran' />
+            <img src={review.user.imageUrl} alt='avatar_img' />
           </div>
           <div className={style.nameAndDate}>
             <Typography variant='body1' className={style.nameText}>
-              Zoran Jelic
+              {review.user.fullName}
             </Typography>
             <Typography variant='body1' className={style.dateText}>
-              July 2024
+              {review.dateTime}
             </Typography>
           </div>
         </div>
@@ -43,13 +66,12 @@ const ReviewComponent = () => {
           <img src={starGrey} alt='star_gray' />
         </div>
         <Typography variant='body1' className={style.reviewContentText}>
-          This book was not what I was hoping for and I kept waiting to have
-          some revelation about interpersonal interaction.
+          {review.content}
         </Typography>
         <Typography variant='body1' className={style.recommendedTo}>
           Recommended to
           <Typography component='span' className={style.recommendedBold}>
-            : Medior
+            : {review.recommendedFor.seniority}
           </Typography>
         </Typography>
       </div>
