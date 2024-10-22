@@ -61,7 +61,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
           </div>
           <Divider />
           <div className={styles.recomendationContainer}>
-            <div className={styles.recomendationContainerHeader}>
+            <div>
               <Typography
                 variant='h6'
                 className={styles.recomentationHeaderText}
@@ -73,7 +73,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
               <RecomendationCheckBox />
             </div>
           </div>
-          <Divider className={styles.divider} />
+          <Divider />
           <div className={styles.textFieldContainer}>
             <div className={styles.reviewHeader}>
               <Typography variant='h6' className={styles.rateText}>
@@ -137,10 +137,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         sx: {
           width: '100%',
           maxWidth: '800px',
+          height: '100%',
         },
       }}
     >
-      <Box role='presentation' sx={{ overflowY: 'auto', minHeight: '100px' }}>
+      <Box role='presentation' sx={{ overflowY: 'auto', height: '100%' }}>
         {formContent}
       </Box>
     </Drawer>
