@@ -15,6 +15,7 @@ import { FiltersSideBar } from './FiltersSideBar'
 import { BookCard } from '../../../components/BookCard'
 import { useMediaQuery } from '@mui/material'
 import { BookCatalogueCardOfficeManager } from '../../../components/BookCardOfficeManager'
+import { useNavigate } from 'react-router-dom'
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -77,6 +78,11 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
 
   const matches = useMediaQuery('(min-width:1100px)')
 
+  const navigate = useNavigate()
+  const navigateToAddBooksPage = () => {
+    navigate('/add-books')
+  }
+
   return (
     <div className={styles.catalogueWrapper}>
       <div className={styles.buttons}>
@@ -95,7 +101,10 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
             </Button>
 
             {isAdmin && (
-              <Button className={styles.newBookButton}>
+              <Button
+                className={styles.newBookButton}
+                onClick={navigateToAddBooksPage}
+              >
                 <Typography
                   variant='body1'
                   className={styles.newBookButtonText}

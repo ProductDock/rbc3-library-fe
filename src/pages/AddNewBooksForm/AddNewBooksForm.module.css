@@ -1,0 +1,204 @@
+.outerWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.formWrapper {
+  margin-inline: 320px;
+  margin-block: 100px;
+}
+
+.formLabelText {
+  font-weight: 600;
+  color: var(--mui-palette-neutral-600);
+}
+
+.bookTextField {
+  margin-top: 16px;
+  width: 430px;
+}
+
+.bookDescriptionTextField {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.formLabelWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.formColumnWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.formFlex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.checkboxColor {
+  color: var(--mui-palette-neutral-600);
+}
+
+.bookTextFieldSelect {
+  height: 48px;
+  border-radius: 0;
+  margin-top: 16px;
+  width: 430px;
+}
+
+.letsStartExploring {
+  margin-left: 140px;
+}
+
+.wrapper {
+  margin-block: 64px;
+  align-self: flex-start;
+  width: 840px;
+}
+
+.dot {
+  color: var(--mui-palette-secondary-300);
+  font-size: 96px;
+}
+
+.backButtonText {
+  font-weight: 600;
+  color: var(--mui-palette-neutral-600);
+  text-transform: none;
+  padding-left: 6px;
+}
+
+.backButton {
+  margin-bottom: 33px;
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 64px;
+}
+
+.cancelButton {
+  height: 52px;
+  width: 160px;
+  border-radius: 0;
+  text-transform: none;
+  color: var(--mui-palette-neutral-600);
+  border: 1px solid var(--mui-palette-neutral-600);
+}
+
+.submitButton {
+  height: 52px;
+  width: 160px;
+  border-radius: 0;
+  text-transform: none;
+  color: var(--mui-palette-neutral-50);
+  background-color: var(--mui-palette-neutral-600);
+  margin-left: 24px;
+}
+
+.buttonText {
+  font-weight: 600;
+}
+
+@media (max-width: 950px) {
+  .formFlex {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .outerWrapper {
+    width: 100vw;
+    display: flex;
+    justify-content: flex-start;
+    padding-inline: 100px;
+  }
+
+  .formWrapper {
+    width: 100%;
+    margin-inline: 0;
+  }
+
+  .dividerUnderBackButton {
+    width: 100%;
+    margin-right: 100px;
+  }
+
+  .formLabelWrapper {
+    width: 100%;
+    padding-right: 100px;
+  }
+
+  .bookDescriptionWrapper {
+    margin-top: 32px;
+  }
+
+  .bookTextField {
+    width: 100%;
+  }
+
+  .bookTextFieldSelect {
+    width: 100%;
+  }
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .buttonWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 64px;
+  }
+
+  .formColumnWrapper {
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: 780px) {
+  .outerWrapper {
+    padding-inline: 32px;
+  }
+
+  .backButton {
+    display: none;
+  }
+
+  .dividerUnderBackButton {
+    display: none;
+  }
+
+  .dot {
+    font-size: 48px;
+    font-weight: 600;
+  }
+
+  .backButtonText {
+    font-size: 48px;
+  }
+
+  .formWrapper {
+    margin-top: 40px;
+    margin-bottom: 80px;
+  }
+
+  .wrapper {
+    margin-top: 0;
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: 460px) {
+  .buttonWrapper {
+    justify-content: space-between;
+  }
+}
