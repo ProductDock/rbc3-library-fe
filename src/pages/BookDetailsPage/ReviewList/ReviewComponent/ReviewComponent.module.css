@@ -29,6 +29,10 @@
   flex-direction: row;
 }
 
+.hideActionIcons {
+  display: none;
+}
+
 .avatarImgWrapper {
   padding-right: 26px;
 }

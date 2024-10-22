@@ -26,6 +26,10 @@ interface Review {
 
 const ReviewList = () => {
   const [reviews, setReviews] = useState<Review[]>([])
+  const averageRating =
+    reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
+
+  const roundedAverageRating = averageRating.toFixed(1)
 
   useEffect(() => {
     fetch('http://localhost:3000/reviews')
@@ -46,13 +50,13 @@ const ReviewList = () => {
             alt='review_star'
           />
           <Typography variant='h6' className={style.ratingText}>
-            4.3
+            {roundedAverageRating}
           </Typography>
           <Typography variant='h6' className={style.ratingDot}>
             ·
           </Typography>
           <Typography variant='h6' className={style.ratingText}>
-            Reviews (24){' '}
+            Reviews ({reviews.length}){' '}
           </Typography>
         </div>
         <div className={style.leaveReviewButtonWrapper}>
@@ -70,12 +74,6 @@ const ReviewList = () => {
             <Divider className={style.reviewDivider} />
           </div>
         ))}
-        {/* <ReviewComponent />
-        <Divider className={style.reviewDivider} />
-
-        <ReviewComponent />
-
-        <Divider className={style.reviewDivider} /> */}
       </div>
     </div>
   )

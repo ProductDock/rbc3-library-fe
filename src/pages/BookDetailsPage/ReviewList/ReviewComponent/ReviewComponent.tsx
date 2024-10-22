@@ -31,6 +31,8 @@ interface ReviewProps {
 }
 
 const ReviewComponent = ({ review }: ReviewProps) => {
+  const loggedUserId = '1'
+
   return (
     <div className={style.reviewWrapper}>
       <div className={style.reviewTopSectionWrapper}>
@@ -47,7 +49,13 @@ const ReviewComponent = ({ review }: ReviewProps) => {
             </Typography>
           </div>
         </div>
-        <div className={style.actionIconsWrapper}>
+        <div
+          className={
+            loggedUserId === review.user.id
+              ? style.actionIconsWrapper
+              : style.hideActionIcons
+          }
+        >
           <IconButton>
             <img src={editIcon} alt='edit_icon' />
           </IconButton>
@@ -59,11 +67,14 @@ const ReviewComponent = ({ review }: ReviewProps) => {
       </div>
       <div className={style.reviewContentWrapper}>
         <div>
-          <img className={style.starIcon} src={starYellow} alt='star_yellow' />
-          <img className={style.starIcon} src={starGrey} alt='star_gray' />
-          <img className={style.starIcon} src={starGrey} alt='star_gray' />
-          <img className={style.starIcon} src={starGrey} alt='star_gray' />
-          <img src={starGrey} alt='star_gray' />
+          {[...Array(5)].map((_, index) => (
+            <img
+              key={index}
+              className={style.starIcon}
+              src={index < review.rating ? starYellow : starGrey}
+              alt='rating_star'
+            />
+          ))}
         </div>
         <Typography variant='body1' className={style.reviewContentText}>
           {review.content}
@@ -71,7 +82,7 @@ const ReviewComponent = ({ review }: ReviewProps) => {
         <Typography variant='body1' className={style.recommendedTo}>
           Recommended to
           <Typography component='span' className={style.recommendedBold}>
-            : {review.recommendedFor.seniority}
+            : {review.recommendedFor.seniority.join(', ')}
           </Typography>
         </Typography>
       </div>

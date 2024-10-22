@@ -46,7 +46,7 @@ export const handlers = [
       },
       {
         id: '2',
-        rating: 5,
+        rating: 4,
         content:
           'The book continues by suggesting that you can improve your decisions by improving your knowledge' +
           ' about what other people think. Political pollsters ask people how they would vote today, and not some point' +
