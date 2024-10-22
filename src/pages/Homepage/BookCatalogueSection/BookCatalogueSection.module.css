@@ -70,6 +70,8 @@
 
 .statusForm {
   font-weight: 800;
+  padding-top: 1px;
+  font-size: 16px;
 }
 
 .suggestButtonText {
