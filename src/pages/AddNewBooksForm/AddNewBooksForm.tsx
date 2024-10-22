@@ -47,7 +47,10 @@ const AddNewBooksForm = () => {
   const [amount, setAmount] = useState(1)
   const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
-  // const [newBook, setNewBook] = useState([])
+  const [titleError, setTitleError] = useState(false)
+  const [authorError, setAuthorError] = useState(false)
+  const [amountError, setAmountError] = useState(false)
+  const [descriptionError, setDescriptionError] = useState(false)
 
   const handleCategoryChange = (
     event: SelectChangeEvent<typeof bookCategory>
@@ -108,16 +111,29 @@ const AddNewBooksForm = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
+    let hasErrors = false
 
-    if (!title || !author || !description) {
-      alert('Please fill out all required fields.')
-      return
+    if (title == '') {
+      setTitleError(true)
+      hasErrors = true
+    }
+
+    if (author == '') {
+      setAuthorError(true)
+      hasErrors = true
+    }
+
+    if (description == '') {
+      setDescriptionError(true)
+      hasErrors = true
     }
 
     if (amount <= 0) {
-      alert('Amount has to be greater than 0.')
-      return
+      setAmountError(true)
+      hasErrors = true
     }
+
+    if (hasErrors) return
 
     const newBook = {
       title,
@@ -135,6 +151,42 @@ const AddNewBooksForm = () => {
       },
       body: JSON.stringify(newBook),
     }).then(response => response.json())
+  }
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value)
+    if (e.target.value != '') {
+      setTitleError(false)
+    } else {
+      setTitleError(true)
+    }
+  }
+
+  const handleAuthorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAuthor(e.target.value)
+    if (e.target.value != '') {
+      setAuthorError(false)
+    } else {
+      setAuthorError(true)
+    }
+  }
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(Number(e.target.value))
+    if (Number(e.target.value) > 0) {
+      setAmountError(false)
+    } else {
+      setAmountError(true)
+    }
+  }
+
+  const handleDescritionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(e.target.value)
+    if (e.target.value != '') {
+      setDescriptionError(false)
+    } else {
+      setDescriptionError(true)
+    }
   }
 
   return (
@@ -174,7 +226,9 @@ const AddNewBooksForm = () => {
                   className={style.bookTextField}
                   placeholder='Enter the book title'
                   value={title}
-                  onChange={e => setTitle(e.target.value)}
+                  onChange={handleTitleChange}
+                  error={titleError}
+                  helperText={titleError ? 'Please enter book title.' : ''}
                   InputProps={{
                     sx: {
                       borderRadius: 0,
@@ -204,7 +258,9 @@ const AddNewBooksForm = () => {
                   className={style.bookTextField}
                   placeholder='Who is the author of the book?'
                   value={author}
-                  onChange={e => setAuthor(e.target.value)}
+                  onChange={handleAuthorChange}
+                  error={authorError}
+                  helperText={authorError ? 'Please enter book author.' : ''}
                   InputProps={{
                     sx: {
                       borderRadius: 0,
@@ -304,7 +360,11 @@ const AddNewBooksForm = () => {
                   className={style.bookTextField}
                   type='number'
                   value={amount}
-                  onChange={e => setAmount(Number(e.target.value))}
+                  onChange={handleAmountChange}
+                  error={amountError}
+                  helperText={
+                    amountError ? 'Amount should be greater than 0.' : ''
+                  }
                   InputProps={{
                     sx: {
                       borderRadius: 0,
@@ -342,7 +402,11 @@ const AddNewBooksForm = () => {
               className={style.bookDescriptionTextField}
               multiline
               value={description}
-              onChange={e => setDescription(e.target.value)}
+              onChange={handleDescritionChange}
+              error={descriptionError}
+              helperText={
+                descriptionError ? 'Please enter book description.' : ''
+              }
               rows={6}
               placeholder='Enter a description'
               InputProps={{
