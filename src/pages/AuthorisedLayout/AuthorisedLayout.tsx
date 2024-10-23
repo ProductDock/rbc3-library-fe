@@ -9,7 +9,7 @@ const AuthorisedLayout = () => {
 
   const [showBackButton, setShowBackButton] = useState(false)
 
-  const isMobile = useMediaQuery('(max-width: 600px)')
+  const isMobile = useMediaQuery('(max-width: 450px)')
 
   useEffect(() => {
     if (location.pathname === '/book' && isMobile) {
@@ -19,13 +19,9 @@ const AuthorisedLayout = () => {
     }
   }, [location, isMobile])
 
-  const handleBackClick = () => {
-    //TODO: Implement back button functionality
-  }
-
   return (
     <div>
-      <Header showBackButton={showBackButton} onBackClick={handleBackClick} />
+      <Header showBackButton={showBackButton} />
       <Outlet />
       <Footer />
     </div>

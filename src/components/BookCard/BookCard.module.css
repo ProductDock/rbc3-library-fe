@@ -55,8 +55,7 @@
 .author {
   text-decoration: underline;
   font-weight: 500;
-  font-weight: 500;
-  color: #646d75;
+  color: var(--mui-palette-neutral-500);
 
   @media (max-width: 450px) {
     /* margin-top: ; */

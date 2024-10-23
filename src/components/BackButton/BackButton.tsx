@@ -13,7 +13,9 @@ const BackButton: React.FC<BackButtonProps> = ({ onClick, className }) => {
     <div className={className}>
       <Button onClick={onClick}>
         <img src={backButton} alt='back' className={styles.backIcon} />
-        <Typography>Back</Typography>
+        <Typography variant='body1' className={styles.buttonText}>
+          Back
+        </Typography>
       </Button>
     </div>
   )
