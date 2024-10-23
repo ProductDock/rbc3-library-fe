@@ -1,25 +1,32 @@
-import { AppBar, Box, Toolbar } from '@mui/material'
+import { AppBar, Box, Toolbar, useMediaQuery } from '@mui/material'
 import { Logo } from './Logo'
 import { MenuItems } from './MenuItems'
-
 import styles from './Header.module.css'
-import { BackButton } from '../BackButton'
+import { useLocation } from 'react-router-dom'
+import classNames from 'classnames'
+import { BackButton } from '../Shared'
 
-type HeaderProps = {
-  showBackButton?: boolean
-  onBackClick?: () => void
-}
+export const Header = () => {
+  const location = useLocation()
+  const isAddBooksPage = location.pathname === '/add-books'
+  const isBookDetailsPage = location.pathname === '/book'
+  const matches = useMediaQuery('(max-width:780px)')
 
-export const Header: React.FC<HeaderProps> = ({
-  showBackButton = false,
-  onBackClick,
-}) => {
   return (
     <Box className={styles.flex}>
-      <AppBar position='static' className={styles.appBar}>
-        <Toolbar className={styles.toolBar}>
-          {showBackButton ? (
-            <BackButton onClick={onBackClick} className={styles.backButton} />
+      <AppBar
+        position='static'
+        className={classNames(styles.appBar, {
+          [styles.appBarAddBooks]: isAddBooksPage && matches,
+        })}
+      >
+        <Toolbar
+          className={classNames(styles.toolBar, {
+            [styles.toolBarAddBooks]: isAddBooksPage && matches,
+          })}
+        >
+          {(isAddBooksPage || isBookDetailsPage) && matches ? (
+            <BackButton />
           ) : (
             <Logo />
           )}

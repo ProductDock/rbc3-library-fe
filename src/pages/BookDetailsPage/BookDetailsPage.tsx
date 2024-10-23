@@ -2,11 +2,10 @@ import styles from './BookDetailsPage.module.css'
 import { Button, Divider, Typography, useMediaQuery } from '@mui/material'
 import { BookStatusPanel } from '../../components/BookStatusPanel'
 import bookCover from '../../assets/bookCover.svg'
-import { BackButton } from '../../components/BackButton'
 import { EditButton } from '../../components/EditButton'
 import { DeleteButton } from '../../components/DeleteButton'
-import { useNavigate } from 'react-router-dom'
 import { BookCard } from '../../components/BookCard'
+import { BackButton } from '../../components/Shared'
 
 type BookDetailsPageProps = {
   isUserAdmin: boolean
@@ -14,14 +13,6 @@ type BookDetailsPageProps = {
 
 const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
   const matchesMobile = useMediaQuery('(max-width:450px)')
-  const matchesMiddleScreen = useMediaQuery(
-    '(min-width: 450px) && (max-width: 1300px)'
-  )
-  const navigate = useNavigate()
-
-  const handleBackClick = () => {
-    navigate(-1)
-  }
 
   return (
     <div className={styles.wrapper}>
@@ -39,11 +30,9 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
           <div className={styles.bookInfoWrapper}>
             <div className={styles.bookInfo}>
               <div className={styles.buttons}>
-                <div className={styles.back}>
-                  {!matchesMobile && !matchesMiddleScreen && (
-                    <BackButton onClick={handleBackClick} />
-                  )}
-                </div>
+                {/* <div className={styles.back}>
+                  {!matchesMobile && <BackButton />}
+                </div> */}
                 <div
                   className={
                     isUserAdmin ? styles.adminButtonGroup : styles.buttonGroup
@@ -79,9 +68,7 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
             </div>
             <div className={styles.bookVisual}>
               <div className={styles.midScreenBackButton}>
-                {matchesMiddleScreen && (
-                  <BackButton onClick={handleBackClick} />
-                )}
+                <BackButton />
               </div>
               <div className={styles.bookImage}>
                 <img src={bookCover} alt='book' className={styles.image} />
