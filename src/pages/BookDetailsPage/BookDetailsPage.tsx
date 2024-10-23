@@ -30,9 +30,9 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
           <div className={styles.bookInfoWrapper}>
             <div className={styles.bookInfo}>
               <div className={styles.buttons}>
-                {/* <div className={styles.back}>
+                <div className={styles.back}>
                   {!matchesMobile && <BackButton />}
-                </div> */}
+                </div>
                 <div
                   className={
                     isUserAdmin ? styles.adminButtonGroup : styles.buttonGroup

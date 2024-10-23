@@ -5,7 +5,7 @@
 }
 
 .bookWrapper {
-  margin-top: 200px;
+  margin-top: 90px;
   padding-left: 110px;
   width: 1280px;
   display: flex;
@@ -158,9 +158,20 @@
 .midScreenBackButton {
   width: 100%;
   display: flex;
+  margin-left: -50px;
   align-items: flex-start;
 
-  @media (max-width: 780px) {
+  @media (min-width: 1300px) {
+    display: none;
+  }
+
+  @media (max-width: 780px) and (min-width: 450px) {
+    display: none;
+  }
+}
+
+.back {
+  @media (max-width: 1300px) and (min-width: 450px) {
     display: none;
   }
 }

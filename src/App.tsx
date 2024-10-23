@@ -25,11 +25,6 @@ function App() {
               index
               element={<BookDetailsPage isUserAdmin={false} />}
             />
-            <Route
-              path='/manager/book'
-              index
-              element={<BookDetailsPage isUserAdmin={true} />}
-            />
           </Route>
           <Route path='/login' element={<LoginPage />} />
           <Route path='/testing' element={<TestingPage />} />
