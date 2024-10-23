@@ -15,12 +15,11 @@ import {
 } from '@mui/material'
 import style from './AddNewBooksForm.module.css'
 import { useState } from 'react'
-import backArrow from '../../assets/backArrow.svg'
-import { useNavigate } from 'react-router-dom'
 import checkbox from '../../assets/checkbox.svg'
 import checkedCheckbox from '../../assets/checkboxChecked.svg'
 import indeterminateCheckbox from '../../assets/checkboxIndeterminate.svg'
 import { SelectCover } from './SelectCover'
+import { BackButton } from '../../components/Shared'
 
 const AddNewBooksForm = () => {
   const ITEM_HEIGHT = 48
@@ -97,11 +96,6 @@ const AddNewBooksForm = () => {
 
   const isIndeterminate =
     bookCategory.length > 0 && bookCategory.length < categories.length
-
-  const navigate = useNavigate()
-  const goBack = () => {
-    navigate(-1)
-  }
 
   const matches = useMediaQuery('(max-width: 780px)')
 
@@ -192,12 +186,9 @@ const AddNewBooksForm = () => {
   return (
     <div className={style.outerWrapper}>
       <div className={style.formWrapper}>
-        <Button className={style.backButton} onClick={goBack}>
-          <img src={backArrow} alt='back_arrow' />
-          <Typography variant='body1' className={style.backButtonText}>
-            Back
-          </Typography>
-        </Button>
+        <div className={style.backButton}>
+          <BackButton />
+        </div>
         <Divider className={style.dividerUnderBackButton} />
         <div className={style.wrapper}>
           <Typography variant={matches ? 'subtitle1' : 'h3'}>
