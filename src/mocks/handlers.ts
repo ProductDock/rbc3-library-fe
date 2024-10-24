@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw'
+import testPurposeFixture from './fixtures/testPurposesFixture.json'
 
 export const handlers = [
   http.get('http://localhost:3000/books', () => {
@@ -31,6 +32,12 @@ export const handlers = [
       }
     )
   }),
+
+  http.get('http://localhost:8080/test', () => {
+    // ...and respond to them using this JSON response.
+    return HttpResponse.json(testPurposeFixture.testEndpoint)
+  }),
+
   /*
      http.post('http://localhost:3000/add-book', () => {
     return new HttpResponse(null, {
