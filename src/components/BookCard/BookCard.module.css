@@ -56,10 +56,6 @@
   text-decoration: underline;
   font-weight: 500;
   color: var(--mui-palette-neutral-500);
-
-  @media (max-width: 450px) {
-    /* margin-top: ; */
-  }
 }
 
 .bookTitle {
