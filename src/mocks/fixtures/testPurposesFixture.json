@@ -1,0 +1,7 @@
+{
+  "count": 1,
+  "testEndpoint": [
+    { "info": "1", "info2": 2, "info3": "Test" },
+    { "info": "7", "info2": 1, "info3": "Test2" }
+  ]
+}

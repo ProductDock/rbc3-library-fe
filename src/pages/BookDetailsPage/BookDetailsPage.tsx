@@ -1,4 +1,4 @@
-import styles from './BookDetailsPage.module.css'
+import { useEffect, useState } from 'react'
 import { Button, Divider, Typography, useMediaQuery } from '@mui/material'
 import { BookStatusPanel } from '../../components/BookStatusPanel'
 import bookCover from '../../assets/bookCover.svg'
@@ -6,6 +6,10 @@ import { EditButton } from '../../components/EditButton'
 import { DeleteButton } from '../../components/DeleteButton'
 import { BookCard } from '../../components/BookCard'
 import { BackButton } from '../../components/Shared'
+import ApiService from '../../shared/api/apiService'
+import { TestList } from '../../shared/types'
+
+import styles from './BookDetailsPage.module.css'
 
 type BookDetailsPageProps = {
   isUserAdmin: boolean
@@ -13,6 +17,17 @@ type BookDetailsPageProps = {
 
 const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
   const matchesMobile = useMediaQuery('(max-width:450px)')
+  const [testData, setTestData] = useState<Array<TestList>>([])
+
+  useEffect(() => {
+    ApiService.fetchMockData()
+      .then((testList: TestList[]) => {
+        setTestData(testList)
+      })
+      .catch(() => {
+        console.log('Ups')
+      })
+  }, [])
 
   return (
     <div className={styles.wrapper}>
@@ -79,6 +94,12 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
 
         <div className={styles.descriptionWrapper}>
           <div className={styles.bookDescription}>
+            {testData &&
+              testData.map((info, index) => (
+                <p key={index}>
+                  {info.info} {info.info2} {info.info3}
+                </p>
+              ))}
             <div className={styles.header}>
               <Typography variant='h6' className={styles.headerText}>
                 Description:
