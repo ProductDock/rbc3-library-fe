@@ -1,8 +1,3 @@
-.reviewListWrapper {
-  max-width: 662px;
-  margin: 200px;
-}
-
 .leaveReviewWrapper {
   display: flex;
   flex-direction: row;
@@ -50,13 +45,7 @@
   margin-top: 64px;
 }
 
-@media (max-width: 780px) {
-  .reviewListWrapper {
-    margin: 32px;
-  }
-}
-
-@media (max-width: 475px) {
+@media (max-width: 600px) {
   .leaveReviewWrapper {
     flex-direction: column;
   }

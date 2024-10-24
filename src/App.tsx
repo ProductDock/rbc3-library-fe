@@ -7,7 +7,6 @@ import theme from './theme/theme'
 import { CssBaseline } from '@mui/material'
 import { ManagerHomepage } from './pages/ManagerHomepage'
 import { TestingPage } from './pages/TestingPage'
-import { ReviewList } from './pages/BookDetailsPage/ReviewList'
 import { BookDetailsPage } from './pages/BookDetailsPage'
 import { AddNewBooksForm } from './pages/AddNewBooksForm'
 
@@ -21,7 +20,6 @@ function App() {
             <Route index element={<Homepage />} />
             <Route path='/add-books' element={<AddNewBooksForm />} />
             <Route path='/admin' element={<ManagerHomepage />} />
-            <Route path='/fake-book-details' element={<ReviewList />} />
             <Route
               path='/book'
               index

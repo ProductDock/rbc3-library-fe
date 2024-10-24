@@ -3,6 +3,7 @@ import style from './ReviewList.module.css'
 import { ReviewComponent } from './ReviewComponent'
 import reviewStar from './../../../assets/totalReviewStar.svg'
 import { useEffect, useState } from 'react'
+import { ReviewForm } from '../../ReviewForm'
 
 interface User {
   id: string
@@ -40,8 +41,13 @@ const ReviewList = () => {
       })
       .catch(error => console.error('Error fetching reviews:', error))
   }, [])
+
+  const [open, setOpen] = useState(false)
+  const toggleDrawer = (newOpen: boolean) => {
+    setOpen(newOpen)
+  }
   return (
-    <div className={style.reviewListWrapper}>
+    <div>
       <div className={style.leaveReviewWrapper}>
         <div className={style.totalRatingWrapper}>
           <img
@@ -60,11 +66,15 @@ const ReviewList = () => {
           </Typography>
         </div>
         <div className={style.leaveReviewButtonWrapper}>
-          <Button className={style.leaveReviewButton}>
+          <Button
+            className={style.leaveReviewButton}
+            onClick={() => toggleDrawer(true)}
+          >
             <Typography variant='body1' className={style.leaveReviewButtonText}>
               Leave a review
             </Typography>
           </Button>
+          <ReviewForm open={open} toggleDrawer={toggleDrawer} />
         </div>
       </div>
       <div>

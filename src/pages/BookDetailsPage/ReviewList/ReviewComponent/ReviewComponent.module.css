@@ -1,8 +1,6 @@
 .reviewWrapper {
   width: 100%;
   margin-top: 64px;
-  /* display: flex;
-  flex-direction: row; */
 }
 
 .reviewTopSectionWrapper {
@@ -20,7 +18,6 @@
 .nameAndDate {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: center;
 }
 
@@ -57,7 +54,6 @@
 
 .reviewContentText {
   color: var(--mui-palette-neutral-500);
-  /* padding-right: 10px; */
   letter-spacing: -0.03em;
   margin-block: 20px;
 }
@@ -75,7 +71,7 @@
   margin-right: 4px;
 }
 
-@media (max-width: 475px) {
+@media (max-width: 600px) {
   .reviewContentWrapper {
     padding-left: 0;
   }

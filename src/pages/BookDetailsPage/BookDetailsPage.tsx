@@ -6,6 +6,7 @@ import { EditButton } from '../../components/EditButton'
 import { DeleteButton } from '../../components/DeleteButton'
 import { BookCard } from '../../components/BookCard'
 import { BackButton } from '../../components/Shared'
+import { ReviewList } from './ReviewList'
 
 type BookDetailsPageProps = {
   isUserAdmin: boolean
@@ -119,7 +120,9 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
               </Button>
             </div>
             <Divider className={styles.leftLower} />
-            <div className={styles.commentSection}></div>
+            <div>
+              <ReviewList />
+            </div>
           </div>
 
           <div className={styles.rentOptions}>
