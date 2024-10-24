@@ -9,6 +9,7 @@ import { BackButton } from '../Shared'
 export const Header = () => {
   const location = useLocation()
   const isAddBooksPage = location.pathname === '/add-books'
+  const isBookDetailsPage = location.pathname === '/book'
   const matches = useMediaQuery('(max-width:780px)')
 
   return (
@@ -24,7 +25,11 @@ export const Header = () => {
             [styles.toolBarAddBooks]: isAddBooksPage && matches,
           })}
         >
-          {isAddBooksPage && matches ? <BackButton /> : <Logo />}
+          {(isAddBooksPage || isBookDetailsPage) && matches ? (
+            <BackButton />
+          ) : (
+            <Logo />
+          )}
           <MenuItems />
         </Toolbar>
       </AppBar>
