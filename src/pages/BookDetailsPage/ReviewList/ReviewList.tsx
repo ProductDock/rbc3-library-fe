@@ -36,7 +36,6 @@ const ReviewList = () => {
     fetch('http://localhost:3000/reviews')
       .then(response => response.json())
       .then(data => {
-        console.log('Fetched Reviews:', data)
         setReviews(data)
       })
       .catch(error => console.error('Error fetching reviews:', error))
