@@ -8,6 +8,7 @@ import { CssBaseline } from '@mui/material'
 import { ManagerHomepage } from './pages/ManagerHomepage'
 import { TestingPage } from './pages/TestingPage'
 import { ReviewList } from './pages/BookDetailsPage/ReviewList'
+import { BookDetailsPage } from './pages/BookDetailsPage'
 import { AddNewBooksForm } from './pages/AddNewBooksForm'
 
 function App() {
@@ -21,6 +22,11 @@ function App() {
             <Route path='/add-books' element={<AddNewBooksForm />} />
             <Route path='/admin' element={<ManagerHomepage />} />
             <Route path='/fake-book-details' element={<ReviewList />} />
+            <Route
+              path='/book'
+              index
+              element={<BookDetailsPage isUserAdmin={false} />}
+            />
           </Route>
           <Route path='/login' element={<LoginPage />} />
           <Route path='/testing' element={<TestingPage />} />

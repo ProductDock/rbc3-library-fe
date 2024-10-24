@@ -9,9 +9,16 @@ import BookManagmentIcons from '../BookCardOfficeManager/BookManagmentIcons/Book
 type BookCardProps = {
   inFavorites: boolean
   isAdmin?: boolean
+  title?: string
+  author?: string
 }
 
-const BookCard: React.FC<BookCardProps> = ({ inFavorites, isAdmin }) => {
+const BookCard: React.FC<BookCardProps> = ({
+  inFavorites,
+  isAdmin,
+  title,
+  author,
+}) => {
   return (
     <div className={styles.bookCard}>
       {isAdmin ? (
@@ -22,15 +29,17 @@ const BookCard: React.FC<BookCardProps> = ({ inFavorites, isAdmin }) => {
       <div className={styles.cardContent}>
         <div className={isAdmin ? styles.infoAdminView : styles.info}>
           <Typography variant='body1' className={styles.author}>
-            Author placeholder
+            {author || 'Author placeholder'}
           </Typography>
           <Typography variant='h5' className={styles.bookTitle}>
-            Book title placeholder
+            {title || 'Book title placeholder'}
           </Typography>
           {!isAdmin && <Divider className={styles.divider} />}
           <div className={styles.bookStatusPanel}>
-            <BookStatusPanel />
-            <div>{isAdmin && <Divider className={styles.divider} />}</div>
+            <div className={styles.statusPanel}>
+              <BookStatusPanel layoutDirection={'rating-left'} />
+            </div>
+            <div>{isAdmin && <Divider className={styles.adminDivider} />}</div>
           </div>
           {isAdmin && (
             <div className={styles.managmentIcons}>
