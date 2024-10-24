@@ -5,16 +5,25 @@ import { Status } from './BookStatus/Status'
 import styles from './BookStatusPanel.module.css'
 
 type BookStatusPanelProps = {
-  isAdmin?: boolean
+  layoutDirection: 'rating-left' | 'status-left'
 }
 
 export const BookStatusPanel: React.FC<BookStatusPanelProps> = ({
-  isAdmin,
+  layoutDirection,
 }) => {
   return (
-    <div className={isAdmin ? styles.statusPanelAdmin : styles.statusPanel}>
-      <BookStatus status={Status.RENTED} />
-      <BookRating rating={4.5} />
+    <div className={styles.statusPanel}>
+      {layoutDirection === 'rating-left' ? (
+        <>
+          <BookRating rating={4.5} />
+          <BookStatus status={Status.APPROVED} />
+        </>
+      ) : (
+        <>
+          <BookStatus status={Status.APPROVED} />
+          <BookRating rating={4.5} />
+        </>
+      )}
     </div>
   )
 }

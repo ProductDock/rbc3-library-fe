@@ -19,7 +19,7 @@ const BookCardOfficeManager = () => {
             Book Title placeholder
           </Typography>
           <div className={styles.bookStatusPanelAdmin}>
-            <BookStatusPanel isAdmin={true} />
+            <BookStatusPanel layoutDirection={'status-left'} />
           </div>
         </div>
         <div className={styles.bookManagmentIconsView}>

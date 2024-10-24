@@ -1,18 +1,5 @@
 .statusPanel {
-  width: 250px;
-  height: 32px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  @media (max-width: 450px) {
-    width: 316px;
-  }
-}
-
-.statusPanelAdmin {
-  width: 172px;
+  width: 100%;
   height: 32px;
   display: flex;
   flex-direction: row;

@@ -1,0 +1,246 @@
+.reviewFormContainer {
+  max-width: 604px;
+  width: 100%;
+  height: 100%;
+  @media (max-width: 800px) {
+    max-width: 450px;
+    width: 100%;
+    display: flex;
+    margin-right: 0;
+  }
+  @media (max-width: 500px) {
+    width: 316px;
+    display: flex;
+  }
+}
+.headerText {
+  font-weight: 600;
+}
+
+.formContainer {
+  max-width: 560px;
+  width: 100%;
+  height: 100%;
+  margin-left: 120px;
+  margin-top: 30px;
+  gap: 48px;
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    margin-left: 32px;
+    margin-top: 0px;
+  }
+}
+
+.closeBar {
+  max-height: 28px;
+  width: 28px;
+  margin-left: 604px;
+  margin-top: 48px;
+  @media (max-width: 800px) {
+    margin-left: 520px;
+  }
+  @media (max-width: 700px) {
+    margin-left: 450px;
+  }
+  @media (max-width: 500px) {
+    margin-top: 28px;
+    margin-left: 324px;
+  }
+}
+
+.headerAndRatingContainer {
+  width: 100%;
+  height: 100%;
+  max-height: 249px;
+}
+
+.headerContainer {
+  width: 100%;
+  height: 100%;
+  max-height: 48px;
+  display: flex;
+  justify-content: start;
+  margin-bottom: 64px;
+  @media (max-width: 500px) {
+    margin-bottom: 48px;
+  }
+}
+
+.ratingContainer {
+  width: 100%;
+  height: 100%;
+  max-height: 88px;
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @media (max-width: 500px) {
+    margin-bottom: 40px;
+  }
+}
+
+.rateText {
+  font-weight: 600;
+}
+
+.star {
+  color: var(--mui-palette-neutral-400);
+  margin-left: 1px;
+}
+
+.starContainer {
+  max-height: 28px;
+  height: 100%;
+  width: 172px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  @media (max-width: 500px) {
+    margin-top: 24px;
+    margin-bottom: 40px;
+  }
+}
+
+.recomendationContainer {
+  width: 100%;
+  height: 100%;
+  max-height: 96px;
+  margin-top: 48px;
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @media (max-width: 800px) {
+    margin-bottom: 40px;
+    margin-top: 40px;
+    max-height: 244px;
+  }
+}
+
+.recomentationHeaderText {
+  font-weight: 600;
+}
+
+.filledStar {
+  color: var(--mui-palette-warning-300);
+}
+
+.checkBoxWrapper {
+  width: 100%;
+  height: 100%;
+  max-height: 28px;
+  display: flex;
+  margin-top: 32px;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin-left: -10px;
+  gap: 32px;
+  @media (max-width: 800px) {
+    max-height: 244px;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
+}
+
+.checkBox {
+  color: var(--mui-palette-neutral-600);
+}
+
+.customCheckBox {
+  color: var(--mui-palette-neutral-50);
+  stroke: var(--mui-palette-neutral-600);
+  stroke-width: 2px;
+}
+
+.checkBoxElements {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.textFieldContainer {
+  width: 100%;
+  max-height: 168px;
+  height: 100%;
+  display: flex;
+  margin-top: 48px;
+  flex-direction: column;
+  justify-content: space-between;
+  @media (max-width: 500px) {
+    margin-top: 40px;
+  }
+}
+
+.reviewHeader {
+  width: 100%;
+  height: 100%;
+  max-height: 28px;
+}
+.textArea {
+  margin-top: 32px;
+  width: 100%;
+  @media (max-width: 500px) {
+    width: 316px;
+    margin-top: 16px;
+  }
+}
+
+.textAreaWrapper {
+  width: 100%;
+}
+
+.buttonContainer {
+  width: 100%;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: end;
+  @media (max-width: 450px) {
+    margin-top: 64px;
+    flex-direction: column-reverse;
+    height: 168px;
+    padding: 0px 0px 40px 0px;
+    gap: 24px;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+.cancelButton {
+  height: 52px;
+  width: 140px;
+  background-color: var(--mui-palette-neutral-50);
+  border-radius: 0;
+  border: 1px solid var(--mui-palette-neutral-600);
+  text-transform: none;
+  color: var(--mui-palette-neutral-600);
+  @media (max-width: 450px) {
+    width: 100%;
+  }
+}
+
+.cancelButtonText {
+  font-weight: 600;
+}
+
+.submitButton {
+  height: 52px;
+  width: 140px;
+  background-color: var(--mui-palette-neutral-600);
+  border-radius: 0;
+  text-transform: none;
+  color: var(--mui-palette-neutral-50);
+  margin-left: 24px;
+  @media (max-width: 450px) {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+.submitButtonText {
+  font-weight: 600;
+}
