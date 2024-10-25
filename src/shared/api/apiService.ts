@@ -16,6 +16,16 @@ class Service implements ApiService {
       .then(response => response.json())
   }
 
+  fetchBooksData = async () => {
+    return fetch('http://localhost:8080/books', {
+      method: 'GET',
+      credentials: 'same-origin',
+      headers: this.getHeaders(),
+    })
+      .then(response => Service.handleErrors(response))
+      .then(response => response.json())
+  }
+
   private getHeaders(additionalHeaders: Headers = {}): Headers {
     const headers: Headers = { ...this.headers, ...additionalHeaders }
     return headers

@@ -15,7 +15,7 @@ import { FiltersSideBar } from './FiltersSideBar'
 import { BookCard } from '../../../components/BookCard'
 import { useMediaQuery } from '@mui/material'
 import { BookCatalogueCardOfficeManager } from '../../../components/BookCardOfficeManager'
-import { TestList } from '../../../shared/types'
+import { BooksList } from '../../../shared/types'
 import ApiService from '../../../shared/api/apiService'
 
 import styles from './BookCatalogueSection.module.css'
@@ -53,12 +53,12 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
     'All',
   ])
   const [open, setOpen] = useState(false)
-  const [testData, setTestData] = useState<Array<TestList>>([])
+  const [booksData, setBooksData] = useState<Array<BooksList>>([])
 
   useEffect(() => {
-    ApiService.fetchMockData()
-      .then((testList: TestList[]) => {
-        setTestData(testList)
+    ApiService.fetchBooksData()
+      .then((booksList: BooksList[]) => {
+        setBooksData(booksList)
       })
       .catch(() => {
         console.log('Ups')
@@ -239,8 +239,8 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
       )}
       {!isAdmin && (
         <div className={styles.books}>
-          {testData &&
-            testData.map((info, index) => <p key={index}>{info.info3}</p>)}
+          {booksData &&
+            booksData.map((book, index) => <p key={index}>{book.title}</p>)}
           <BookCard inFavorites={true} />
           <BookCard inFavorites={false} />
           <BookCard inFavorites={true} />

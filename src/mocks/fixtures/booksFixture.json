@@ -1,0 +1,63 @@
+{
+  "content": [
+    {
+      "id": "book1",
+      "title": "Test Title",
+      "authors": [
+        {
+          "id": "author1",
+          "fullName": "Test Author"
+        }
+      ],
+      "imageUrl": "string",
+      "numberOfAvailableCopies": 0,
+      "usersWhoFavourited": ["string"],
+      "usersOnWaitingList": ["string"],
+      "usersWhoRented": ["string"],
+      "usersWhoReserved": ["string"],
+      "bookCategories": ["SOFTWARE_DEVELOPMENT"]
+    },
+    {
+      "id": "book2",
+      "title": "Test Title2",
+      "authors": [
+        {
+          "id": "author2",
+          "fullName": "Test Author2"
+        }
+      ],
+      "imageUrl": "string",
+      "numberOfAvailableCopies": 0,
+      "usersWhoFavourited": ["string"],
+      "usersOnWaitingList": ["string"],
+      "usersWhoRented": ["string"],
+      "usersWhoReserved": ["string"],
+      "bookCategories": ["SOFTWARE_DEVELOPMENT"]
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 12,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "offset": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "totalElements": 0,
+  "totalPages": 0,
+  "last": true,
+  "size": 12,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "numberOfElements": 0,
+  "first": true,
+  "empty": true
+}
