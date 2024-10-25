@@ -1,12 +1,12 @@
 import { http, HttpResponse } from 'msw'
 import testPurposeFixture from './fixtures/testPurposesFixture.json'
-// import booksFixture from '../mocks/fixtures/booksFixture.json'
+import booksFixture from '../mocks/fixtures/booksFixture.json'
 
 export const handlers = [
-  // http.get('http://localhost:8080/books', () => {
-  //   // ...and respond to them using this JSON response.
-  //   return HttpResponse.json(booksFixture.content)
-  // }),
+  http.get('http://localhost:8080/books', () => {
+    // ...and respond to them using this JSON response.
+    return HttpResponse.json(booksFixture)
+  }),
 
   http.post('http://localhost:3000/add-book', () => {
     return HttpResponse.json(

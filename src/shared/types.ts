@@ -53,9 +53,9 @@ export type BooksList = {
   ]
   imageUrl: string
   numberOfAvailableCopies: number
-  usersWhoFavourited: [string]
-  usersOnWaitingList: [string]
-  usersWhoRented: [string]
-  usersWhoReserved: [string]
-  bookCategories: [string]
+  usersWhoFavourited: string[]
+  usersOnWaitingList: string[]
+  usersWhoRented: string[]
+  usersWhoReserved: string[]
+  bookCategories: string[]
 }

@@ -1,16 +1,17 @@
 import React from 'react'
-import styles from './BookCard.module.css'
 import { Favorite } from './Favorite'
 import Divider from '@mui/material/Divider'
 import { BookStatusPanel } from '../BookStatusPanel'
 import { Typography } from '@mui/material'
 import BookManagmentIcons from '../BookCardOfficeManager/BookManagmentIcons/BookManagmentIcons'
 
+import styles from './BookCard.module.css'
+
 type BookCardProps = {
   inFavorites: boolean
   isAdmin?: boolean
   title?: string
-  author?: string
+  author?: string[]
 }
 
 const BookCard: React.FC<BookCardProps> = ({
