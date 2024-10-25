@@ -1,4 +1,4 @@
-import { API_URL, DATA_FETCH_ERROR } from '../../mocks/constants'
+import { API_URL, DATA_FETCH_ERROR } from '../constants'
 import { ApiService, Headers } from '../types'
 
 class Service implements ApiService {
