@@ -57,6 +57,7 @@ const AddNewBooksForm = () => {
       imageUrl: '',
     },
   ])
+  const [isAccordianExpanded, setIsAccordianExpanded] = useState(false)
 
   type Book = {
     title: string
@@ -76,16 +77,20 @@ const AddNewBooksForm = () => {
     bookImageUrl?: string
     addedBooks?: Book[]
     inAccordion?: boolean
+    isAccordianExpanded?: boolean
     setAddedBooks?: (addedBooks: Book[]) => void
   }
 
   const BookForm: React.FC<BookFormProps> = ({
     bookTitle = '',
     bookAuthor,
+    bookCategories,
     bookAmount,
     bookDescription,
+    bookImageUrl,
     addedBooks,
     inAccordion = false,
+    isAccordianExpanded = false,
     setAddedBooks,
   }) => {
     const [bookCategory, setBookCategory] = useState<string[]>([])
@@ -242,217 +247,234 @@ const AddNewBooksForm = () => {
         component='form'
         onSubmit={handleSubmit}
       >
-        <div className={style.formFlex}>
-          <div className={style.formColumnWrapper}>
-            <div>
+        {!isAccordianExpanded && (
+          <div>
+            <div className={style.formFlex}>
+              <div className={style.formColumnWrapper}>
+                <div>
+                  <FormLabel
+                    className={style.formLabelWrapper}
+                    required
+                    htmlFor='bookTitle'
+                  >
+                    <Typography variant='h6' className={style.formLabelText}>
+                      Title
+                    </Typography>
+                  </FormLabel>
+                  <TextField
+                    id='bookTitle'
+                    className={style.bookTextField}
+                    placeholder='Enter the book title'
+                    value={title}
+                    onChange={handleTitleChange}
+                    error={titleError}
+                    helperText={titleError ? 'Please enter book title.' : ''}
+                    InputProps={{
+                      readOnly: inAccordion,
+                      sx: {
+                        borderRadius: 0,
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderColor: 'var(--mui-palette-neutral-300)',
+                        },
+                        '& .MuiOutlinedInput-input': {
+                          height: '48px',
+                          padding: '0px 16px 0px 16px',
+                        },
+                      },
+                    }}
+                  ></TextField>
+                </div>
+                <div>
+                  <FormLabel
+                    className={style.formLabelWrapper}
+                    required
+                    htmlFor='bookAuthor'
+                  >
+                    <Typography variant='h6' className={style.formLabelText}>
+                      Author
+                    </Typography>
+                  </FormLabel>
+                  <TextField
+                    id='bookAuthor'
+                    className={style.bookTextField}
+                    placeholder='Who is the author of the book?'
+                    value={bookAuthor ? bookAuthor : author}
+                    onChange={handleAuthorChange}
+                    error={authorError}
+                    helperText={authorError ? 'Please enter book author.' : ''}
+                    InputProps={{
+                      readOnly: inAccordion,
+                      sx: {
+                        borderRadius: 0,
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderColor: 'var(--mui-palette-neutral-300)',
+                        },
+                        '& .MuiOutlinedInput-input': {
+                          height: '48px',
+                          padding: '0px 16px 0px 16px',
+                        },
+                      },
+                    }}
+                  ></TextField>
+                </div>
+                <div>
+                  <FormLabel
+                    className={style.formLabelWrapper}
+                    htmlFor='bookCategory'
+                  >
+                    <Typography variant='h6' className={style.formLabelText}>
+                      Categories
+                    </Typography>
+                  </FormLabel>
+                  <Select
+                    labelId='demo-multiple-checkbox-label'
+                    id='bookCategory'
+                    className={style.bookTextFieldSelect}
+                    multiple
+                    value={bookCategories ? bookCategories : bookCategory}
+                    onChange={handleCategoryChange}
+                    input={
+                      <OutlinedInput
+                        readOnly={inAccordion}
+                        sx={{
+                          '& .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'var(--mui-palette-neutral-300)',
+                          },
+                          '& .MuiSvgIcon-root': {
+                            color: 'var(--mui-palette-neutral-600)',
+                          },
+                        }}
+                      />
+                    }
+                    renderValue={selected =>
+                      selected.length === 0 ? (
+                        <Typography
+                          variant='body1'
+                          sx={{ color: 'var(--mui-palette-neutral-300)' }}
+                        >
+                          Select the book categories{' '}
+                        </Typography>
+                      ) : (
+                        selected.join(', ')
+                      )
+                    }
+                    MenuProps={MenuProps}
+                    displayEmpty
+                  >
+                    {categories.map(category => (
+                      <MenuItem key={category} value={category}>
+                        <Checkbox
+                          checked={bookCategory.includes(category)}
+                          size='small'
+                          icon={<img src={checkbox} alt='checkbox' />}
+                          checkedIcon={
+                            <img src={checkedCheckbox} alt='checkedCheckbox' />
+                          }
+                          indeterminate={
+                            category === 'All categories' && isIndeterminate
+                          }
+                          indeterminateIcon={
+                            <img
+                              src={indeterminateCheckbox}
+                              alt='indeterminateCheckbox'
+                            />
+                          }
+                        />
+                        <ListItemText
+                          primary={
+                            <Typography variant='h6'>{category}</Typography>
+                          }
+                        />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </div>
+                <div>
+                  <FormLabel
+                    className={style.formLabelWrapper}
+                    htmlFor='bookAmount'
+                  >
+                    <Typography variant='h6' className={style.formLabelText}>
+                      Amount
+                    </Typography>
+                  </FormLabel>
+                  <TextField
+                    id='bookAmount'
+                    className={style.bookTextField}
+                    type='number'
+                    value={bookAmount ? bookAmount : amount}
+                    onChange={handleAmountChange}
+                    error={amountError}
+                    helperText={
+                      amountError ? 'Amount should be greater than 0.' : ''
+                    }
+                    InputProps={{
+                      readOnly: inAccordion,
+                      sx: {
+                        borderRadius: 0,
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderColor: 'var(--mui-palette-neutral-300)',
+                        },
+                        '& .MuiOutlinedInput-input': {
+                          height: '48px',
+                          padding: '0px 16px 0px 16px',
+                        },
+                      },
+                    }}
+                  ></TextField>
+                </div>
+              </div>
+              <div className={style.imageDrop}>
+                <SelectCover
+                  bookImageUrl={bookImageUrl}
+                  imageUpload={handleImageUpload}
+                />
+              </div>
+            </div>
+            <div
+              style={{ width: '100%' }}
+              className={style.bookDescriptionWrapper}
+            >
               <FormLabel
                 className={style.formLabelWrapper}
                 required
-                htmlFor='bookTitle'
+                htmlFor='bookDescription'
               >
                 <Typography variant='h6' className={style.formLabelText}>
-                  Title
+                  Description
                 </Typography>
               </FormLabel>
               <TextField
-                id='bookTitle'
-                className={style.bookTextField}
-                placeholder='Enter the book title'
-                value={title}
-                onChange={handleTitleChange}
-                error={titleError}
-                helperText={titleError ? 'Please enter book title.' : ''}
+                id='bookDescription'
+                className={style.bookDescriptionTextField}
+                multiline
+                value={bookDescription ? bookDescription : description}
+                onChange={handleDescritionChange}
+                error={descriptionError}
+                helperText={
+                  descriptionError ? 'Please enter book description.' : ''
+                }
+                rows={6}
+                placeholder='Enter a description'
                 InputProps={{
                   readOnly: inAccordion,
                   sx: {
                     borderRadius: 0,
+                    width: '100%',
                     '& .MuiOutlinedInput-notchedOutline': {
                       borderColor: 'var(--mui-palette-neutral-300)',
                     },
                     '& .MuiOutlinedInput-input': {
-                      height: '48px',
-                      padding: '0px 16px 0px 16px',
+                      paddingLeft: '2px',
+                      paddingBottom: '7px',
                     },
                   },
                 }}
-              ></TextField>
-            </div>
-            <div>
-              <FormLabel
-                className={style.formLabelWrapper}
-                required
-                htmlFor='bookAuthor'
-              >
-                <Typography variant='h6' className={style.formLabelText}>
-                  Author
-                </Typography>
-              </FormLabel>
-              <TextField
-                id='bookAuthor'
-                className={style.bookTextField}
-                placeholder='Who is the author of the book?'
-                value={bookAuthor ? bookAuthor : author}
-                onChange={handleAuthorChange}
-                error={authorError}
-                helperText={authorError ? 'Please enter book author.' : ''}
-                InputProps={{
-                  sx: {
-                    borderRadius: 0,
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'var(--mui-palette-neutral-300)',
-                    },
-                    '& .MuiOutlinedInput-input': {
-                      height: '48px',
-                      padding: '0px 16px 0px 16px',
-                    },
-                  },
-                }}
-              ></TextField>
-            </div>
-            <div>
-              <FormLabel
-                className={style.formLabelWrapper}
-                htmlFor='bookCategory'
-              >
-                <Typography variant='h6' className={style.formLabelText}>
-                  Categories
-                </Typography>
-              </FormLabel>
-              <Select
-                labelId='demo-multiple-checkbox-label'
-                id='bookCategory'
-                className={style.bookTextFieldSelect}
-                multiple
-                value={bookCategory}
-                onChange={handleCategoryChange}
-                input={
-                  <OutlinedInput
-                    sx={{
-                      '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'var(--mui-palette-neutral-300)',
-                      },
-                      '& .MuiSvgIcon-root': {
-                        color: 'var(--mui-palette-neutral-600)',
-                      },
-                    }}
-                  />
-                }
-                renderValue={selected =>
-                  selected.length === 0 ? (
-                    <Typography
-                      variant='body1'
-                      sx={{ color: 'var(--mui-palette-neutral-300)' }}
-                    >
-                      Select the book categories{' '}
-                    </Typography>
-                  ) : (
-                    selected.join(', ')
-                  )
-                }
-                MenuProps={MenuProps}
-                displayEmpty
-              >
-                {categories.map(category => (
-                  <MenuItem key={category} value={category}>
-                    <Checkbox
-                      checked={bookCategory.includes(category)}
-                      size='small'
-                      icon={<img src={checkbox} alt='checkbox' />}
-                      checkedIcon={
-                        <img src={checkedCheckbox} alt='checkedCheckbox' />
-                      }
-                      indeterminate={
-                        category === 'All categories' && isIndeterminate
-                      }
-                      indeterminateIcon={
-                        <img
-                          src={indeterminateCheckbox}
-                          alt='indeterminateCheckbox'
-                        />
-                      }
-                    />
-                    <ListItemText
-                      primary={<Typography variant='h6'>{category}</Typography>}
-                    />
-                  </MenuItem>
-                ))}
-              </Select>
-            </div>
-            <div>
-              <FormLabel
-                className={style.formLabelWrapper}
-                htmlFor='bookAmount'
-              >
-                <Typography variant='h6' className={style.formLabelText}>
-                  Amount
-                </Typography>
-              </FormLabel>
-              <TextField
-                id='bookAmount'
-                className={style.bookTextField}
-                type='number'
-                value={bookAmount ? bookAmount : amount}
-                onChange={handleAmountChange}
-                error={amountError}
-                helperText={
-                  amountError ? 'Amount should be greater than 0.' : ''
-                }
-                InputProps={{
-                  sx: {
-                    borderRadius: 0,
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'var(--mui-palette-neutral-300)',
-                    },
-                    '& .MuiOutlinedInput-input': {
-                      height: '48px',
-                      padding: '0px 16px 0px 16px',
-                    },
-                  },
-                }}
-              ></TextField>
+              />
             </div>
           </div>
-          <div className={style.imageDrop}>
-            <SelectCover imageUpload={handleImageUpload} />
-          </div>
-        </div>
-        <div style={{ width: '100%' }} className={style.bookDescriptionWrapper}>
-          <FormLabel
-            className={style.formLabelWrapper}
-            required
-            htmlFor='bookDescription'
-          >
-            <Typography variant='h6' className={style.formLabelText}>
-              Description
-            </Typography>
-          </FormLabel>
-          <TextField
-            id='bookDescription'
-            className={style.bookDescriptionTextField}
-            multiline
-            value={bookDescription ? bookDescription : description}
-            onChange={handleDescritionChange}
-            error={descriptionError}
-            helperText={
-              descriptionError ? 'Please enter book description.' : ''
-            }
-            rows={6}
-            placeholder='Enter a description'
-            InputProps={{
-              sx: {
-                borderRadius: 0,
-                width: '100%',
-                '& .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'var(--mui-palette-neutral-300)',
-                },
-                '& .MuiOutlinedInput-input': {
-                  paddingLeft: '2px',
-                  paddingBottom: '7px',
-                },
-              },
-            }}
-          />
-        </div>
+        )}
+
         {!inAccordion && (
           <div>
             <div className={style.addAnotherBookButton}>
@@ -470,6 +492,7 @@ const AddNewBooksForm = () => {
               </Button>
               <Divider />
             </div>
+
             <div className={style.buttonWrapper}>
               <Button type='reset' className={style.cancelButton}>
                 <Typography variant='h6' className={style.buttonText}>
@@ -487,7 +510,6 @@ const AddNewBooksForm = () => {
       </FormControl>
     )
   }
-
   return (
     <div className={style.outerWrapper}>
       <div className={style.formWrapper}>
@@ -496,8 +518,18 @@ const AddNewBooksForm = () => {
         </div>
         <Divider className={style.dividerUnderBackButton} />
         <div className={style.wrapper}>
-          <Typography variant={matches ? 'subtitle1' : 'h3'}>
-            Add new books<span className={style.dot}>.</span>
+          <Typography
+            variant={matches ? 'subtitle1' : 'h3'}
+            className={style.headingWrapper}
+          >
+            Add new books
+            {addedBooks.length > 1 ? (
+              <Typography variant='h4' className={style.numberOfAddedBooksText}>
+                ({addedBooks.length})
+              </Typography>
+            ) : (
+              <span className={style.dot}>.</span>
+            )}
           </Typography>
         </div>
         <div className={style.accordionWrapper}>
@@ -505,6 +537,7 @@ const AddNewBooksForm = () => {
             <>
               <Divider />
               <Accordion
+                onChange={(_, expanded) => setIsAccordianExpanded(expanded)}
                 className={style.accordion}
                 style={{ boxShadow: 'none' }}
               >
@@ -537,7 +570,11 @@ const AddNewBooksForm = () => {
             </>
           ))}
         </div>
-        <BookForm addedBooks={addedBooks} setAddedBooks={setAddedBooks} />
+        <BookForm
+          isAccordianExpanded={isAccordianExpanded}
+          addedBooks={addedBooks}
+          setAddedBooks={setAddedBooks}
+        />
       </div>
     </div>
   )

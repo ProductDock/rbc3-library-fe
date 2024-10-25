@@ -59,7 +59,15 @@
 .wrapper {
   margin-block: 64px;
   align-self: flex-start;
+  display: flex;
+  flex-direction: row;
   width: 840px;
+}
+
+.headingWrapper {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
 }
 
 .dot {
@@ -161,6 +169,10 @@
 }
 
 .accordionTitle {
+  font-weight: 600;
+}
+
+.numberOfAddedBooksText {
   font-weight: 600;
 }
 

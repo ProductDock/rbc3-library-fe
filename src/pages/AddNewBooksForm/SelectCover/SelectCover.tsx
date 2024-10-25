@@ -13,12 +13,14 @@ interface PreviewFile {
 
 interface SelectCoverProps {
   imageUpload: (imageUrl: string) => void
+  bookImageUrl?: string
 }
 
-function SelectCover({ imageUpload }: SelectCoverProps) {
+function SelectCover({ imageUpload, bookImageUrl }: SelectCoverProps) {
   const [previews, setPreviews] = useState<PreviewFile[]>([])
 
   const { getRootProps, getInputProps } = useDropzone({
+    maxFiles: 1,
     accept: {
       'image/*': [],
     },
@@ -36,22 +38,26 @@ function SelectCover({ imageUpload }: SelectCoverProps) {
     },
   })
 
-  const fileList = previews.map((file, index) => (
-    <img
-      key={index}
-      src={file.preview}
-      alt={file.name}
-      className={style.coverImg}
-    />
-  ))
+  const fileList = !bookImageUrl ? (
+    previews.map((file, index) => (
+      <img
+        key={index}
+        src={file.preview}
+        alt={file.name}
+        className={style.coverImg}
+      />
+    ))
+  ) : (
+    <img src={bookImageUrl} alt={'cover'} className={style.coverImg} />
+  )
 
-  const imgIsUploaded = previews.length >= 1
+  const imgIsUploaded = previews.length >= 1 || bookImageUrl
 
   const emptyPreviews = () => {
     setPreviews([])
     imageUpload('')
   }
-
+  console.log(bookImageUrl)
   return (
     <section>
       {imgIsUploaded ? (
@@ -59,7 +65,11 @@ function SelectCover({ imageUpload }: SelectCoverProps) {
           {...getRootProps({ className: 'dropzone' })}
           className={style.imgUploadedWrapper}
         >
-          <IconButton className={style.editImgButton} onClick={emptyPreviews}>
+          <IconButton
+            disabled={bookImageUrl !== undefined}
+            className={style.editImgButton}
+            onClick={emptyPreviews}
+          >
             <img src={editIcon} alt='edit_icon' />
           </IconButton>
           <div className={style.coverImgWrapper}>{fileList}</div>
