@@ -57,7 +57,7 @@ const AddNewBooksForm = () => {
       imageUrl: '',
     },
   ])
-  const [isAccordianExpanded, setIsAccordianExpanded] = useState(false)
+  const [isAccordionExpanded, setIsAccordionExpanded] = useState(false)
 
   type Book = {
     title: string
@@ -77,7 +77,7 @@ const AddNewBooksForm = () => {
     bookImageUrl?: string
     addedBooks?: Book[]
     inAccordion?: boolean
-    isAccordianExpanded?: boolean
+    isAccordionExpanded?: boolean
     setAddedBooks?: (addedBooks: Book[]) => void
   }
 
@@ -90,7 +90,7 @@ const AddNewBooksForm = () => {
     bookImageUrl,
     addedBooks,
     inAccordion = false,
-    isAccordianExpanded = false,
+    isAccordionExpanded = false,
     setAddedBooks,
   }) => {
     const [bookCategory, setBookCategory] = useState<string[]>([])
@@ -154,21 +154,20 @@ const AddNewBooksForm = () => {
       setImageUrl(url)
     }
 
-    const handleSubmit = (event: React.FormEvent) => {
-      event.preventDefault()
+    const validateInputs = () => {
       let hasErrors = false
 
-      if (title == '') {
+      if (title === '') {
         setTitleError(true)
         hasErrors = true
       }
 
-      if (author == '') {
+      if (author === '') {
         setAuthorError(true)
         hasErrors = true
       }
 
-      if (description == '') {
+      if (description === '') {
         setDescriptionError(true)
         hasErrors = true
       }
@@ -178,6 +177,37 @@ const AddNewBooksForm = () => {
         hasErrors = true
       }
 
+      return hasErrors
+    }
+
+    const handleSubmit = (event: React.FormEvent) => {
+      event.preventDefault()
+      const hasErrors = validateInputs()
+      if (hasErrors) return
+
+      const newBook = {
+        title,
+        author,
+        categories: bookCategory,
+        amount,
+        description,
+        imageUrl,
+      }
+
+      console.log(newBook)
+      console.log(addedBooks)
+
+      fetch('/add-book', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newBook),
+      }).then(response => response.json())
+    }
+
+    const handleAddBook = () => {
+      const hasErrors = validateInputs()
       if (hasErrors) return
 
       const newBook = {
@@ -192,17 +222,7 @@ const AddNewBooksForm = () => {
       if (setAddedBooks != undefined && addedBooks != undefined) {
         setAddedBooks([...addedBooks, newBook])
       }
-
-      console.log(newBook)
       console.log(addedBooks)
-
-      fetch('/add-book', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newBook),
-      }).then(response => response.json())
     }
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -247,7 +267,7 @@ const AddNewBooksForm = () => {
         component='form'
         onSubmit={handleSubmit}
       >
-        {!isAccordianExpanded && (
+        {!isAccordionExpanded && (
           <div>
             <div className={style.formFlex}>
               <div className={style.formColumnWrapper}>
@@ -479,7 +499,11 @@ const AddNewBooksForm = () => {
           <div>
             <div className={style.addAnotherBookButton}>
               <Divider />
-              <Button type='submit' className={style.butonAnotherBook}>
+              <Button
+                type='button'
+                className={style.butonAnotherBook}
+                onClick={handleAddBook}
+              >
                 <Typography
                   variant='h6'
                   className={style.addAnotherBookButtonText}
@@ -537,7 +561,7 @@ const AddNewBooksForm = () => {
             <>
               <Divider />
               <Accordion
-                onChange={(_, expanded) => setIsAccordianExpanded(expanded)}
+                onChange={(_, expanded) => setIsAccordionExpanded(expanded)}
                 className={style.accordion}
                 style={{ boxShadow: 'none' }}
               >
@@ -566,12 +590,12 @@ const AddNewBooksForm = () => {
                   />
                 </AccordionDetails>
               </Accordion>
-              <Divider />
+              {!isAccordionExpanded && <Divider />}
             </>
           ))}
         </div>
         <BookForm
-          isAccordianExpanded={isAccordianExpanded}
+          isAccordionExpanded={isAccordionExpanded}
           addedBooks={addedBooks}
           setAddedBooks={setAddedBooks}
         />

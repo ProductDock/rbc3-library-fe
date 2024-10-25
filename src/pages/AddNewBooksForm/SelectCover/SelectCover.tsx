@@ -57,7 +57,7 @@ function SelectCover({ imageUpload, bookImageUrl }: SelectCoverProps) {
     setPreviews([])
     imageUpload('')
   }
-  console.log(bookImageUrl)
+
   return (
     <section>
       {imgIsUploaded ? (
