@@ -17,7 +17,7 @@ class Service implements ApiService {
   }
 
   fetchBooksData = async () => {
-    return fetch('http://localhost:8080/books', {
+    return fetch(`${API_URL}/books`, {
       method: 'GET',
       credentials: 'same-origin',
       headers: this.getHeaders(),
