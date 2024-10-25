@@ -33,6 +33,40 @@
       "usersWhoRented": ["string"],
       "usersWhoReserved": ["string"],
       "bookCategories": ["SOFTWARE_DEVELOPMENT"]
+    },
+    {
+      "id": "book3",
+      "title": "Test Title3",
+      "authors": [
+        {
+          "id": "author3",
+          "fullName": "Test Author3"
+        }
+      ],
+      "imageUrl": "string",
+      "numberOfAvailableCopies": 0,
+      "usersWhoFavourited": ["string"],
+      "usersOnWaitingList": ["string"],
+      "usersWhoRented": ["string"],
+      "usersWhoReserved": ["string"],
+      "bookCategories": ["SOFTWARE_DEVELOPMENT"]
+    },
+    {
+      "id": "book4",
+      "title": "Test Title4",
+      "authors": [
+        {
+          "id": "author4",
+          "fullName": "Test Author4"
+        }
+      ],
+      "imageUrl": "string",
+      "numberOfAvailableCopies": 0,
+      "usersWhoFavourited": ["string"],
+      "usersOnWaitingList": ["string"],
+      "usersWhoRented": ["string"],
+      "usersWhoReserved": ["string"],
+      "bookCategories": ["SOFTWARE_DEVELOPMENT"]
     }
   ],
   "pageable": {

@@ -248,10 +248,6 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
                 author={book.authors.map(author => author.fullName)}
               />
             ))}
-          {/* <BookCard inFavorites={true} />
-          <BookCard inFavorites={false} />
-          <BookCard inFavorites={true} />
-          <BookCard inFavorites={false} /> */}
         </div>
       )}
     </div>

@@ -1,5 +1,4 @@
 import { http, HttpResponse } from 'msw'
-import testPurposeFixture from './fixtures/testPurposesFixture.json'
 import booksFixture from '../mocks/fixtures/booksFixture.json'
 
 export const handlers = [
@@ -16,11 +15,6 @@ export const handlers = [
         statusText: 'Added book',
       }
     )
-  }),
-
-  http.get('http://localhost:8080/test', () => {
-    // ...and respond to them using this JSON response.
-    return HttpResponse.json(testPurposeFixture.testEndpoint)
   }),
 
   /*

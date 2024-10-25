@@ -6,16 +6,6 @@ class Service implements ApiService {
     'Content-Type': 'application/json',
   }
 
-  fetchMockData = async () => {
-    return fetch(`${API_URL}/test`, {
-      method: 'GET',
-      credentials: 'same-origin',
-      headers: this.getHeaders(),
-    })
-      .then(response => Service.handleErrors(response))
-      .then(response => response.json())
-  }
-
   fetchBooksData = async () => {
     return fetch(`${API_URL}/books`, {
       method: 'GET',
