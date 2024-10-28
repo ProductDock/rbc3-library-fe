@@ -1,11 +1,11 @@
+import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import Typography from '@mui/material/Typography'
-import styles from './BookCatalogueSection.module.css'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
-import { useState } from 'react'
 import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
 import OutlinedInput from '@mui/material/OutlinedInput'
@@ -15,7 +15,10 @@ import { FiltersSideBar } from './FiltersSideBar'
 import { BookCard } from '../../../components/BookCard'
 import { useMediaQuery } from '@mui/material'
 import { BookCatalogueCardOfficeManager } from '../../../components/BookCardOfficeManager'
-import { useNavigate } from 'react-router-dom'
+import { BooksList, BooksObject } from '../../../shared/types'
+import ApiService from '../../../shared/api/apiService'
+
+import styles from './BookCatalogueSection.module.css'
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -50,6 +53,17 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
     'All',
   ])
   const [open, setOpen] = useState(false)
+  const [booksData, setBooksData] = useState<Array<BooksList>>([])
+
+  useEffect(() => {
+    ApiService.fetchBooksData()
+      .then((booksList: BooksObject) => {
+        setBooksData(booksList.content)
+      })
+      .catch(() => {
+        console.log('Ups')
+      })
+  }, [])
 
   const handleChange = (event: SelectChangeEvent<typeof bookStatus>) => {
     const {
@@ -225,10 +239,15 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
       )}
       {!isAdmin && (
         <div className={styles.books}>
-          <BookCard inFavorites={true} />
-          <BookCard inFavorites={false} />
-          <BookCard inFavorites={true} />
-          <BookCard inFavorites={false} />
+          {booksData &&
+            booksData.map((book, index) => (
+              <BookCard
+                key={index}
+                inFavorites={true}
+                title={book.title}
+                author={book.authors.map(author => author.fullName)}
+              />
+            ))}
         </div>
       )}
     </div>

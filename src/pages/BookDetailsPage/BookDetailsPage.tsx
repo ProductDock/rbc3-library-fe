@@ -1,4 +1,3 @@
-import styles from './BookDetailsPage.module.css'
 import { Button, Divider, Typography, useMediaQuery } from '@mui/material'
 import { BookStatusPanel } from '../../components/BookStatusPanel'
 import bookCover from '../../assets/bookCover.svg'
@@ -7,6 +6,8 @@ import { DeleteButton } from '../../components/DeleteButton'
 import { BookCard } from '../../components/BookCard'
 import { BackButton } from '../../components/Shared'
 import { ReviewList } from './ReviewList'
+
+import styles from './BookDetailsPage.module.css'
 
 type BookDetailsPageProps = {
   isUserAdmin: boolean
