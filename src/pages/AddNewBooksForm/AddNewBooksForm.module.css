@@ -157,6 +157,7 @@
 }
 
 .accordion {
+  height: 138px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -173,6 +174,18 @@
 
 .numberOfAddedBooksText {
   font-weight: 600;
+}
+
+.removeBookButtonText {
+  font-weight: 600;
+  margin-left: 5px;
+  text-decoration: underline;
+  text-transform: none;
+  color: var(--mui-palette-neutral-600);
+}
+
+.bookFormUnderAccordion {
+  margin-top: 80px;
 }
 
 @media (max-width: 950px) {

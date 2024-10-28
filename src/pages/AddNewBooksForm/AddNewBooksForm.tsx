@@ -25,6 +25,17 @@ import add from '../../assets/add.svg'
 import { SelectCover } from './SelectCover'
 import { BackButton } from '../../components/Shared'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import RemoveBookButton from './RemoveBookButton'
+import { Book } from '@mui/icons-material'
+
+export type Book = {
+  title: string
+  author: string
+  categories: string[]
+  amount: number
+  description: string
+  imageUrl: string
+}
 
 const AddNewBooksForm = () => {
   const ITEM_HEIGHT = 48
@@ -45,28 +56,10 @@ const AddNewBooksForm = () => {
     'Design',
     'Psychology',
   ]
-
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
   const matches = useMediaQuery('(max-width: 780px)')
-  const [addedBooks, setAddedBooks] = useState([
-    {
-      title: '',
-      author: '',
-      categories: [''],
-      amount: 1,
-      description: '',
-      imageUrl: '',
-    },
-  ])
+  const [addedBooks, setAddedBooks] = useState<Book[]>([])
   const [isAccordionExpanded, setIsAccordionExpanded] = useState(false)
-
-  type Book = {
-    title: string
-    author: string
-    categories: string[]
-    amount: number
-    description: string
-    imageUrl: string
-  }
 
   type BookFormProps = {
     bookTitle?: string
@@ -547,7 +540,7 @@ const AddNewBooksForm = () => {
             className={style.headingWrapper}
           >
             Add new books
-            {addedBooks.length > 1 ? (
+            {addedBooks != undefined && addedBooks.length >= 1 ? (
               <Typography variant='h4' className={style.numberOfAddedBooksText}>
                 ({addedBooks.length})
               </Typography>
@@ -557,50 +550,74 @@ const AddNewBooksForm = () => {
           </Typography>
         </div>
         <div className={style.accordionWrapper}>
-          {addedBooks.slice(1).map(el => (
-            <>
-              <Divider />
-              <Accordion
-                onChange={(_, expanded) => setIsAccordionExpanded(expanded)}
-                className={style.accordion}
-                style={{ boxShadow: 'none' }}
-              >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <div>
-                    <Typography
-                      variant='body2'
-                      className={style.accordionAuthor}
-                    >
-                      {el.author}
-                    </Typography>
-                    <Typography variant='h6' className={style.accordionTitle}>
-                      {el.title}
-                    </Typography>
-                  </div>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <BookForm
-                    bookAmount={el.amount}
-                    bookAuthor={el.author}
-                    bookCategories={el.categories}
-                    bookDescription={el.description}
-                    bookImageUrl={el.imageUrl}
-                    bookTitle={el.title}
-                    inAccordion={true}
-                  />
-                </AccordionDetails>
-              </Accordion>
-              {!isAccordionExpanded && <Divider />}
-            </>
-          ))}
+          {addedBooks &&
+            addedBooks.map((el, index) => (
+              <div key={index}>
+                <Divider />
+                <Accordion
+                  onChange={(_, expanded) => {
+                    setIsAccordionExpanded(expanded)
+                    setExpandedIndex(expanded ? index : null)
+                  }}
+                  style={{ boxShadow: 'none' }}
+                  expanded={expandedIndex === index}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon className={style.accordion} />}
+                  >
+                    {expandedIndex === index ? (
+                      <div>
+                        <RemoveBookButton
+                          index={index}
+                          addedBooks={addedBooks}
+                          setAddedBooks={setAddedBooks}
+                        />
+                      </div>
+                    ) : (
+                      <div>
+                        <Typography
+                          variant='body2'
+                          className={style.accordionAuthor}
+                        >
+                          {el.author}
+                        </Typography>
+                        <Typography
+                          variant='h6'
+                          className={style.accordionTitle}
+                        >
+                          {el.title}
+                        </Typography>
+                      </div>
+                    )}
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div>
+                      <BookForm
+                        bookAmount={el.amount}
+                        bookAuthor={el.author}
+                        bookCategories={el.categories}
+                        bookDescription={el.description}
+                        bookImageUrl={el.imageUrl}
+                        bookTitle={el.title}
+                        inAccordion={true}
+                      />
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+                {expandedIndex !== index && <Divider />}
+              </div>
+            ))}
         </div>
-        <BookForm
-          isAccordionExpanded={isAccordionExpanded}
-          addedBooks={addedBooks}
-          setAddedBooks={setAddedBooks}
-        />
+        <div className={style.bookFormUnderAccordion}>
+          <BookForm
+            isAccordionExpanded={isAccordionExpanded}
+            addedBooks={addedBooks}
+            setAddedBooks={setAddedBooks}
+          />
+        </div>
       </div>
     </div>
   )
 }
 export default AddNewBooksForm
+export { Book }
