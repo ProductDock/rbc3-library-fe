@@ -1,25 +1,10 @@
 import { http, HttpResponse } from 'msw'
+import booksFixture from '../mocks/fixtures/booksFixture.json'
 
 export const handlers = [
-  http.get('http://localhost:3000/books', () => {
+  http.get('http://localhost:8080/books', () => {
     // ...and respond to them using this JSON response.
-    return HttpResponse.json([
-      {
-        id: '4',
-        title: 'Hooked',
-        author: 'Nie Eyal',
-      },
-      {
-        id: '5',
-        title: 'Mindwise',
-        author: 'Nicolas Epley',
-      },
-      {
-        id: '6',
-        title: 'When',
-        author: 'Daniel H. Pink',
-      },
-    ])
+    return HttpResponse.json(booksFixture)
   }),
 
   http.post('http://localhost:3000/add-book', () => {
@@ -31,6 +16,7 @@ export const handlers = [
       }
     )
   }),
+
   /*
      http.post('http://localhost:3000/add-book', () => {
     return new HttpResponse(null, {
