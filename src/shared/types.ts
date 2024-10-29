@@ -1,5 +1,11 @@
 export interface ApiService {
-  fetchBooksData(): Promise<Record<string, string>>
+  fetchBooksData({
+    currentPage,
+    pageSize,
+  }: {
+    currentPage: number
+    pageSize: number
+  }): Promise<Record<string, string>>
 }
 
 export type Headers = {

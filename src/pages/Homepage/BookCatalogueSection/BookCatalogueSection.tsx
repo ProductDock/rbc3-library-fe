@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -54,16 +54,28 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
   ])
   const [open, setOpen] = useState(false)
   const [booksData, setBooksData] = useState<Array<BooksList>>([])
+  const [currentPage, setCurrentPage] = useState<number>(0)
+  const [pageSize] = useState<number>(12)
 
   useEffect(() => {
-    ApiService.fetchBooksData()
-      .then((booksList: BooksObject) => {
-        setBooksData(booksList.content)
+    setBooksData([])
+    setCurrentPage(0)
+  }, [])
+
+  useEffect(() => {
+    ApiService.fetchBooksData({ currentPage, pageSize })
+      .then((booksObject: BooksObject) => {
+        const slicedBookList =
+          (booksObject.content && booksObject.content?.slice(0, pageSize)) || []
+        setBooksData(prevSlicedBookList => [
+          ...prevSlicedBookList,
+          ...slicedBookList,
+        ])
       })
       .catch(() => {
         console.log('Ups')
       })
-  }, [])
+  }, [currentPage, pageSize])
 
   const handleChange = (event: SelectChangeEvent<typeof bookStatus>) => {
     const {
@@ -89,6 +101,9 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen)
   }
+  const handleShowMore = useCallback(() => {
+    setCurrentPage(prevPage => prevPage + 1)
+  }, [])
 
   const matches = useMediaQuery('(min-width:1100px)')
 
@@ -250,6 +265,9 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
             ))}
         </div>
       )}
+      <button className={styles.showMore} onClick={handleShowMore}>
+        Show more
+      </button>
     </div>
   )
 }

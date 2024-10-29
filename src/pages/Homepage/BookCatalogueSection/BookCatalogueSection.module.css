@@ -223,3 +223,16 @@
     display: none;
   }
 }
+
+.showMore {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  font-size: 20px;
+  color: blueviolet;
+  font-weight: var(--text-weight-500);
+  cursor: pointer;
+}
