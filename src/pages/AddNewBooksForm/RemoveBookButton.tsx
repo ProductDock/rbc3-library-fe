@@ -3,7 +3,7 @@ import style from './AddNewBooksForm.module.css'
 import remove from '../../assets/delete.svg'
 import { Book } from '../AddNewBooksForm/AddNewBooksForm'
 type RemoveBookProps = {
-  index: number
+  index?: number
   addedBooks: Book[]
   setAddedBooks?: (addedBooks: Book[]) => void
 }

@@ -535,13 +535,13 @@ const AddNewBooksForm = () => {
         </div>
         <Divider className={style.dividerUnderBackButton} />
         <div className={style.wrapper}>
-          <Typography
-            variant={matches ? 'subtitle1' : 'h3'}
-            className={style.headingWrapper}
-          >
+          <Typography variant={matches ? 'subtitle1' : 'h3'}>
             Add new books
             {addedBooks != undefined && addedBooks.length >= 1 ? (
-              <Typography variant='h4' className={style.numberOfAddedBooksText}>
+              <Typography
+                variant={matches ? 'h5' : 'h4'}
+                className={style.numberOfAddedBooksText}
+              >
                 ({addedBooks.length})
               </Typography>
             ) : (

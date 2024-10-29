@@ -58,16 +58,7 @@
 
 .wrapper {
   margin-block: 64px;
-  align-self: flex-start;
-  display: flex;
-  flex-direction: row;
   width: 840px;
-}
-
-.headingWrapper {
-  align-self: flex-start;
-  display: flex;
-  flex-direction: row;
 }
 
 .dot {
@@ -173,6 +164,8 @@
 }
 
 .numberOfAddedBooksText {
+  margin-left: 500px;
+  margin-top: -80px;
   font-weight: 600;
 }
 
@@ -257,6 +250,11 @@
     display: none;
   }
 
+  .numberOfAddedBooksText {
+    margin-left: 370px;
+    margin-top: -60px;
+  }
+
   .dot {
     font-size: 48px;
     font-weight: 600;
@@ -280,5 +278,17 @@
 @media (max-width: 460px) {
   .buttonWrapper {
     justify-content: space-between;
+  }
+
+  .numberOfAddedBooksText {
+    margin-left: 370px;
+    margin-top: -60px;
+  }
+}
+
+@media (max-width: 430px) {
+  .numberOfAddedBooksText {
+    margin-left: 150px;
+    margin-top: -60px;
   }
 }
