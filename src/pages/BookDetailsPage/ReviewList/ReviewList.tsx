@@ -4,26 +4,7 @@ import { ReviewComponent } from './ReviewComponent'
 import reviewStar from './../../../assets/totalReviewStar.svg'
 import { useEffect, useState } from 'react'
 import { ReviewForm } from '../../ReviewForm'
-
-interface User {
-  id: string
-  fullName: string
-  email: string
-  imageUrl: string
-  role: string
-}
-
-interface Review {
-  id: string
-  rating: number
-  content: string
-  recommendedFor: {
-    seniority: string[]
-  }
-  dateTime: string
-  bookId: string
-  user: User
-}
+import { Review } from '../../../shared/types'
 
 const ReviewList = () => {
   const [reviews, setReviews] = useState<Review[]>([])

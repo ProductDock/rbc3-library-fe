@@ -5,26 +5,7 @@ import editIcon from './../../../../assets/editIcon.svg'
 import deleteIcon from './../../../../assets/deleteIcon.svg'
 import starGrey from './../../../../assets/ratingStarGrey.svg'
 import starYellow from './../../../../assets/ratingStarYellow.svg'
-
-interface User {
-  id: string
-  fullName: string
-  email: string
-  imageUrl: string
-  role: string
-}
-
-interface Review {
-  id: string
-  rating: number
-  content: string
-  recommendedFor: {
-    seniority: string[]
-  }
-  dateTime: string
-  bookId: string
-  user: User
-}
+import { Review } from '../../../../shared/types'
 
 interface ReviewProps {
   review: Review
