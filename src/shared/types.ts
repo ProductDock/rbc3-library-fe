@@ -52,3 +52,23 @@ export type BooksList = {
   usersWhoReserved: string[]
   bookCategories: string[]
 }
+
+export type User = {
+  id: string
+  fullName: string
+  email: string
+  imageUrl: string
+  role: string
+}
+
+export type Review = {
+  id: string
+  rating: number
+  content: string
+  recommendedFor: {
+    seniority: string[]
+  }
+  dateTime: string
+  bookId: string
+  user: User
+}

@@ -1,0 +1,62 @@
+.leaveReviewWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.totalRatingWrapper {
+  display: flex;
+  justify-content: row;
+  align-items: center;
+}
+
+.reviewStarImg {
+  padding-right: 12px;
+  padding-left: 4px;
+}
+
+.ratingText {
+  font-weight: 600;
+  color: var(--mui-palette-neutral-600);
+}
+
+.ratingDot {
+  font-weight: 600;
+  color: var(--mui-palette-neutral-400);
+  padding-inline: 12px;
+}
+
+.leaveReviewButton {
+  height: 44px;
+  width: 132px;
+  background-color: var(--mui-palette-neutral-100);
+  border-radius: 0;
+  font-weight: 600;
+  text-transform: none;
+  color: var(--mui-palette-neutral-600);
+}
+
+.leaveReviewButtonText {
+  font-weight: 600;
+}
+
+.reviewDivider {
+  margin-left: 82px;
+  margin-top: 64px;
+}
+
+@media (max-width: 600px) {
+  .leaveReviewWrapper {
+    flex-direction: column;
+  }
+
+  .leaveReviewButton {
+    width: 100%;
+    margin-top: 32px;
+  }
+
+  .reviewDivider {
+    margin-left: 0;
+    margin-top: 40px;
+  }
+}
