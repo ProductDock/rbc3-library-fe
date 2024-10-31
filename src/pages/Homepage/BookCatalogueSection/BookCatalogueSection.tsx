@@ -76,8 +76,6 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
       .then((booksObject: BooksObject) => {
         const slicedBookList =
           (booksObject.content && booksObject.content?.slice(0, pageSize)) || []
-        // const isLastPage = booksObject.last
-        // const totalNumberOfBooks = booksObject.totalElements
         setBooksData(prevSlicedBookList => [
           ...prevSlicedBookList,
           ...slicedBookList,
@@ -258,24 +256,17 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
           className={matches ? styles.booksAdmin : styles.smallScreenAdminBooks}
         >
           <Divider className={styles.dividerView} />
-          <div>
-            {booksData &&
-              booksData.map((book, index) => (
+          {booksData &&
+            booksData.map((book, index) => (
+              <>
                 <BookCatalogueCardOfficeManager
                   key={index}
                   title={book.title}
                   author={book.authors.map(author => author.fullName)}
                 />
-              ))}
-          </div>
-
-          <Divider className={styles.dividerView} />
-          {/* <BookCatalogueCardOfficeManager />
-          <Divider className={styles.dividerView} />
-          <BookCatalogueCardOfficeManager />
-          <Divider className={styles.dividerView} />
-          <BookCatalogueCardOfficeManager />
-          <Divider className={styles.dividerView} /> */}
+                <Divider className={styles.dividerView} />
+              </>
+            ))}
         </div>
       )}
       {!isAdmin && (

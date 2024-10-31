@@ -18,7 +18,12 @@ const BookCatalogueCardOfficeManager: React.FC<BookProps> = ({
       {matches ? (
         <BookCardOfficeManager title={title} author={author} />
       ) : (
-        <BookCard inFavorites={false} isAdmin={true} />
+        <BookCard
+          inFavorites={false}
+          isAdmin={true}
+          title={title}
+          author={author}
+        />
       )}
     </>
   )
