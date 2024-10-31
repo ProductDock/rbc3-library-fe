@@ -1,7 +1,8 @@
 import { Button, Typography } from '@mui/material'
-import style from './AddNewBooksForm.module.css'
-import remove from '../../assets/delete.svg'
-import { Book } from '../AddNewBooksForm/AddNewBooksForm'
+import style from '../AddNewBooksForm.module.css'
+import remove from '../../../assets/delete.svg'
+import { Book } from '../AddNewBooksForm'
+
 type RemoveBookProps = {
   index?: number
   addedBooks: Book[]

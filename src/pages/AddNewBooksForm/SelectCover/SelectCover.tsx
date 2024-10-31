@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import style from './SelecCover.module.css'
 import { IconButton, Typography } from '@mui/material'
@@ -14,9 +14,14 @@ interface PreviewFile {
 interface SelectCoverProps {
   imageUpload: (imageUrl: string) => void
   bookImageUrl?: string
+  resetTrigger: number
 }
 
-function SelectCover({ imageUpload, bookImageUrl }: SelectCoverProps) {
+function SelectCover({
+  imageUpload,
+  bookImageUrl,
+  resetTrigger,
+}: SelectCoverProps) {
   const [previews, setPreviews] = useState<PreviewFile[]>([])
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -37,6 +42,10 @@ function SelectCover({ imageUpload, bookImageUrl }: SelectCoverProps) {
       }
     },
   })
+
+  useEffect(() => {
+    setPreviews([])
+  }, [bookImageUrl, resetTrigger])
 
   const fileList = !bookImageUrl ? (
     previews.map((file, index) => (
