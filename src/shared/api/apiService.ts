@@ -13,7 +13,7 @@ class Service implements ApiService {
     currentPage: number
     pageSize: number
   }) => {
-    return fetch(`${API_URL}/books/?page=${currentPage}/&size=${pageSize}`, {
+    return fetch(`${API_URL}/books?page=${currentPage}&size=${pageSize}`, {
       method: 'GET',
       credentials: 'same-origin',
       headers: this.getHeaders(),
