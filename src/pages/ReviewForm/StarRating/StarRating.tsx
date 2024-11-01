@@ -3,8 +3,12 @@ import StarIcon from '@mui/icons-material/Star'
 import styles from '../ReviewForm.module.css'
 import { useState } from 'react'
 
-const StarRating = () => {
-  const [rating, setRating] = useState(0)
+interface StarRatingProp {
+  rating: number
+  onChange: (newRating: number) => void
+}
+
+const StarRating: React.FC<StarRatingProp> = ({ rating, onChange }) => {
   const [hoverRating, setHoverRating] = useState(0)
 
   return (
@@ -17,15 +21,11 @@ const StarRating = () => {
           key={index}
           onClick={() => {
             setHoverRating(0)
-            setRating(index + 1)
+            onChange(index + 1)
           }}
-          onMouseEnter={() => {
-            if (rating <= index + 1) {
-              setHoverRating(index + 1)
-            }
-          }}
+          onMouseEnter={() => setHoverRating(index + 1)}
         >
-          {index < rating || index < hoverRating ? (
+          {index < hoverRating || index < rating ? (
             <StarIcon className={styles.filledStar} />
           ) : (
             <StarBorderOutlinedIcon />

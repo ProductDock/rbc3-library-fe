@@ -12,6 +12,7 @@ import { StarRating } from './StarRating'
 import { RecomendationCheckBox } from './RecomendationCheckBox'
 import TextField from '@mui/material/TextField'
 import close from '../../assets/closeBlack.svg'
+import { useState } from 'react'
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& input::placeholder': {
@@ -32,6 +33,24 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   toggleDrawer,
 }) => {
   const matches = useMediaQuery('(min-width:700px)')
+
+  const [reviewText, setReviewText] = useState('')
+  const [rating, setRating] = useState<number>(0)
+  const [recommendation, setRecommendation] = useState<string[]>([])
+
+  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setReviewText(event.target.value)
+  }
+
+  const handleSubmit = () => {
+    const reviewData = {
+      rating,
+      recommendation,
+      reviewText,
+    }
+
+    console.log('Review submitted:', reviewData)
+  }
 
   const formContent = (
     <>
@@ -55,7 +74,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 <span className={styles.star}>*</span>
               </Typography>
               <div>
-                <StarRating />
+                <StarRating rating={rating} onChange={setRating} />
               </div>
             </div>
           </div>
@@ -70,7 +89,10 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
               </Typography>
             </div>
             <div>
-              <RecomendationCheckBox />
+              <RecomendationCheckBox
+                value={recommendation}
+                onChange={setRecommendation}
+              />
             </div>
           </div>
           <Divider />
@@ -88,6 +110,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 rows={4}
                 className={styles.textArea}
                 placeholder='What is your personal opinion about this book'
+                onChange={handleTextChange}
                 slotProps={{
                   input: {
                     sx: {
@@ -117,7 +140,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 Cancel
               </Typography>
             </Button>
-            <Button className={styles.submitButton}>
+            <Button className={styles.submitButton} onClick={handleSubmit}>
               <Typography variant='h6' className={styles.submitButtonText}>
                 Submit
               </Typography>

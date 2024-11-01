@@ -22,6 +22,16 @@ export const handlers = [
     )
   }),
 
+  http.post('http://localhost:3000/book/id/reviews', () => {
+    return HttpResponse.json(
+      { message: 'Review added successfully' },
+      {
+        status: 200,
+        statusText: 'Added review',
+      }
+    )
+  }),
+
   /*
      http.post('http://localhost:3000/add-book', () => {
     return new HttpResponse(null, {
