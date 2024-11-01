@@ -1,25 +1,24 @@
-import { Button, Divider, Typography } from '@mui/material'
 import style from './ReviewList.module.css'
-import { ReviewComponent } from './ReviewComponent'
 import reviewStar from './../../../assets/totalReviewStar.svg'
 import { useEffect, useState } from 'react'
-import { ReviewForm } from '../../ReviewForm'
 import { Review } from '../../../shared/types'
+import ApiService from '../../../shared/api/apiService'
+import { Button, Divider, Typography } from '@mui/material'
+import { ReviewForm } from '../../ReviewForm'
+import { ReviewComponent } from './ReviewComponent'
 
 const ReviewList = () => {
   const [reviews, setReviews] = useState<Review[]>([])
 
   useEffect(() => {
-    fetch('http://localhost:8080/books/67238e068016e386a15e739c/reviews')
-      .then(response => response.json())
-      .then(data => {
-        if (data.content) {
-          setReviews(data.content)
-        } else {
-          console.error('Unexpected data format:', data)
-        }
+    ApiService.fetchBookReviews()
+      .then(reviews => {
+        console.log(reviews.content)
+        setReviews(reviews.content)
       })
-      .catch(error => console.error('Error fetching reviews:', error))
+      .catch(() => {
+        console.log('Ups')
+      })
   }, [])
 
   const averageRating =
@@ -79,7 +78,6 @@ const ReviewList = () => {
             )}
           </div>
         ))}
-
         {!showAll && reviews.length > 2 && (
           <>
             <div className={style.showAllReviews}>

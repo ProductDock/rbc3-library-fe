@@ -19,11 +19,11 @@ const ReviewComponent = ({ review }: ReviewProps) => {
       <div className={style.reviewTopSectionWrapper}>
         <div className={style.avatarWrapper}>
           <div className={style.avatarImgWrapper}>
-            <img src={review.user.imageUrl} alt='avatar_img' />
+            <img src={''} alt='avatar_img' />
           </div>
           <div className={style.nameAndDate}>
             <Typography variant='body1' className={style.nameText}>
-              {review.user.fullName}
+              {'test'}
             </Typography>
             <Typography variant='body1' className={style.dateText}>
               {review.dateTime}
@@ -32,7 +32,7 @@ const ReviewComponent = ({ review }: ReviewProps) => {
         </div>
         <div
           className={
-            loggedUserId === review.user.id
+            loggedUserId === review.userId
               ? style.actionIconsWrapper
               : style.hideActionIcons
           }
@@ -60,12 +60,14 @@ const ReviewComponent = ({ review }: ReviewProps) => {
         <Typography variant='body1' className={style.reviewContentText}>
           {review.content}
         </Typography>
-        <Typography variant='body1' className={style.recommendedTo}>
-          Recommended to
-          <Typography component='span' className={style.recommendedBold}>
-            : {review.recommendedFor.seniority.join(', ')}
+        {review.seniorities.length != 0 && (
+          <Typography variant='body1' className={style.recommendedTo}>
+            Recommended to
+            <Typography component='span' className={style.recommendedBold}>
+              : {review.seniorities.join(', ')}
+            </Typography>
           </Typography>
-        </Typography>
+        )}
       </div>
     </div>
   )

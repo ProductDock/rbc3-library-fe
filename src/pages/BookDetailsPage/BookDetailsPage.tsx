@@ -121,7 +121,7 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
               </Button>
             </div>
             <Divider className={styles.leftLower} />
-            <div>
+            <div className={styles.reviews}>
               <ReviewList />
             </div>
           </div>
