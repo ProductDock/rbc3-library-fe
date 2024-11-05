@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -19,6 +19,7 @@ import { BooksList, BooksObject } from '../../../shared/types'
 import ApiService from '../../../shared/api/apiService'
 
 import styles from './BookCatalogueSection.module.css'
+import classNames from 'classnames'
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -54,16 +55,41 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
   ])
   const [open, setOpen] = useState(false)
   const [booksData, setBooksData] = useState<Array<BooksList>>([])
+  const [currentPage, setCurrentPage] = useState<number>(0)
+  const [pageSize] = useState<number>(12)
+  const isFirstLoad = useRef(true)
+  const [isLastPage, setIsLastPage] = useState(false)
+  const [totalNumberOfBooks, setTotalNumberOfBooks] = useState(0)
 
   useEffect(() => {
-    ApiService.fetchBooksData()
-      .then((booksList: BooksObject) => {
-        setBooksData(booksList.content)
+    setBooksData([])
+    setCurrentPage(0)
+  }, [])
+
+  useEffect(() => {
+    if (isFirstLoad.current) {
+      isFirstLoad.current = false
+      return
+    }
+
+    ApiService.fetchBooksData({ currentPage, pageSize })
+      .then((booksObject: BooksObject) => {
+        const slicedBookList =
+          (booksObject.content && booksObject.content?.slice(0, pageSize)) || []
+        setBooksData(prevSlicedBookList => [
+          ...prevSlicedBookList,
+          ...slicedBookList,
+        ])
+        setTotalNumberOfBooks(booksObject.totalElements)
+        if (booksObject.last == true) {
+          setIsLastPage(true)
+        }
+        console.log(booksObject)
       })
       .catch(() => {
         console.log('Ups')
       })
-  }, [])
+  }, [currentPage, pageSize])
 
   const handleChange = (event: SelectChangeEvent<typeof bookStatus>) => {
     const {
@@ -89,6 +115,9 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen)
   }
+  const handleShowMore = useCallback(() => {
+    setCurrentPage(prevPage => prevPage + 1)
+  }, [])
 
   const matches = useMediaQuery('(min-width:1100px)')
 
@@ -105,7 +134,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
             className={styles.catalogueText}
             variant={matches ? 'subtitle2' : 'h4'}
           >
-            Book catalogue (72)
+            Book catalogue ({totalNumberOfBooks})
           </Typography>
           <div>
             <Button className={styles.suggestButton}>
@@ -227,14 +256,17 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
           className={matches ? styles.booksAdmin : styles.smallScreenAdminBooks}
         >
           <Divider className={styles.dividerView} />
-          <BookCatalogueCardOfficeManager />
-          <Divider className={styles.dividerView} />
-          <BookCatalogueCardOfficeManager />
-          <Divider className={styles.dividerView} />
-          <BookCatalogueCardOfficeManager />
-          <Divider className={styles.dividerView} />
-          <BookCatalogueCardOfficeManager />
-          <Divider className={styles.dividerView} />
+          {booksData &&
+            booksData.map((book, index) => (
+              <>
+                <BookCatalogueCardOfficeManager
+                  key={index}
+                  title={book.title}
+                  author={book.authors.map(author => author.fullName)}
+                />
+                <Divider className={styles.dividerView} />
+              </>
+            ))}
         </div>
       )}
       {!isAdmin && (
@@ -250,6 +282,27 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
             ))}
         </div>
       )}
+      <div className={styles.showMoreWrapper}>
+        <Typography variant='h6' className={styles.showMoreText}>
+          Showing {booksData.length} of {totalNumberOfBooks} results.{' '}
+        </Typography>
+        <Button
+          className={classNames(styles.showMoreButton, {
+            [styles.disabledButton]: isLastPage,
+          })}
+          onClick={handleShowMore}
+          disabled={isLastPage}
+        >
+          <Typography
+            variant='h6'
+            className={classNames(styles.showMoreText, styles.textUnderline, {
+              [styles.disabledButton]: isLastPage,
+            })}
+          >
+            Show more
+          </Typography>
+        </Button>
+      </div>
     </div>
   )
 }

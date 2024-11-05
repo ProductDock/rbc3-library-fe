@@ -223,3 +223,41 @@
     display: none;
   }
 }
+
+.showMoreButton {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.showMoreText {
+  color: var(--mui-palette-neutral-500);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.disabledButton {
+  color: var(--mui-palette-neutral-300);
+}
+
+.showMoreWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 100px;
+  @media (max-width: 1100px) {
+    justify-content: flex-start;
+  }
+}
+
+.textUnderline {
+  text-decoration: underline;
+}
