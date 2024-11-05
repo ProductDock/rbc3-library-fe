@@ -15,13 +15,13 @@ export const BookStatusPanel: React.FC<BookStatusPanelProps> = ({
     <div className={styles.statusPanel}>
       {layoutDirection === 'rating-left' ? (
         <>
-          <BookRating rating={4.5} />
+          <BookRating rating={2.5} />
           <BookStatus status={Status.APPROVED} />
         </>
       ) : (
         <>
           <BookStatus status={Status.APPROVED} />
-          <BookRating rating={4.5} />
+          <BookRating rating={2.5} />
         </>
       )}
     </div>
