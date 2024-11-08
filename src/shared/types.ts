@@ -1,3 +1,5 @@
+import { Book } from '../pages/AddNewBooksForm/AddNewBooksForm'
+
 export interface ApiService {
   fetchBooksData({
     currentPage,
@@ -6,6 +8,8 @@ export interface ApiService {
     currentPage: number
     pageSize: number
   }): Promise<Record<string, string>>
+
+  addBook(book: Book): Promise<BooksObject>
 }
 
 export type Headers = {

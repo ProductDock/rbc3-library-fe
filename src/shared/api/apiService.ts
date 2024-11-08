@@ -1,7 +1,18 @@
+import { Book } from '../../pages/AddNewBooksForm/AddNewBooksForm'
 import { API_URL, DATA_FETCH_ERROR } from '../constants'
-import { ApiService, Headers } from '../types'
+import { ApiService, BooksObject, Headers } from '../types'
 
 class Service implements ApiService {
+  addBook(book: Book): Promise<BooksObject> {
+    return fetch(`${API_URL}/books`, {
+      method: 'POST',
+      body: JSON.stringify(book),
+      headers: this.getHeaders(),
+    })
+      .then(response => Service.handleErrors(response))
+      .then(responce => responce.json())
+  }
+
   private headers: Headers = {
     'Content-Type': 'application/json',
   }
