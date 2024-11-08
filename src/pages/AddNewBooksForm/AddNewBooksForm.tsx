@@ -12,12 +12,13 @@ import { BackButton } from '../../components/Shared'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { BookForm } from './BookForm'
 import { RemoveBookButton } from './CustomComponents'
+import { Author } from './BookForm/BookForm'
 
 export type Book = {
   title: string
-  author: string
-  categories: string[]
-  amount: number
+  authors: Author[]
+  bookCategories: string[]
+  numberOfAvailableCopies: number
   description: string
   imageUrl: string
 }
@@ -80,7 +81,9 @@ const AddNewBooksForm = () => {
                           variant='body2'
                           className={style.accordionAuthor}
                         >
-                          {el.author}
+                          {el.authors.map((author, index) => (
+                            <span key={index}>{author.fullName}</span>
+                          ))}
                         </Typography>
                         <Typography
                           variant='h6'
@@ -94,9 +97,9 @@ const AddNewBooksForm = () => {
                   <AccordionDetails>
                     <div>
                       <BookForm
-                        bookAmount={el.amount}
-                        bookAuthor={el.author}
-                        bookCategories={el.categories}
+                        bookAmount={el.numberOfAvailableCopies}
+                        bookAuthor={el.authors}
+                        bookCategories={el.bookCategories}
                         bookDescription={el.description}
                         bookImageUrl={el.imageUrl}
                         bookTitle={el.title}

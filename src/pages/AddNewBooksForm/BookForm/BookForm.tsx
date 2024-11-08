@@ -23,10 +23,15 @@ import { SelectCover } from '../SelectCover'
 import { Book } from '../AddNewBooksForm'
 import style from '../AddNewBooksForm.module.css'
 import { CustomFormLabel, CustomTextField } from '../CustomComponents'
+import apiService from '../../../shared/api/apiService'
+
+export type Author = {
+  fullName: string
+}
 
 type BookFormProps = {
   bookTitle?: string
-  bookAuthor?: string
+  bookAuthor?: Author[]
   bookCategories?: string[]
   bookAmount?: number
   bookDescription?: string
@@ -60,10 +65,12 @@ const BookForm: React.FC<BookFormProps> = ({
   }
   const [bookCategory, setBookCategory] = useState<string[]>([])
   const [title, setTitle] = useState(bookTitle)
-  const [author, setAuthor] = useState('')
-  const [amount, setAmount] = useState(1)
-  const [description, setDescription] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
+  const [authors, setAuthors] = useState<Author[]>(bookAuthor || [])
+  const [numberOfAvailableCopies, setNumberOfAvailableCopies] = useState(
+    bookAmount || 1
+  )
+  const [description, setDescription] = useState(bookDescription || '')
+  const [imageUrl, setImageUrl] = useState(bookImageUrl || '')
   const [titleError, setTitleError] = useState(false)
   const [authorError, setAuthorError] = useState(false)
   const [amountError, setAmountError] = useState(false)
@@ -85,7 +92,7 @@ const BookForm: React.FC<BookFormProps> = ({
       hasErrors = true
     }
 
-    if (author === '') {
+    if (authors.length === 0) {
       setAuthorError(true)
       hasErrors = true
     }
@@ -95,7 +102,7 @@ const BookForm: React.FC<BookFormProps> = ({
       hasErrors = true
     }
 
-    if (amount <= 0) {
+    if (numberOfAvailableCopies <= 0) {
       setAmountError(true)
       hasErrors = true
     }
@@ -108,18 +115,23 @@ const BookForm: React.FC<BookFormProps> = ({
     const hasErrors = validateInputs()
     if (hasErrors) return
 
-    const newBook = {
+    const newBook: Book = {
       title,
-      author,
-      categories: bookCategory,
-      amount,
+      authors,
+      bookCategories: bookCategory,
+      numberOfAvailableCopies,
       description,
       imageUrl,
     }
+
     resetState()
 
     console.log(newBook)
     console.log(addedBooks)
+
+    apiService.addBook(newBook).then(el => {
+      console.log(el)
+    })
 
     fetch('/add-book', {
       method: 'POST',
@@ -133,8 +145,8 @@ const BookForm: React.FC<BookFormProps> = ({
   const resetState = () => {
     setBookCategory([])
     setTitle('')
-    setAuthor('')
-    setAmount(1)
+    setAuthors([])
+    setNumberOfAvailableCopies(1)
     setDescription('')
     setImageUrl('')
     setResetTrigger(prev => prev + 1)
@@ -144,11 +156,11 @@ const BookForm: React.FC<BookFormProps> = ({
     const hasErrors = validateInputs()
     if (hasErrors) return
 
-    const newBook = {
+    const newBook: Book = {
       title,
-      author,
-      categories: bookCategory,
-      amount,
+      authors,
+      bookCategories: bookCategory,
+      numberOfAvailableCopies,
       description,
       imageUrl,
     }
@@ -175,7 +187,7 @@ const BookForm: React.FC<BookFormProps> = ({
   }
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(Number(e.target.value))
+    setNumberOfAvailableCopies(Number(e.target.value))
     if (Number(e.target.value) > 0) {
       setAmountError(false)
     } else {
@@ -216,8 +228,16 @@ const BookForm: React.FC<BookFormProps> = ({
                   id='bookAuthor'
                   className={style.bookTextField}
                   placeholder='Who is the author of the book?'
-                  value={bookAuthor ? bookAuthor : author}
-                  onChange={e => handleChange(e, setAuthor, setAuthorError)}
+                  value={authors.map(author => author.fullName).join('')}
+                  onChange={e => {
+                    const newAuthor = { fullName: e.target.value }
+                    setAuthors([newAuthor])
+                    if (e.target.value === '') {
+                      setAuthorError(true)
+                    } else {
+                      setAuthorError(false)
+                    }
+                  }}
                   error={authorError}
                   helperText={authorError ? 'Please enter book author.' : ''}
                   readOnly={inAccordion}
@@ -296,13 +316,12 @@ const BookForm: React.FC<BookFormProps> = ({
                   id='bookAmount'
                   className={style.bookTextField}
                   type='number'
-                  value={bookAmount ? bookAmount : amount}
+                  value={numberOfAvailableCopies}
                   onChange={handleAmountChange}
                   error={amountError}
                   helperText={
                     amountError ? 'Amount should be greater than 0.' : ''
                   }
-                  readOnly={inAccordion}
                 />
               </div>
             </div>
