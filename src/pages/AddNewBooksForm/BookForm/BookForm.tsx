@@ -117,6 +117,7 @@ const BookForm: React.FC<BookFormProps> = ({
     if (hasErrors) return
 
     const bookCategorySnakeCase = categoryToSnakeCase(bookCategory)
+
     const newBook: Book = {
       title,
       authors,
@@ -128,20 +129,16 @@ const BookForm: React.FC<BookFormProps> = ({
 
     resetState()
 
-    console.log(newBook)
-    console.log(addedBooks)
+    const booksToAdd = addedBooks ? [...addedBooks, newBook] : [newBook]
 
-    apiService.addBook(newBook).then(el => {
-      console.log(el)
-    })
-
-    fetch('/add-book', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newBook),
-    }).then(response => response.json())
+    apiService
+      .addBooks(booksToAdd)
+      .then(results => {
+        console.log('Books added successfully:', results)
+      })
+      .catch(error => {
+        console.error('Error adding books:', error)
+      })
   }
 
   const resetState = () => {
@@ -158,18 +155,21 @@ const BookForm: React.FC<BookFormProps> = ({
     const hasErrors = validateInputs()
     if (hasErrors) return
 
+    const bookCategorySnakeCase = categoryToSnakeCase(bookCategory)
+
     const newBook: Book = {
       title,
       authors,
-      bookCategories: bookCategory,
+      bookCategories: bookCategorySnakeCase,
       numberOfAvailableCopies,
       description,
       imageUrl,
     }
 
-    if (setAddedBooks != undefined && addedBooks != undefined) {
+    if (setAddedBooks && addedBooks) {
       setAddedBooks([...addedBooks, newBook])
     }
+
     resetState()
 
     console.log(addedBooks)

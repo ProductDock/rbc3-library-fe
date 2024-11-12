@@ -13,6 +13,10 @@ class Service implements ApiService {
       .then(responce => responce.json())
   }
 
+  addBooks(books: Book[]): Promise<BooksObject[]> {
+    return Promise.all(books.map(book => this.addBook(book)))
+  }
+
   private headers: Headers = {
     'Content-Type': 'application/json',
   }

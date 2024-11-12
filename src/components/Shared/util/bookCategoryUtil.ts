@@ -34,7 +34,7 @@ export const handleCategoryChange = (
 
     if (isAllSelected) {
       if (prevBookCategory.length === 0) {
-        categories.unshift()
+        categories.shift()
         return categories
       }
       if (isCurrentlyAllSelected || selectedCount <= 4) {
