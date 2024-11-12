@@ -13,6 +13,7 @@ import {
 import { useState } from 'react'
 import {
   categories,
+  categoryToSnakeCase,
   handleCategoryChange,
 } from '../../../components/Shared/util/bookCategoryUtil'
 import checkbox from '../../../assets/checkbox.svg'
@@ -115,10 +116,11 @@ const BookForm: React.FC<BookFormProps> = ({
     const hasErrors = validateInputs()
     if (hasErrors) return
 
+    const bookCategorySnakeCase = categoryToSnakeCase(bookCategory)
     const newBook: Book = {
       title,
       authors,
-      bookCategories: bookCategory,
+      bookCategories: bookCategorySnakeCase,
       numberOfAvailableCopies,
       description,
       imageUrl,
