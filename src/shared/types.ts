@@ -11,7 +11,7 @@ export interface ApiService {
 
   addBook(bookWithFile: BookWithFile): Promise<BooksObject>
 
-  uploadImage(file: File): Promise<void>
+  uploadImage(file: File): Promise<ImageObject>
 }
 
 export type Headers = {
@@ -83,4 +83,8 @@ export type Review = {
   dateTime: string
   bookId: string
   user: User
+}
+
+export type ImageObject = {
+  imagePath: string
 }

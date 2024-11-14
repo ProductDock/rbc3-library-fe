@@ -1,9 +1,9 @@
 import { BookWithFile } from '../../pages/AddNewBooksForm/AddNewBooksForm'
 import { API_URL, DATA_FETCH_ERROR } from '../constants'
-import { ApiService, BooksObject, Headers } from '../types'
+import { ApiService, BooksObject, Headers, ImageObject } from '../types'
 
 class Service implements ApiService {
-  uploadImage(file: File): Promise<void> {
+  uploadImage(file: File): Promise<ImageObject> {
     const formData = new FormData()
     formData.append('image', file)
     return fetch(`${API_URL}/books/upload-image`, {
@@ -28,9 +28,11 @@ class Service implements ApiService {
     return Promise.all(
       booksWithFile.map(bookWithFile => {
         if (bookWithFile.file) {
-          return this.uploadImage(bookWithFile.file).then(() =>
-            this.addBook(bookWithFile)
-          )
+          return this.uploadImage(bookWithFile.file).then(ImageObject => {
+            bookWithFile.book.imageUrl = ImageObject.imagePath
+            console.log(ImageObject)
+            return this.addBook(bookWithFile)
+          })
         }
         return this.addBook(bookWithFile)
       })

@@ -112,39 +112,6 @@ const BookForm: React.FC<BookFormProps> = ({
     return hasErrors
   }
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault()
-    const hasErrors = validateInputs()
-    if (hasErrors) return
-
-    const bookCategorySnakeCase = categoryToSnakeCase(bookCategory)
-
-    const newBook: BookWithFile = {
-      book: {
-        title,
-        authors,
-        bookCategories: bookCategorySnakeCase,
-        numberOfAvailableCopies,
-        description,
-        imageUrl,
-      },
-      file: imageFile,
-    }
-    console.log(newBook.file)
-
-    resetState()
-
-    const booksToAdd = addedBooks ? [...addedBooks, newBook] : [newBook]
-    apiService
-      .addBooks(booksToAdd)
-      .then(results => {
-        console.log('Books added successfully:', results)
-      })
-      .catch(error => {
-        console.error('Error adding books:', error)
-      })
-  }
-
   const resetState = () => {
     setBookCategory([])
     setTitle('')
@@ -155,17 +122,69 @@ const BookForm: React.FC<BookFormProps> = ({
     setResetTrigger(prev => prev + 1)
   }
 
-  const handleAddBook = () => {
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
     const hasErrors = validateInputs()
     if (hasErrors) return
 
-    const bookCategorySnakeCase = categoryToSnakeCase(bookCategory)
+    if (!addedBooks) {
+      console.error('No books to submit!')
+      return
+    }
+
+    const updatedBooks = addedBooks.map(bookWithFile => {
+      const bookCategoryToSnakeCase = categoryToSnakeCase(
+        bookWithFile.book.bookCategories.map(category => category.toUpperCase())
+      )
+
+      return {
+        file: bookWithFile.file,
+        book: {
+          ...bookWithFile.book,
+          bookCategories: bookCategoryToSnakeCase,
+        },
+      }
+    })
 
     const newBook: BookWithFile = {
       book: {
         title,
         authors,
-        bookCategories: bookCategorySnakeCase,
+        bookCategories: categoryToSnakeCase(
+          bookCategory.map(category => category.toUpperCase())
+        ),
+        numberOfAvailableCopies,
+        description,
+        imageUrl,
+      },
+      file: imageFile,
+    }
+
+    console.log(newBook.file)
+
+    resetState()
+
+    const booksToAdd = [...updatedBooks, newBook]
+
+    apiService
+      .addBooks(booksToAdd)
+      .then(results => {
+        console.log('Books added successfully:', results)
+      })
+      .catch(error => {
+        console.error('Error adding books:', error)
+      })
+  }
+
+  const handleAddBook = () => {
+    const hasErrors = validateInputs()
+    if (hasErrors) return
+
+    const newBook: BookWithFile = {
+      book: {
+        title,
+        authors,
+        bookCategories: bookCategory,
         numberOfAvailableCopies,
         description,
         imageUrl,
@@ -179,6 +198,7 @@ const BookForm: React.FC<BookFormProps> = ({
 
     resetState()
 
+    console.log(bookCategory)
     console.log(addedBooks)
   }
 
