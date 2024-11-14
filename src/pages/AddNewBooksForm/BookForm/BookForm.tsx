@@ -21,7 +21,7 @@ import checkedCheckbox from '../../../assets/checkboxChecked.svg'
 import indeterminateCheckbox from '../../../assets/checkboxIndeterminate.svg'
 import add from '../../../assets/add.svg'
 import { SelectCover } from '../SelectCover'
-import { Book } from '../AddNewBooksForm'
+import { BookWithFile } from '../AddNewBooksForm'
 import style from '../AddNewBooksForm.module.css'
 import { CustomFormLabel, CustomTextField } from '../CustomComponents'
 import apiService from '../../../shared/api/apiService'
@@ -37,10 +37,10 @@ type BookFormProps = {
   bookAmount?: number
   bookDescription?: string
   bookImageUrl?: string
-  addedBooks?: Book[]
+  addedBooks?: BookWithFile[]
   inAccordion?: boolean
   isAccordionExpanded?: boolean
-  setAddedBooks?: (addedBooks: Book[]) => void
+  setAddedBooks?: (addedBooks: BookWithFile[]) => void
 }
 const BookForm: React.FC<BookFormProps> = ({
   bookTitle = '',
@@ -72,6 +72,7 @@ const BookForm: React.FC<BookFormProps> = ({
   )
   const [description, setDescription] = useState(bookDescription || '')
   const [imageUrl, setImageUrl] = useState(bookImageUrl || '')
+  const [imageFile, setImageFile] = useState<File>()
   const [titleError, setTitleError] = useState(false)
   const [authorError, setAuthorError] = useState(false)
   const [amountError, setAmountError] = useState(false)
@@ -118,19 +119,22 @@ const BookForm: React.FC<BookFormProps> = ({
 
     const bookCategorySnakeCase = categoryToSnakeCase(bookCategory)
 
-    const newBook: Book = {
-      title,
-      authors,
-      bookCategories: bookCategorySnakeCase,
-      numberOfAvailableCopies,
-      description,
-      imageUrl,
+    const newBook: BookWithFile = {
+      book: {
+        title,
+        authors,
+        bookCategories: bookCategorySnakeCase,
+        numberOfAvailableCopies,
+        description,
+        imageUrl,
+      },
+      file: imageFile,
     }
+    console.log(newBook.file)
 
     resetState()
 
     const booksToAdd = addedBooks ? [...addedBooks, newBook] : [newBook]
-
     apiService
       .addBooks(booksToAdd)
       .then(results => {
@@ -157,13 +161,16 @@ const BookForm: React.FC<BookFormProps> = ({
 
     const bookCategorySnakeCase = categoryToSnakeCase(bookCategory)
 
-    const newBook: Book = {
-      title,
-      authors,
-      bookCategories: bookCategorySnakeCase,
-      numberOfAvailableCopies,
-      description,
-      imageUrl,
+    const newBook: BookWithFile = {
+      book: {
+        title,
+        authors,
+        bookCategories: bookCategorySnakeCase,
+        numberOfAvailableCopies,
+        description,
+        imageUrl,
+      },
+      file: imageFile,
     }
 
     if (setAddedBooks && addedBooks) {
@@ -329,6 +336,7 @@ const BookForm: React.FC<BookFormProps> = ({
             </div>
             <div className={style.imageDrop}>
               <SelectCover
+                setImageFile={setImageFile}
                 bookImageUrl={bookImageUrl}
                 imageUpload={handleImageUpload}
                 resetTrigger={resetTrigger}

@@ -1,20 +1,40 @@
-import { Book } from '../../pages/AddNewBooksForm/AddNewBooksForm'
+import { BookWithFile } from '../../pages/AddNewBooksForm/AddNewBooksForm'
 import { API_URL, DATA_FETCH_ERROR } from '../constants'
 import { ApiService, BooksObject, Headers } from '../types'
 
 class Service implements ApiService {
-  addBook(book: Book): Promise<BooksObject> {
+  uploadImage(file: File): Promise<void> {
+    const formData = new FormData()
+    formData.append('image', file)
+    return fetch(`${API_URL}/books/upload-image`, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => Service.handleErrors(response))
+      .then(responce => responce.json())
+  }
+
+  addBook(bookWithFile: BookWithFile): Promise<BooksObject> {
     return fetch(`${API_URL}/books`, {
       method: 'POST',
-      body: JSON.stringify(book),
+      body: JSON.stringify(bookWithFile.book),
       headers: this.getHeaders(),
     })
       .then(response => Service.handleErrors(response))
       .then(responce => responce.json())
   }
 
-  addBooks(books: Book[]): Promise<BooksObject[]> {
-    return Promise.all(books.map(book => this.addBook(book)))
+  addBooks(booksWithFile: BookWithFile[]): Promise<BooksObject[]> {
+    return Promise.all(
+      booksWithFile.map(bookWithFile => {
+        if (bookWithFile.file) {
+          return this.uploadImage(bookWithFile.file).then(() =>
+            this.addBook(bookWithFile)
+          )
+        }
+        return this.addBook(bookWithFile)
+      })
+    )
   }
 
   private headers: Headers = {

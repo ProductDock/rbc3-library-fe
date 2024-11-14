@@ -1,4 +1,4 @@
-import { Book } from '../pages/AddNewBooksForm/AddNewBooksForm'
+import { BookWithFile } from '../pages/AddNewBooksForm/AddNewBooksForm'
 
 export interface ApiService {
   fetchBooksData({
@@ -9,7 +9,9 @@ export interface ApiService {
     pageSize: number
   }): Promise<Record<string, string>>
 
-  addBook(book: Book): Promise<BooksObject>
+  addBook(bookWithFile: BookWithFile): Promise<BooksObject>
+
+  uploadImage(file: File): Promise<void>
 }
 
 export type Headers = {
