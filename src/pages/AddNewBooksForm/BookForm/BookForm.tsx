@@ -170,6 +170,7 @@ const BookForm: React.FC<BookFormProps> = ({
       .addBooks(booksToAdd)
       .then(results => {
         console.log('Books added successfully:', results)
+        if (setAddedBooks != undefined) setAddedBooks([])
       })
       .catch(error => {
         console.error('Error adding books:', error)
