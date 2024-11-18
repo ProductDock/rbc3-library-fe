@@ -1,7 +1,16 @@
 import { API_URL, DATA_FETCH_ERROR } from '../constants'
-import { ApiService, Headers } from '../types'
+import { ApiService, BooksObject, Headers } from '../types'
 
 class Service implements ApiService {
+  getBookById(bookId: string): Promise<BooksObject> {
+    return fetch(`${API_URL}/books/${bookId}`, {
+      method: 'GET',
+      headers: this.getHeaders(),
+    })
+      .then(response => Service.handleErrors(response))
+      .then(response => response.json())
+  }
+
   private headers: Headers = {
     'Content-Type': 'application/json',
   }
