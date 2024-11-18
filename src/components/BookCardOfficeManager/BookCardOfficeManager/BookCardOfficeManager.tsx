@@ -1,10 +1,15 @@
 import styles from './BookCardOfficeManager.module.css'
 import cover from '../../../assets/bookExample.svg'
-import { Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 import { BookStatusPanel } from '../../BookStatusPanel'
 import { BookManagmentIcons } from '../BookManagmentIcons'
 
-const BookCardOfficeManager = () => {
+interface BookProps {
+  title: string
+  author: string[]
+}
+
+const BookCardOfficeManager: React.FC<BookProps> = ({ title, author }) => {
   return (
     <div className={styles.bookCardWrapper}>
       <div className={styles.cardImageWrapper}>
@@ -13,10 +18,12 @@ const BookCardOfficeManager = () => {
       <div className={styles.cardDetailsWrapper}>
         <div className={styles.cardDetails}>
           <Typography variant='body2' className={styles.bookAuthor}>
-            Author placeholder
+            {author}
           </Typography>
+          <Divider />
+
           <Typography variant='h6' className={styles.bookTitle}>
-            Book Title placeholder
+            {title}
           </Typography>
           <div className={styles.bookStatusPanelAdmin}>
             <BookStatusPanel layoutDirection={'status-left'} />

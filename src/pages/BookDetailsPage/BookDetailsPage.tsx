@@ -23,7 +23,7 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
           <BookCard
             inFavorites={true}
             isAdmin={false}
-            author={'Nicholas Epley'}
+            author={['Nicholas Epley']}
             title={
               'Mindwise: Why we misunderstand what others think, believe, feel and want'
             }
