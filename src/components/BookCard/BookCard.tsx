@@ -8,6 +8,7 @@ import BookManagmentIcons from '../BookCardOfficeManager/BookManagmentIcons/Book
 import styles from './BookCard.module.css'
 
 type BookCardProps = {
+  onClick?: () => void
   inFavorites: boolean
   isAdmin?: boolean
   title?: string
@@ -15,13 +16,14 @@ type BookCardProps = {
 }
 
 const BookCard: React.FC<BookCardProps> = ({
+  onClick,
   inFavorites,
   isAdmin,
   title,
   author,
 }) => {
   return (
-    <div className={styles.bookCard}>
+    <div className={styles.bookCard} onClick={onClick}>
       {isAdmin ? (
         <Favorite inFavorites={inFavorites} isAdmin={true} />
       ) : (

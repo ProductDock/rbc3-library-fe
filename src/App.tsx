@@ -21,8 +21,7 @@ function App() {
             <Route path='/add-books' element={<AddNewBooksForm />} />
             <Route path='/admin' element={<ManagerHomepage />} />
             <Route
-              path='/book'
-              index
+              path='/book/:id'
               element={<BookDetailsPage isUserAdmin={false} />}
             />
           </Route>

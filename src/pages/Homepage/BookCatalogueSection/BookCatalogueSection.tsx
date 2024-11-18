@@ -126,6 +126,16 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
     navigate('/add-books')
   }
 
+  const navigateToBookDetailsPage = (bookId: string) => {
+    ApiService.getBookById(bookId)
+      .then(bookData => {
+        navigate(`/book/${bookId}`, { state: { bookData } })
+      })
+      .catch(error => {
+        console.error('Error fetching book details:', error)
+      })
+  }
+
   return (
     <div className={styles.catalogueWrapper}>
       <div className={styles.buttons}>
@@ -272,12 +282,13 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
       {!isAdmin && (
         <div className={styles.books}>
           {booksData &&
-            booksData.map((book, index) => (
+            booksData.map(book => (
               <BookCard
-                key={index}
+                key={book.id}
                 inFavorites={true}
                 title={book.title}
                 author={book.authors.map(author => author.fullName)}
+                onClick={() => navigateToBookDetailsPage(book.id)}
               />
             ))}
         </div>
