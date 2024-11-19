@@ -2,30 +2,23 @@ import { Button, Divider, Typography } from '@mui/material'
 import style from './ReviewList.module.css'
 import { ReviewComponent } from './ReviewComponent'
 import reviewStar from './../../../assets/totalReviewStar.svg'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ReviewForm } from '../../ReviewForm'
 import { Review } from '../../../shared/types'
 
-const ReviewList = () => {
-  const [reviews, setReviews] = useState<Review[]>([])
-  const averageRating =
-    reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
+type ReviewListProps = {
+  reviews: Review[]
+  averageRating: number
+}
 
+const ReviewList: React.FC<ReviewListProps> = ({ reviews, averageRating }) => {
   const roundedAverageRating = averageRating.toFixed(1)
-
-  useEffect(() => {
-    fetch('http://localhost:3000/reviews')
-      .then(response => response.json())
-      .then(data => {
-        setReviews(data)
-      })
-      .catch(error => console.error('Error fetching reviews:', error))
-  }, [])
 
   const [open, setOpen] = useState(false)
   const toggleDrawer = (newOpen: boolean) => {
     setOpen(newOpen)
   }
+
   return (
     <div>
       <div className={style.leaveReviewWrapper}>

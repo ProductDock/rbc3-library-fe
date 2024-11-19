@@ -8,6 +8,8 @@ import { ReviewList } from './ReviewList'
 
 import styles from './BookDetailsPage.module.css'
 import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Review } from '../../shared/types'
 
 type BookDetailsPageProps = {
   isUserAdmin: boolean
@@ -19,6 +21,24 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
   const matchesMobile = useMediaQuery('(max-width:450px)')
   const authorName = bookData?.authors?.[0]?.fullName
   const categories: string[] = bookData?.bookCategories || []
+
+  const [reviews, setReviews] = useState<Review[]>([])
+  const [averageRating, setAverageRating] = useState<number>(0)
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/reviews?bookId=${bookData.id}`)
+      .then(response => response.json())
+      .then(data => {
+        setReviews(data)
+
+        const totalRating = data.reduce(
+          (acc: number, review: Review) => acc + review.rating,
+          0
+        )
+        setAverageRating(totalRating / data.length || 0)
+      })
+      .catch(error => console.error('Error fetching reviews:', error))
+  }, [bookData.id])
 
   const categoryFromSnakeCase = (category: string): string => {
     return category
@@ -120,7 +140,7 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
             </div>
             <Divider className={styles.leftLower} />
             <div>
-              <ReviewList />
+              <ReviewList reviews={reviews} averageRating={averageRating} />
             </div>
           </div>
 
