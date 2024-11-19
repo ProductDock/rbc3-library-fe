@@ -273,6 +273,8 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
                   key={index}
                   title={book.title}
                   author={book.authors.map(author => author.fullName)}
+                  image={`http://localhost:8080/books/photo/${book.id}`}
+                  status={book.bookStatus}
                 />
                 <Divider className={styles.dividerView} />
               </>
