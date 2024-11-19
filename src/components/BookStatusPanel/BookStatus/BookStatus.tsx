@@ -26,10 +26,17 @@ const BookStatusRecord: Record<Status, string> = {
 const BookStatus = ({ status }: BookProps) => {
   const statusClass = BookStatusRecord[status]
 
+  const statusFromSnakeCase = (status: string): string => {
+    return status
+      .replace(/_/g, ' ')
+      .toLowerCase()
+      .replace(/^\w/, match => match.toUpperCase())
+  }
+
   return (
     <div className={statusClass}>
       <Typography variant='h6' className={styles.statusText}>
-        {status}
+        {statusFromSnakeCase(status)}
       </Typography>
     </div>
   )

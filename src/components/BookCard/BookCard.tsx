@@ -6,6 +6,7 @@ import { Typography } from '@mui/material'
 import BookManagmentIcons from '../BookCardOfficeManager/BookManagmentIcons/BookManagmentIcons'
 
 import styles from './BookCard.module.css'
+import { Status } from '../BookStatusPanel/BookStatus/Status'
 
 type BookCardProps = {
   onClick?: () => void
@@ -13,6 +14,7 @@ type BookCardProps = {
   isAdmin?: boolean
   title?: string
   author?: string[]
+  status: Status
 }
 
 const BookCard: React.FC<BookCardProps> = ({
@@ -21,6 +23,7 @@ const BookCard: React.FC<BookCardProps> = ({
   isAdmin,
   title,
   author,
+  status,
 }) => {
   return (
     <div className={styles.bookCard} onClick={onClick}>
@@ -40,7 +43,10 @@ const BookCard: React.FC<BookCardProps> = ({
           {!isAdmin && <Divider className={styles.divider} />}
           <div className={styles.bookStatusPanel}>
             <div className={styles.statusPanel}>
-              <BookStatusPanel layoutDirection={'rating-left'} />
+              <BookStatusPanel
+                layoutDirection={'rating-left'}
+                status={status || 'status placeholder'}
+              />
             </div>
             <div>{isAdmin && <Divider className={styles.adminDivider} />}</div>
           </div>

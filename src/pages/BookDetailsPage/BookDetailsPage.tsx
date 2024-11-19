@@ -1,6 +1,5 @@
 import { Button, Divider, Typography, useMediaQuery } from '@mui/material'
 import { BookStatusPanel } from '../../components/BookStatusPanel'
-import bookCover from '../../assets/bookCover.svg'
 import { EditButton } from '../../components/EditButton'
 import { DeleteButton } from '../../components/DeleteButton'
 import { BookCard } from '../../components/BookCard'
@@ -16,7 +15,7 @@ type BookDetailsPageProps = {
 
 const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
   const location = useLocation()
-  const { bookData } = location.state || {}
+  const { bookData } = location.state
   const matchesMobile = useMediaQuery('(max-width:450px)')
   const authorName = bookData?.authors?.[0]?.fullName
   const categories: string[] = bookData?.bookCategories || []
@@ -37,6 +36,7 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
             isAdmin={false}
             author={authorName}
             title={bookData.title}
+            status={bookData.bookStatus}
           />
         ) : (
           <div className={styles.bookInfoWrapper}>
@@ -73,7 +73,10 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
                 </Typography>
               </div>
               <div className={styles.statusPanel}>
-                <BookStatusPanel layoutDirection={'rating-left'} />
+                <BookStatusPanel
+                  layoutDirection={'rating-left'}
+                  status={bookData.bookStatus}
+                />
               </div>
               <Divider className={styles.leftMiddle} />
             </div>
@@ -82,7 +85,11 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
                 <BackButton />
               </div>
               <div className={styles.bookImage}>
-                <img src={bookCover} alt='book' className={styles.image} />
+                <img
+                  src={`http://localhost:8080/books/photo/${bookData.id}`}
+                  alt='book'
+                  className={styles.image}
+                />
               </div>
             </div>
           </div>
