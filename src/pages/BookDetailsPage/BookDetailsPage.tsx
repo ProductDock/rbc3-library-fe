@@ -37,6 +37,7 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
             author={authorName}
             title={bookData.title}
             status={bookData.bookStatus}
+            image={`http://localhost:8080/books/photo/${bookData.id}`}
           />
         ) : (
           <div className={styles.bookInfoWrapper}>

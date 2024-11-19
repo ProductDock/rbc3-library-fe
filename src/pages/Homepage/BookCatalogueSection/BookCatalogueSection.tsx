@@ -290,6 +290,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
                 author={book.authors.map(author => author.fullName)}
                 onClick={() => navigateToBookDetailsPage(book.id)}
                 status={book.bookStatus}
+                image={`http://localhost:8080/books/photo/${book.id}`}
               />
             ))}
         </div>

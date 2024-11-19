@@ -15,6 +15,7 @@ type BookCardProps = {
   title?: string
   author?: string[]
   status: Status
+  image: string
 }
 
 const BookCard: React.FC<BookCardProps> = ({
@@ -24,13 +25,14 @@ const BookCard: React.FC<BookCardProps> = ({
   title,
   author,
   status,
+  image,
 }) => {
   return (
     <div className={styles.bookCard} onClick={onClick}>
       {isAdmin ? (
-        <Favorite inFavorites={inFavorites} isAdmin={true} />
+        <Favorite inFavorites={inFavorites} isAdmin={true} image={image} />
       ) : (
-        <Favorite inFavorites={inFavorites} />
+        <Favorite inFavorites={inFavorites} image={image} />
       )}
       <div className={styles.cardContent}>
         <div className={isAdmin ? styles.infoAdminView : styles.info}>
