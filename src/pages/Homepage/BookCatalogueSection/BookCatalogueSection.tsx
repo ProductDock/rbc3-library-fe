@@ -275,6 +275,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
                   author={book.authors.map(author => author.fullName)}
                   image={`http://localhost:8080/books/photo/${book.id}`}
                   status={book.bookStatus}
+                  onClick={() => navigateToBookDetailsPage(book.id)}
                 />
                 <Divider className={styles.dividerView} />
               </>

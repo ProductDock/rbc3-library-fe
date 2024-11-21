@@ -97,6 +97,7 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
                 <BookStatusPanel
                   layoutDirection={'rating-left'}
                   status={bookData.bookStatus}
+                  rating={bookData.averageRating}
                 />
               </div>
               <Divider className={styles.leftMiddle} />

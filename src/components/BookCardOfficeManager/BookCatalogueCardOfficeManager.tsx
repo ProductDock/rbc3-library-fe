@@ -4,6 +4,7 @@ import { BookCardOfficeManager } from './BookCardOfficeManager'
 import { Status } from '../BookStatusPanel/BookStatus/Status'
 
 interface BookProps {
+  onClick?: () => void
   title: string
   author: string[]
   image: string
@@ -11,6 +12,7 @@ interface BookProps {
 }
 
 const BookCatalogueCardOfficeManager: React.FC<BookProps> = ({
+  onClick,
   title,
   author,
   image,
@@ -22,6 +24,7 @@ const BookCatalogueCardOfficeManager: React.FC<BookProps> = ({
     <>
       {matches ? (
         <BookCardOfficeManager
+          onClick={onClick}
           title={title}
           author={author}
           image={image}
@@ -29,6 +32,7 @@ const BookCatalogueCardOfficeManager: React.FC<BookProps> = ({
         />
       ) : (
         <BookCard
+          onClick={onClick}
           inFavorites={false}
           isAdmin={true}
           title={title}

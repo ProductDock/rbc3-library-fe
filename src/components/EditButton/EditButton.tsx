@@ -7,7 +7,9 @@ const EditButton = () => {
     <div>
       <Button>
         <img src={editButton} alt='back' className={styles.editIcon} />
-        <Typography>Edit</Typography>
+        <Typography variant='body1' className={styles.text}>
+          Edit
+        </Typography>
       </Button>
     </div>
   )

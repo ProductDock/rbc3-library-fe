@@ -5,6 +5,7 @@ import { BookManagmentIcons } from '../BookManagmentIcons'
 import { Status } from '../../BookStatusPanel/BookStatus/Status'
 
 interface BookProps {
+  onClick?: () => void
   title: string
   author: string[]
   image: string
@@ -12,13 +13,14 @@ interface BookProps {
 }
 
 const BookCardOfficeManager: React.FC<BookProps> = ({
+  onClick,
   title,
   author,
   image,
   status,
 }) => {
   return (
-    <div className={styles.bookCardWrapper}>
+    <div className={styles.bookCardWrapper} onClick={onClick}>
       <div className={styles.cardImageWrapper}>
         <img src={image} alt='bookCover' className={styles.imageHolder} />
       </div>
