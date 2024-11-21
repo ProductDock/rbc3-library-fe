@@ -9,6 +9,7 @@ import {
   TextField,
   Divider,
   Button,
+  Snackbar,
 } from '@mui/material'
 import { useState } from 'react'
 import {
@@ -78,7 +79,8 @@ const BookForm: React.FC<BookFormProps> = ({
   const [amountError, setAmountError] = useState(false)
   const [descriptionError, setDescriptionError] = useState(false)
   const [resetTrigger, setResetTrigger] = useState(0)
-
+  const [open, setOpen] = useState(false)
+  const [message, setMessage] = useState('')
   const isIndeterminate =
     bookCategory.length > 0 && bookCategory.length < categories.length
 
@@ -160,8 +162,6 @@ const BookForm: React.FC<BookFormProps> = ({
       file: imageFile,
     }
 
-    console.log(newBook.file)
-
     resetState()
 
     const booksToAdd = [...updatedBooks, newBook]
@@ -174,6 +174,8 @@ const BookForm: React.FC<BookFormProps> = ({
       })
       .catch(error => {
         console.error('Error adding books:', error)
+        setMessage('Error adding books')
+        setOpen(true)
       })
   }
 
@@ -198,9 +200,6 @@ const BookForm: React.FC<BookFormProps> = ({
     }
 
     resetState()
-
-    console.log(bookCategory)
-    console.log(addedBooks)
   }
 
   const handleChange = (
@@ -225,12 +224,26 @@ const BookForm: React.FC<BookFormProps> = ({
     }
   }
 
+  const handleCloseSnackbar = () => {
+    setOpen(false)
+  }
   return (
     <FormControl
       sx={{ width: '100%' }}
       component='form'
       onSubmit={handleSubmit}
     >
+      <Snackbar
+        open={open}
+        onClose={handleCloseSnackbar}
+        message={message}
+        autoHideDuration={6000}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      />
+
       {!isAccordionExpanded && (
         <div>
           <div className={style.formFlex}>
