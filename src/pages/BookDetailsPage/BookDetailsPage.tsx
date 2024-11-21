@@ -11,13 +11,9 @@ import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Review } from '../../shared/types'
 
-type BookDetailsPageProps = {
-  isUserAdmin: boolean
-}
-
-const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
+const BookDetailsPage = () => {
   const location = useLocation()
-  const { bookData } = location.state
+  const { bookData, isUserAdmin } = location.state
   const matchesMobile = useMediaQuery('(max-width:450px)')
   const authorName = bookData?.authors?.[0]?.fullName
   const categories: string[] = bookData?.bookCategories || []

@@ -129,7 +129,9 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
   const navigateToBookDetailsPage = (bookId: string) => {
     ApiService.getBookById(bookId)
       .then(bookData => {
-        navigate(`/book/${bookId}`, { state: { bookData } })
+        navigate(`/book/${bookId}`, {
+          state: { bookData, isUserAdmin: isAdmin },
+        })
       })
       .catch(error => {
         console.error('Error fetching book details:', error)
