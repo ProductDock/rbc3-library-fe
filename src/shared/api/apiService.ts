@@ -1,7 +1,44 @@
+import { BookWithFile } from '../../pages/AddNewBooksForm/AddNewBooksForm'
 import { API_URL, DATA_FETCH_ERROR } from '../constants'
-import { ApiService, BooksObject, Headers } from '../types'
+import { ApiService, BooksObject, Headers, ImageObject } from '../types'
 
 class Service implements ApiService {
+  uploadImage(file: File): Promise<ImageObject> {
+    const formData = new FormData()
+    formData.append('image', file)
+    return fetch(`${API_URL}/books/upload-image`, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => Service.handleErrors(response))
+      .then(responce => responce.json())
+  }
+
+  addBook(bookWithFile: BookWithFile): Promise<BooksObject> {
+    return fetch(`${API_URL}/books`, {
+      method: 'POST',
+      body: JSON.stringify(bookWithFile.book),
+      headers: this.getHeaders(),
+    })
+      .then(response => Service.handleErrors(response))
+      .then(responce => responce.json())
+  }
+
+  addBooks(booksWithFile: BookWithFile[]): Promise<BooksObject[]> {
+    return Promise.all(
+      booksWithFile.map(bookWithFile => {
+        if (bookWithFile.file) {
+          return this.uploadImage(bookWithFile.file).then(ImageObject => {
+            bookWithFile.book.imageUrl = ImageObject.imagePath
+            console.log(ImageObject)
+            return this.addBook(bookWithFile)
+          })
+        }
+        return this.addBook(bookWithFile)
+      })
+    )
+  }
+
   getBookById(bookId: string): Promise<BooksObject> {
     return fetch(`${API_URL}/books/${bookId}`, {
       method: 'GET',

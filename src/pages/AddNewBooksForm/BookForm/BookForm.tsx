@@ -9,10 +9,12 @@ import {
   TextField,
   Divider,
   Button,
+  Snackbar,
 } from '@mui/material'
 import { useState } from 'react'
 import {
   categories,
+  categoryToSnakeCase,
   handleCategoryChange,
 } from '../../../components/Shared/util/bookCategoryUtil'
 import checkbox from '../../../assets/checkbox.svg'
@@ -20,21 +22,26 @@ import checkedCheckbox from '../../../assets/checkboxChecked.svg'
 import indeterminateCheckbox from '../../../assets/checkboxIndeterminate.svg'
 import add from '../../../assets/add.svg'
 import { SelectCover } from '../SelectCover'
-import { Book } from '../AddNewBooksForm'
+import { BookWithFile } from '../AddNewBooksForm'
 import style from '../AddNewBooksForm.module.css'
 import { CustomFormLabel, CustomTextField } from '../CustomComponents'
+import apiService from '../../../shared/api/apiService'
+
+export type Author = {
+  fullName: string
+}
 
 type BookFormProps = {
   bookTitle?: string
-  bookAuthor?: string
+  bookAuthor?: Author[]
   bookCategories?: string[]
   bookAmount?: number
   bookDescription?: string
   bookImageUrl?: string
-  addedBooks?: Book[]
+  addedBooks?: BookWithFile[]
   inAccordion?: boolean
   isAccordionExpanded?: boolean
-  setAddedBooks?: (addedBooks: Book[]) => void
+  setAddedBooks?: (addedBooks: BookWithFile[]) => void
 }
 const BookForm: React.FC<BookFormProps> = ({
   bookTitle = '',
@@ -60,16 +67,20 @@ const BookForm: React.FC<BookFormProps> = ({
   }
   const [bookCategory, setBookCategory] = useState<string[]>([])
   const [title, setTitle] = useState(bookTitle)
-  const [author, setAuthor] = useState('')
-  const [amount, setAmount] = useState(1)
-  const [description, setDescription] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
+  const [authors, setAuthors] = useState<Author[]>(bookAuthor || [])
+  const [numberOfAvailableCopies, setNumberOfAvailableCopies] = useState(
+    bookAmount || 1
+  )
+  const [description, setDescription] = useState(bookDescription || '')
+  const [imageUrl, setImageUrl] = useState(bookImageUrl || '')
+  const [imageFile, setImageFile] = useState<File>()
   const [titleError, setTitleError] = useState(false)
   const [authorError, setAuthorError] = useState(false)
   const [amountError, setAmountError] = useState(false)
   const [descriptionError, setDescriptionError] = useState(false)
   const [resetTrigger, setResetTrigger] = useState(0)
-
+  const [open, setOpen] = useState(false)
+  const [message, setMessage] = useState('')
   const isIndeterminate =
     bookCategory.length > 0 && bookCategory.length < categories.length
 
@@ -85,7 +96,7 @@ const BookForm: React.FC<BookFormProps> = ({
       hasErrors = true
     }
 
-    if (author === '') {
+    if (authors.length === 0) {
       setAuthorError(true)
       hasErrors = true
     }
@@ -95,7 +106,7 @@ const BookForm: React.FC<BookFormProps> = ({
       hasErrors = true
     }
 
-    if (amount <= 0) {
+    if (numberOfAvailableCopies <= 0) {
       setAmountError(true)
       hasErrors = true
     }
@@ -103,62 +114,92 @@ const BookForm: React.FC<BookFormProps> = ({
     return hasErrors
   }
 
+  const resetState = () => {
+    setBookCategory([])
+    setTitle('')
+    setAuthors([])
+    setNumberOfAvailableCopies(1)
+    setDescription('')
+    setImageUrl('')
+    setResetTrigger(prev => prev + 1)
+  }
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     const hasErrors = validateInputs()
     if (hasErrors) return
 
-    const newBook = {
-      title,
-      author,
-      categories: bookCategory,
-      amount,
-      description,
-      imageUrl,
+    if (!addedBooks) {
+      console.error('No books to submit!')
+      return
     }
+
+    const updatedBooks = addedBooks.map(bookWithFile => {
+      const bookCategoryToSnakeCase = categoryToSnakeCase(
+        bookWithFile.book.bookCategories.map(category => category.toUpperCase())
+      )
+
+      return {
+        file: bookWithFile.file,
+        book: {
+          ...bookWithFile.book,
+          bookCategories: bookCategoryToSnakeCase,
+        },
+      }
+    })
+
+    const newBook: BookWithFile = {
+      book: {
+        title,
+        authors,
+        bookCategories: categoryToSnakeCase(
+          bookCategory.map(category => category.toUpperCase())
+        ),
+        numberOfAvailableCopies,
+        description,
+        imageUrl,
+      },
+      file: imageFile,
+    }
+
     resetState()
 
-    console.log(newBook)
-    console.log(addedBooks)
+    const booksToAdd = [...updatedBooks, newBook]
 
-    fetch('/add-book', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newBook),
-    }).then(response => response.json())
-  }
-
-  const resetState = () => {
-    setBookCategory([])
-    setTitle('')
-    setAuthor('')
-    setAmount(1)
-    setDescription('')
-    setImageUrl('')
-    setResetTrigger(prev => prev + 1)
+    apiService
+      .addBooks(booksToAdd)
+      .then(results => {
+        console.log('Books added successfully:', results)
+        if (setAddedBooks != undefined) setAddedBooks([])
+      })
+      .catch(error => {
+        console.error('Error adding books:', error)
+        setMessage('Error adding books')
+        setOpen(true)
+      })
   }
 
   const handleAddBook = () => {
     const hasErrors = validateInputs()
     if (hasErrors) return
 
-    const newBook = {
-      title,
-      author,
-      categories: bookCategory,
-      amount,
-      description,
-      imageUrl,
+    const newBook: BookWithFile = {
+      book: {
+        title,
+        authors,
+        bookCategories: bookCategory,
+        numberOfAvailableCopies,
+        description,
+        imageUrl,
+      },
+      file: imageFile,
     }
 
-    if (setAddedBooks != undefined && addedBooks != undefined) {
+    if (setAddedBooks && addedBooks) {
       setAddedBooks([...addedBooks, newBook])
     }
-    resetState()
 
-    console.log(addedBooks)
+    resetState()
   }
 
   const handleChange = (
@@ -175,7 +216,7 @@ const BookForm: React.FC<BookFormProps> = ({
   }
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(Number(e.target.value))
+    setNumberOfAvailableCopies(Number(e.target.value))
     if (Number(e.target.value) > 0) {
       setAmountError(false)
     } else {
@@ -183,12 +224,26 @@ const BookForm: React.FC<BookFormProps> = ({
     }
   }
 
+  const handleCloseSnackbar = () => {
+    setOpen(false)
+  }
   return (
     <FormControl
       sx={{ width: '100%' }}
       component='form'
       onSubmit={handleSubmit}
     >
+      <Snackbar
+        open={open}
+        onClose={handleCloseSnackbar}
+        message={message}
+        autoHideDuration={6000}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      />
+
       {!isAccordionExpanded && (
         <div>
           <div className={style.formFlex}>
@@ -216,8 +271,16 @@ const BookForm: React.FC<BookFormProps> = ({
                   id='bookAuthor'
                   className={style.bookTextField}
                   placeholder='Who is the author of the book?'
-                  value={bookAuthor ? bookAuthor : author}
-                  onChange={e => handleChange(e, setAuthor, setAuthorError)}
+                  value={authors.map(author => author.fullName).join('')}
+                  onChange={e => {
+                    const newAuthor = { fullName: e.target.value }
+                    setAuthors([newAuthor])
+                    if (e.target.value === '') {
+                      setAuthorError(true)
+                    } else {
+                      setAuthorError(false)
+                    }
+                  }}
                   error={authorError}
                   helperText={authorError ? 'Please enter book author.' : ''}
                   readOnly={inAccordion}
@@ -296,18 +359,18 @@ const BookForm: React.FC<BookFormProps> = ({
                   id='bookAmount'
                   className={style.bookTextField}
                   type='number'
-                  value={bookAmount ? bookAmount : amount}
+                  value={numberOfAvailableCopies}
                   onChange={handleAmountChange}
                   error={amountError}
                   helperText={
                     amountError ? 'Amount should be greater than 0.' : ''
                   }
-                  readOnly={inAccordion}
                 />
               </div>
             </div>
             <div className={style.imageDrop}>
               <SelectCover
+                setImageFile={setImageFile}
                 bookImageUrl={bookImageUrl}
                 imageUpload={handleImageUpload}
                 resetTrigger={resetTrigger}

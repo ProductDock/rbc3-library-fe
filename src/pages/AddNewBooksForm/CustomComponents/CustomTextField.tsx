@@ -1,10 +1,11 @@
 import TextField from '@mui/material/TextField'
+import { Author } from '../BookForm/BookForm'
 
 interface CustomTextFieldProps {
   id: string
   className?: string
   placeholder?: string
-  value: string | number
+  value: string | number | Author[]
   onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
   error?: boolean
   helperText?: string
