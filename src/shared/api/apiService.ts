@@ -9,11 +9,27 @@ class Service implements ApiService {
   fetchBooksData = async ({
     currentPage,
     pageSize,
+    categoriesWithoutAll,
+    statuses,
   }: {
     currentPage: number
     pageSize: number
+    categoriesWithoutAll: string[]
+    statuses: string[]
   }) => {
-    return fetch(`${API_URL}/books?page=${currentPage}&size=${pageSize}`, {
+    let url = `${API_URL}/books/filter?page=${currentPage}&size=${pageSize}`
+
+    if (categoriesWithoutAll.length !== 0) {
+      const categoriesQueryParam = `&bookCategories=${categoriesWithoutAll.toString()}`
+      url = `${url}${categoriesQueryParam}`
+    }
+
+    if (statuses.length !== 0) {
+      const statusesQueryPram = `&bookStatuses=${statuses.toString()}`
+      url = `${url}${statusesQueryPram}`
+    }
+
+    return fetch(url, {
       method: 'GET',
       credentials: 'same-origin',
       headers: this.getHeaders(),

@@ -72,32 +72,57 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
       return
     }
 
-    ApiService.fetchBooksData({ currentPage, pageSize })
+    const categoriesWithoutAll = selectedCategories
+      .filter(el => el !== 'All')
+
+      .map(el => {
+        if (el.split(' ').length !== 0) {
+          return el.split(' ').join('_').toString()
+        }
+        return el
+      })
+
+    const statuses = bookStatus.map(el => el.split(' ')[0].toString())
+
+    ApiService.fetchBooksData({
+      currentPage,
+      pageSize,
+      categoriesWithoutAll: categoriesWithoutAll,
+      statuses,
+    })
       .then((booksObject: BooksObject) => {
         const slicedBookList =
           (booksObject.content && booksObject.content?.slice(0, pageSize)) || []
-        setBooksData(prevSlicedBookList => [
-          ...prevSlicedBookList,
-          ...slicedBookList,
-        ])
-        setTotalNumberOfBooks(booksObject.totalElements)
-        if (booksObject.last == true) {
-          setIsLastPage(true)
+
+        if (booksObject.pageable.pageNumber == 0) {
+          setBooksData(slicedBookList)
+        } else {
+          setBooksData(prevSlicedBookList => [
+            ...prevSlicedBookList,
+            ...slicedBookList,
+          ])
         }
+
+        setTotalNumberOfBooks(booksObject.totalElements)
+
+        setIsLastPage(booksObject.last)
         console.log(booksObject)
       })
       .catch(() => {
         console.log('Ups')
       })
-  }, [currentPage, pageSize])
+  }, [currentPage, pageSize, selectedCategories, bookStatus])
 
   const handleChange = (event: SelectChangeEvent<typeof bookStatus>) => {
     const {
       target: { value },
     } = event
+
+    setCurrentPage(0)
     setBookStatus(typeof value === 'string' ? value.split(',') : value)
   }
   const handleCategoryClick = (category: string) => {
+    setCurrentPage(0)
     if (category === 'All') {
       setSelectedCategories(['All'])
     } else {
