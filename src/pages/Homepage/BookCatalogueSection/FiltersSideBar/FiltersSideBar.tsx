@@ -11,6 +11,7 @@ import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
 import close from '../../../../assets/closeBlack.svg'
 
 import styles from './FiltersSideBar.module.css'
+import { useState } from 'react'
 
 interface SidebarProps {
   open: boolean
@@ -22,22 +23,29 @@ interface SidebarProps {
   statuses: string[]
   selectedStatuses: string[]
   setSelectedStatuses: React.Dispatch<React.SetStateAction<string[]>>
+  onFilterChange: (categories: string[], statuses: string[]) => void
+  numberOfFilteredBooks: number
 }
 const SideBar = ({
   open,
   toggleDrawer,
   categories,
   selectedCategories,
-  setSelectedCategories,
   statuses,
   selectedStatuses,
-  setSelectedStatuses,
+  onFilterChange,
+  numberOfFilteredBooks,
 }: SidebarProps) => {
+  const [temporarySelectedCategories, setTemporarySelectedCategories] =
+    useState(selectedCategories)
+  const [temporarySelectedStatuses, setTemporarySelectedStatuses] =
+    useState(selectedStatuses)
+
   const handleCategoryToggle = (category: string) => {
     if (category === 'All') {
-      setSelectedCategories(['All'])
+      setTemporarySelectedCategories(['All'])
     } else {
-      setSelectedCategories(prevSelected => {
+      setTemporarySelectedCategories(prevSelected => {
         if (prevSelected.includes('All')) {
           return [...prevSelected.filter(cat => cat !== 'All'), category]
         } else {
@@ -50,11 +58,22 @@ const SideBar = ({
   }
 
   const handleStatusToggle = (status: string) => {
-    setSelectedStatuses(prevSelected =>
+    setTemporarySelectedStatuses(prevSelected =>
       prevSelected.includes(status)
         ? prevSelected.filter(st => st !== status)
         : [...prevSelected, status]
     )
+  }
+
+  const handleApply = () => {
+    onFilterChange(temporarySelectedCategories, temporarySelectedStatuses)
+    toggleDrawer(false)
+  }
+
+  const handleClose = () => {
+    setTemporarySelectedCategories([])
+    setTemporarySelectedStatuses([])
+    toggleDrawer(false)
   }
 
   const DrawerList = (
@@ -79,7 +98,7 @@ const SideBar = ({
                 key={category}
                 control={
                   <Checkbox
-                    checked={selectedCategories.includes(category)}
+                    checked={temporarySelectedCategories.includes(category)}
                     onChange={() => handleCategoryToggle(category)}
                     size='small'
                     icon={
@@ -109,7 +128,7 @@ const SideBar = ({
                 key={status}
                 control={
                   <Checkbox
-                    checked={selectedStatuses.includes(status)}
+                    checked={temporarySelectedStatuses.includes(status)}
                     onChange={() => handleStatusToggle(status)}
                     size='small'
                     icon={
@@ -127,15 +146,12 @@ const SideBar = ({
             ))}
           </div>
         </div>
-        <Button className={styles.showButton}>
+        <Button className={styles.showButton} onClick={handleApply}>
           <Typography variant='h6' className={styles.showButtonText}>
-            Show 46 results
+            Show {numberOfFilteredBooks} results
           </Typography>
         </Button>
-        <Button
-          onClick={() => toggleDrawer(false)}
-          className={styles.cancelButton}
-        >
+        <Button onClick={handleClose} className={styles.cancelButton}>
           <Typography variant='h6' className={styles.cancelButtonText}>
             Cancel
           </Typography>

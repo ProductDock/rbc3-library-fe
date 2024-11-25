@@ -138,6 +138,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
     }
   }
   const toggleDrawer = (newOpen: boolean) => () => {
+    setCurrentPage(0)
     setOpen(newOpen)
   }
   const handleShowMore = useCallback(() => {
@@ -149,6 +150,11 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
   const navigate = useNavigate()
   const navigateToAddBooksPage = () => {
     navigate('/add-books')
+  }
+
+  const handleFilterChange = (categories: string[], statuses: string[]) => {
+    setSelectedCategories(categories)
+    setBookStatus(statuses)
   }
 
   return (
@@ -203,6 +209,8 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
         statuses={statuses}
         selectedStatuses={bookStatus}
         setSelectedStatuses={setBookStatus}
+        onFilterChange={handleFilterChange}
+        numberOfFilteredBooks={totalNumberOfBooks}
       />
 
       <Divider className={styles.dividerCatalogue} />
