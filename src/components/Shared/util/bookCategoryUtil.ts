@@ -9,6 +9,11 @@ export const categories = [
   'Psychology',
 ]
 
+export const categoryToSnakeCase = (categories: string[]): string[] => {
+  return categories.map(category =>
+    category.toLocaleUpperCase().split(' ').join('_')
+  )
+}
 export const handleCategoryChange = (
   event: SelectChangeEvent<string[]>,
   setBookCategory: (categories: React.SetStateAction<string[]>) => void
@@ -29,6 +34,7 @@ export const handleCategoryChange = (
 
     if (isAllSelected) {
       if (prevBookCategory.length === 0) {
+        categories.shift()
         return categories
       }
       if (isCurrentlyAllSelected || selectedCount <= 4) {

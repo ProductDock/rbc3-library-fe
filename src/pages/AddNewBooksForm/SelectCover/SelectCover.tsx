@@ -15,15 +15,16 @@ interface SelectCoverProps {
   imageUpload: (imageUrl: string) => void
   bookImageUrl?: string
   resetTrigger: number
+  setImageFile: (file: File) => void
 }
 
 function SelectCover({
   imageUpload,
   bookImageUrl,
   resetTrigger,
+  setImageFile,
 }: SelectCoverProps) {
   const [previews, setPreviews] = useState<PreviewFile[]>([])
-
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
     accept: {
@@ -34,11 +35,12 @@ function SelectCover({
         name: file.name,
         size: file.size,
         preview: URL.createObjectURL(file),
+        file: file,
       }))
       setPreviews(previewFiles)
-
       if (previewFiles.length > 0) {
         imageUpload(previewFiles[0].preview)
+        setImageFile(previewFiles[0].file)
       }
     },
   })
