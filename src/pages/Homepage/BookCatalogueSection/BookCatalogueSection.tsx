@@ -77,7 +77,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
 
       .map(el => {
         if (el.split(' ').length !== 0) {
-          return el.split(' ').join('_').toString()
+          return el.split(' ').join('_')
         }
         return el
       })
@@ -106,7 +106,6 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
         setTotalNumberOfBooks(booksObject.totalElements)
 
         setIsLastPage(booksObject.last)
-        console.log(booksObject)
       })
       .catch(() => {
         console.log('Ups')
