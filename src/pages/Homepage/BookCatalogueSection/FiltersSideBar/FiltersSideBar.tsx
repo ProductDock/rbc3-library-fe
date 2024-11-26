@@ -11,7 +11,9 @@ import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
 import close from '../../../../assets/closeBlack.svg'
 
 import styles from './FiltersSideBar.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
+import ApiService from '../../../../shared/api/apiService'
 
 interface SidebarProps {
   open: boolean
@@ -24,7 +26,6 @@ interface SidebarProps {
   selectedStatuses: string[]
   setSelectedStatuses: React.Dispatch<React.SetStateAction<string[]>>
   onFilterChange: (categories: string[], statuses: string[]) => void
-  numberOfFilteredBooks: number
 }
 const SideBar = ({
   open,
@@ -34,12 +35,33 @@ const SideBar = ({
   statuses,
   selectedStatuses,
   onFilterChange,
-  numberOfFilteredBooks,
 }: SidebarProps) => {
   const [temporarySelectedCategories, setTemporarySelectedCategories] =
     useState(selectedCategories)
   const [temporarySelectedStatuses, setTemporarySelectedStatuses] =
     useState(selectedStatuses)
+  const [appliedCategories, setAppliedCategories] = useState<string[]>([])
+  const [appliedStatuses, setAppliedStatuses] = useState<string[]>([])
+  const [numOfBooks, setNumOfBooks] = useState<number>()
+  useEffect(() => {
+    const categories = temporarySelectedCategories
+      .filter(el => el !== 'All')
+      .map(el => {
+        if (el.split(' ').length !== 0) {
+          return el.split(' ').join('_').toString()
+        }
+        return el
+      })
+
+    const statuses = temporarySelectedStatuses.map(el =>
+      el.split(' ')[0].toString()
+    )
+
+    ApiService.fetchBooksWithoutPagination({
+      categories,
+      statuses,
+    }).then(el => setNumOfBooks(el.totalElements))
+  }, [temporarySelectedCategories, temporarySelectedStatuses])
 
   const handleCategoryToggle = (category: string) => {
     if (category === 'All') {
@@ -67,12 +89,14 @@ const SideBar = ({
 
   const handleApply = () => {
     onFilterChange(temporarySelectedCategories, temporarySelectedStatuses)
+    setAppliedCategories([...temporarySelectedCategories])
+    setAppliedStatuses([...temporarySelectedStatuses])
     toggleDrawer(false)
   }
 
   const handleClose = () => {
-    setTemporarySelectedCategories([])
-    setTemporarySelectedStatuses([])
+    setTemporarySelectedCategories([...appliedCategories])
+    setTemporarySelectedStatuses([...appliedStatuses])
     toggleDrawer(false)
   }
 
@@ -148,7 +172,7 @@ const SideBar = ({
         </div>
         <Button className={styles.showButton} onClick={handleApply}>
           <Typography variant='h6' className={styles.showButtonText}>
-            Show {numberOfFilteredBooks} results
+            Show {numOfBooks} results
           </Typography>
         </Button>
         <Button onClick={handleClose} className={styles.cancelButton}>

@@ -210,7 +210,6 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
         selectedStatuses={bookStatus}
         setSelectedStatuses={setBookStatus}
         onFilterChange={handleFilterChange}
-        numberOfFilteredBooks={totalNumberOfBooks}
       />
 
       <Divider className={styles.dividerCatalogue} />

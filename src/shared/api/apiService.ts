@@ -3,6 +3,32 @@ import { API_URL, DATA_FETCH_ERROR } from '../constants'
 import { ApiService, BooksObject, Headers, ImageObject } from '../types'
 
 class Service implements ApiService {
+  fetchBooksWithoutPagination({
+    categories,
+    statuses,
+  }: {
+    categories: string[]
+    statuses: string[]
+  }): Promise<BooksObject> {
+    let url = `${API_URL}/books/filter`
+    if (categories.length !== 0) {
+      const categoriesQueryParam = `&bookCategories=${categories.toString()}`
+      url = `${url}${categoriesQueryParam}`
+    }
+
+    if (statuses.length !== 0) {
+      const statusesQueryPram = `&bookStatuses=${statuses.toString()}`
+      url = `${url}${statusesQueryPram}`
+    }
+    url = url.replace('&', '?')
+    return fetch(url, {
+      method: 'GET',
+      credentials: 'same-origin',
+      headers: this.getHeaders(),
+    })
+      .then(response => Service.handleErrors(response))
+      .then(response => response.json())
+  }
   uploadImage(file: File): Promise<ImageObject> {
     const formData = new FormData()
     formData.append('image', file)
