@@ -20,11 +20,7 @@ function App() {
             <Route index element={<Homepage />} />
             <Route path='/add-books' element={<AddNewBooksForm />} />
             <Route path='/admin' element={<ManagerHomepage />} />
-            <Route
-              path='/book'
-              index
-              element={<BookDetailsPage isUserAdmin={false} />}
-            />
+            <Route path='/book/:id' element={<BookDetailsPage />} />
           </Route>
           <Route path='/login' element={<LoginPage />} />
           <Route path='/testing' element={<TestingPage />} />

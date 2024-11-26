@@ -12,12 +12,18 @@ import { BackButton } from '../../components/Shared'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { BookForm } from './BookForm'
 import { RemoveBookButton } from './CustomComponents'
+import { Author } from './BookForm/BookForm'
+
+export type BookWithFile = {
+  book: Book
+  file?: File
+}
 
 export type Book = {
   title: string
-  author: string
-  categories: string[]
-  amount: number
+  authors: Author[]
+  bookCategories: string[]
+  numberOfAvailableCopies: number
   description: string
   imageUrl: string
 }
@@ -25,7 +31,7 @@ export type Book = {
 const AddNewBooksForm = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
   const matches = useMediaQuery('(max-width: 780px)')
-  const [addedBooks, setAddedBooks] = useState<Book[]>([])
+  const [addedBooks, setAddedBooks] = useState<BookWithFile[]>([])
   const [isAccordionExpanded, setIsAccordionExpanded] = useState(false)
 
   return (
@@ -80,13 +86,15 @@ const AddNewBooksForm = () => {
                           variant='body2'
                           className={style.accordionAuthor}
                         >
-                          {el.author}
+                          {el.book.authors.map((author, index) => (
+                            <span key={index}>{author.fullName}</span>
+                          ))}
                         </Typography>
                         <Typography
                           variant='h6'
                           className={style.accordionTitle}
                         >
-                          {el.title}
+                          {el.book.title}
                         </Typography>
                       </div>
                     )}
@@ -94,12 +102,12 @@ const AddNewBooksForm = () => {
                   <AccordionDetails>
                     <div>
                       <BookForm
-                        bookAmount={el.amount}
-                        bookAuthor={el.author}
-                        bookCategories={el.categories}
-                        bookDescription={el.description}
-                        bookImageUrl={el.imageUrl}
-                        bookTitle={el.title}
+                        bookAmount={el.book.numberOfAvailableCopies}
+                        bookAuthor={el.book.authors}
+                        bookCategories={el.book.bookCategories}
+                        bookDescription={el.book.description}
+                        bookImageUrl={el.book.imageUrl}
+                        bookTitle={el.book.title}
                         inAccordion={true}
                       />
                     </div>

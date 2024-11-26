@@ -1,3 +1,7 @@
+import { BookWithFile } from '../pages/AddNewBooksForm/AddNewBooksForm'
+
+import { Status } from '../components/BookStatusPanel/BookStatus/Status'
+
 export interface ApiService {
   fetchBooksData({
     currentPage,
@@ -6,6 +10,10 @@ export interface ApiService {
     currentPage: number
     pageSize: number
   }): Promise<Record<string, string>>
+
+  addBook(bookWithFile: BookWithFile): Promise<BooksObject>
+
+  uploadImage(file: File): Promise<ImageObject>
 }
 
 export type Headers = {
@@ -42,6 +50,7 @@ export type BooksObject = {
 }
 
 export type BooksList = {
+  bookStatus: Status
   id: string
   title: string
   authors: [
@@ -51,6 +60,7 @@ export type BooksList = {
     }
   ]
   imageUrl: string
+  status: string
   numberOfAvailableCopies: number
   usersWhoFavourited: string[]
   usersOnWaitingList: string[]
@@ -77,4 +87,8 @@ export type Review = {
   dateTime: string
   bookId: string
   user: User
+}
+
+export type ImageObject = {
+  imagePath: string
 }
