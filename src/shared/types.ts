@@ -1,5 +1,7 @@
 import { BookWithFile } from '../pages/AddNewBooksForm/AddNewBooksForm'
 
+import { Status } from '../components/BookStatusPanel/BookStatus/Status'
+
 export interface ApiService {
   fetchBooksData({
     currentPage,
@@ -56,6 +58,7 @@ export type BooksObject = {
 }
 
 export type BooksList = {
+  bookStatus: Status
   id: string
   title: string
   authors: [
@@ -65,6 +68,7 @@ export type BooksList = {
     }
   ]
   imageUrl: string
+  status: string
   numberOfAvailableCopies: number
   usersWhoFavourited: string[]
   usersOnWaitingList: string[]

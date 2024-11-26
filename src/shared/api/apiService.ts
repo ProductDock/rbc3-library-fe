@@ -65,6 +65,15 @@ class Service implements ApiService {
     )
   }
 
+  getBookById(bookId: string): Promise<BooksObject> {
+    return fetch(`${API_URL}/books/${bookId}`, {
+      method: 'GET',
+      headers: this.getHeaders(),
+    })
+      .then(response => Service.handleErrors(response))
+      .then(response => response.json())
+  }
+
   private headers: Headers = {
     'Content-Type': 'application/json',
   }

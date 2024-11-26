@@ -152,6 +152,18 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
     navigate('/add-books')
   }
 
+  const navigateToBookDetailsPage = (bookId: string) => {
+    ApiService.getBookById(bookId)
+      .then(bookData => {
+        navigate(`/book/${bookId}`, {
+          state: { bookData, isUserAdmin: isAdmin },
+        })
+      })
+      .catch(error => {
+        console.error('Error fetching book details:', error)
+      })
+  }
+
   const handleFilterChange = (categories: string[], statuses: string[]) => {
     setSelectedCategories(categories)
     setBookStatus(statuses)
@@ -295,6 +307,9 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
                   key={index}
                   title={book.title}
                   author={book.authors.map(author => author.fullName)}
+                  image={`http://localhost:8080/books/photo/${book.id}`}
+                  status={book.bookStatus}
+                  onClick={() => navigateToBookDetailsPage(book.id)}
                 />
                 <Divider className={styles.dividerView} />
               </>
@@ -304,12 +319,15 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
       {!isAdmin && (
         <div className={styles.books}>
           {booksData &&
-            booksData.map((book, index) => (
+            booksData.map(book => (
               <BookCard
-                key={index}
+                key={book.id}
                 inFavorites={true}
                 title={book.title}
                 author={book.authors.map(author => author.fullName)}
+                onClick={() => navigateToBookDetailsPage(book.id)}
+                status={book.bookStatus}
+                image={`http://localhost:8080/books/photo/${book.id}`}
               />
             ))}
         </div>

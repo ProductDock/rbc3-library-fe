@@ -1,6 +1,5 @@
 import { Button, Divider, Typography, useMediaQuery } from '@mui/material'
 import { BookStatusPanel } from '../../components/BookStatusPanel'
-import bookCover from '../../assets/bookCover.svg'
 import { EditButton } from '../../components/EditButton'
 import { DeleteButton } from '../../components/DeleteButton'
 import { BookCard } from '../../components/BookCard'
@@ -8,13 +7,41 @@ import { BackButton } from '../../components/Shared'
 import { ReviewList } from './ReviewList'
 
 import styles from './BookDetailsPage.module.css'
+import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Review } from '../../shared/types'
 
-type BookDetailsPageProps = {
-  isUserAdmin: boolean
-}
-
-const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
+const BookDetailsPage = () => {
+  const location = useLocation()
+  const { bookData, isUserAdmin } = location.state
   const matchesMobile = useMediaQuery('(max-width:450px)')
+  const authorName = bookData?.authors?.[0]?.fullName
+  const categories: string[] = bookData?.bookCategories || []
+
+  const [reviews, setReviews] = useState<Review[]>([])
+  const [averageRating, setAverageRating] = useState<number>(0)
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/reviews?bookId=${bookData.id}`)
+      .then(response => response.json())
+      .then(data => {
+        setReviews(data)
+
+        const totalRating = data.reduce(
+          (acc: number, review: Review) => acc + review.rating,
+          0
+        )
+        setAverageRating(totalRating / data.length || 0)
+      })
+      .catch(error => console.error('Error fetching reviews:', error))
+  }, [bookData.id])
+
+  const categoryFromSnakeCase = (category: string): string => {
+    return category
+      .replace(/_/g, ' ')
+      .toLowerCase()
+      .replace(/^\w/, match => match.toUpperCase())
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -23,10 +50,10 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
           <BookCard
             inFavorites={true}
             isAdmin={false}
-            author={['Nicholas Epley']}
-            title={
-              'Mindwise: Why we misunderstand what others think, believe, feel and want'
-            }
+            author={authorName}
+            title={bookData.title}
+            status={bookData.bookStatus}
+            image={`http://localhost:8080/books/photo/${bookData.id}`}
           />
         ) : (
           <div className={styles.bookInfoWrapper}>
@@ -51,7 +78,7 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
               <Divider className={styles.leftUpper} />
               <div className={styles.author}>
                 <Typography variant='h6' className={styles.authorText}>
-                  Nicholas Epley
+                  {authorName}
                 </Typography>
               </div>
               <div className={styles.title}>
@@ -59,12 +86,15 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
                   variant={matchesMobile ? 'h4' : 'subtitle2'}
                   className={styles.titleText}
                 >
-                  Mindwise: Why we misunderstand what others think, believe,
-                  feel and want
+                  {bookData.title}
                 </Typography>
               </div>
               <div className={styles.statusPanel}>
-                <BookStatusPanel layoutDirection={'rating-left'} />
+                <BookStatusPanel
+                  layoutDirection={'rating-left'}
+                  status={bookData.bookStatus}
+                  rating={bookData.averageRating}
+                />
               </div>
               <Divider className={styles.leftMiddle} />
             </div>
@@ -73,7 +103,11 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
                 <BackButton />
               </div>
               <div className={styles.bookImage}>
-                <img src={bookCover} alt='book' className={styles.image} />
+                <img
+                  src={`http://localhost:8080/books/photo/${bookData.id}`}
+                  alt='book'
+                  className={styles.image}
+                />
               </div>
             </div>
           </div>
@@ -87,42 +121,23 @@ const BookDetailsPage: React.FC<BookDetailsPageProps> = ({ isUserAdmin }) => {
               </Typography>
             </div>
             <div className={styles.description}>
-              <Typography variant='body1'>
-                Why are we sometimes blind to the minds of others, treating them
-                like objects or animals instead? Why do we talk to our cars, or
-                the stars, as if there is a mind that can hear us? Why do we so
-                routinely believe that others think, feel, and want what we do
-                when, in fact, they do not? And why do we think we understand
-                our spouses, family, and friends so much better than we actually
-                do? <br />
-                <br /> In this illuminating book, leading social psychologist
-                Nicholas Epley introduces us to what scientists have learned
-                about our ability to understand the most complicated puzzle on
-                the planet—other people—and the surprising mistakes we so
-                routinely make. Mindwise will not turn others into open books,
-                but it will give you the wisdom to revolutionize how you think
-                about them—and yourself.
-              </Typography>
+              <Typography variant='body1'>{bookData.description}</Typography>
             </div>
             <div className={styles.genres}>
-              <Button
-                className={matchesMobile ? styles.genreMobile : styles.genre}
-              >
-                <Typography variant={matchesMobile ? 'body1' : 'h6'}>
-                  Product management
-                </Typography>
-              </Button>
-              <Button
-                className={matchesMobile ? styles.genreMobile : styles.genre}
-              >
-                <Typography variant={matchesMobile ? 'body1' : 'h6'}>
-                  Design
-                </Typography>
-              </Button>
+              {categories.map((category, index) => (
+                <Button
+                  key={index}
+                  className={matchesMobile ? styles.genreMobile : styles.genre}
+                >
+                  <Typography variant={matchesMobile ? 'body1' : 'h6'}>
+                    {categoryFromSnakeCase(category)}
+                  </Typography>
+                </Button>
+              ))}
             </div>
             <Divider className={styles.leftLower} />
             <div>
-              <ReviewList />
+              <ReviewList reviews={reviews} averageRating={averageRating} />
             </div>
           </div>
 

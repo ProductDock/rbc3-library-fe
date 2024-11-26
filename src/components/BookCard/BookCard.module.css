@@ -1,6 +1,7 @@
 .bookCard {
   width: 290px;
   height: 544px;
+  cursor: pointer;
 
   @media (max-width: 450px) {
     width: 316px;

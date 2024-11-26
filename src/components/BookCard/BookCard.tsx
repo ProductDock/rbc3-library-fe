@@ -6,26 +6,33 @@ import { Typography } from '@mui/material'
 import BookManagmentIcons from '../BookCardOfficeManager/BookManagmentIcons/BookManagmentIcons'
 
 import styles from './BookCard.module.css'
+import { Status } from '../BookStatusPanel/BookStatus/Status'
 
 type BookCardProps = {
+  onClick?: () => void
   inFavorites: boolean
   isAdmin?: boolean
   title?: string
   author?: string[]
+  status: Status
+  image: string
 }
 
 const BookCard: React.FC<BookCardProps> = ({
+  onClick,
   inFavorites,
   isAdmin,
   title,
   author,
+  status,
+  image,
 }) => {
   return (
-    <div className={styles.bookCard}>
+    <div className={styles.bookCard} onClick={onClick}>
       {isAdmin ? (
-        <Favorite inFavorites={inFavorites} isAdmin={true} />
+        <Favorite inFavorites={inFavorites} isAdmin={true} image={image} />
       ) : (
-        <Favorite inFavorites={inFavorites} />
+        <Favorite inFavorites={inFavorites} image={image} />
       )}
       <div className={styles.cardContent}>
         <div className={isAdmin ? styles.infoAdminView : styles.info}>
@@ -38,7 +45,10 @@ const BookCard: React.FC<BookCardProps> = ({
           {!isAdmin && <Divider className={styles.divider} />}
           <div className={styles.bookStatusPanel}>
             <div className={styles.statusPanel}>
-              <BookStatusPanel layoutDirection={'rating-left'} />
+              <BookStatusPanel
+                layoutDirection={'rating-left'}
+                status={status || 'status placeholder'}
+              />
             </div>
             <div>{isAdmin && <Divider className={styles.adminDivider} />}</div>
           </div>
