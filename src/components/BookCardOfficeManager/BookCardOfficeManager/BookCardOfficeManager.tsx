@@ -1,19 +1,28 @@
 import styles from './BookCardOfficeManager.module.css'
-import cover from '../../../assets/bookExample.svg'
 import { Divider, Typography } from '@mui/material'
 import { BookStatusPanel } from '../../BookStatusPanel'
 import { BookManagmentIcons } from '../BookManagmentIcons'
+import { Status } from '../../BookStatusPanel/BookStatus/Status'
 
 interface BookProps {
+  onClick?: () => void
   title: string
   author: string[]
+  image: string
+  status: Status
 }
 
-const BookCardOfficeManager: React.FC<BookProps> = ({ title, author }) => {
+const BookCardOfficeManager: React.FC<BookProps> = ({
+  onClick,
+  title,
+  author,
+  image,
+  status,
+}) => {
   return (
-    <div className={styles.bookCardWrapper}>
+    <div className={styles.bookCardWrapper} onClick={onClick}>
       <div className={styles.cardImageWrapper}>
-        <img src={cover} alt='bookCover' className={styles.imageHolder} />
+        <img src={image} alt='bookCover' className={styles.imageHolder} />
       </div>
       <div className={styles.cardDetailsWrapper}>
         <div className={styles.cardDetails}>
@@ -26,7 +35,7 @@ const BookCardOfficeManager: React.FC<BookProps> = ({ title, author }) => {
             {title}
           </Typography>
           <div className={styles.bookStatusPanelAdmin}>
-            <BookStatusPanel layoutDirection={'status-left'} />
+            <BookStatusPanel layoutDirection={'status-left'} status={status} />
           </div>
         </div>
         <div className={styles.bookManagmentIconsView}>

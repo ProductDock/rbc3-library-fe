@@ -7,7 +7,7 @@ const DeleteButton = () => {
     <div>
       <Button>
         <img src={deleteButton} alt='back' className={styles.deleteIcon} />
-        <Typography className={styles.delete}>Delete</Typography>
+        <Typography className={styles.text}>Delete</Typography>
       </Button>
     </div>
   )
