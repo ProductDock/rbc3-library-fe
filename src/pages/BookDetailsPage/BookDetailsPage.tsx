@@ -9,7 +9,8 @@ import { ReviewList } from './ReviewList'
 import styles from './BookDetailsPage.module.css'
 import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Review, ReviewWithId } from '../../shared/types'
+import { ReviewWithId } from '../../shared/types'
+import apiService from '../../shared/api/apiService'
 
 const BookDetailsPage = () => {
   const location = useLocation()
@@ -22,18 +23,20 @@ const BookDetailsPage = () => {
   const [averageRating, setAverageRating] = useState<number>(0)
 
   useEffect(() => {
-    fetch(`http://localhost:3000/reviews?bookId=${bookData.id}`)
-      .then(response => response.json())
-      .then(data => {
-        setReviews(data)
+    apiService
+      .fetchBookReviews(bookData.id)
+      .then(reviewsData => {
+        setReviews(reviewsData.content)
 
-        const totalRating = data.reduce(
-          (acc: number, review: Review) => acc + review.rating,
+        const totalRating = reviewsData.content.reduce(
+          (acc: number, review: { rating: number }) => acc + review.rating,
           0
         )
-        setAverageRating(totalRating / data.length || 0)
+        setAverageRating(totalRating / reviewsData.content.length || 0)
       })
-      .catch(error => console.error('Error fetching reviews:', error))
+      .catch(error => {
+        console.error('Error fetching reviews:', error)
+      })
   }, [bookData.id])
 
   const categoryFromSnakeCase = (category: string): string => {
@@ -136,7 +139,7 @@ const BookDetailsPage = () => {
               ))}
             </div>
             <Divider className={styles.leftLower} />
-            <div>
+            <div className={styles.reviews}>
               <ReviewList
                 reviews={reviews}
                 averageRating={averageRating}

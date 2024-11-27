@@ -19,6 +19,14 @@ const ReviewList: React.FC<ReviewListProps> = ({
 }) => {
   const roundedAverageRating = averageRating.toFixed(1)
 
+  const [showAll, setShowAll] = useState(false)
+
+  const visibleReviews = showAll ? reviews : reviews.slice(0, 2)
+
+  const handleShowAllReviewsClick = () => {
+    setShowAll(true)
+  }
+
   const [open, setOpen] = useState(false)
   const toggleDrawer = (newOpen: boolean) => {
     setOpen(newOpen)
@@ -55,13 +63,28 @@ const ReviewList: React.FC<ReviewListProps> = ({
           <ReviewForm open={open} toggleDrawer={toggleDrawer} bookId={bookId} />
         </div>
       </div>
-      <div>
-        {reviews.map(review => (
+      <div className={style.currentReviews}>
+        {visibleReviews.map((review, index) => (
           <div key={review.id}>
             <ReviewComponent review={review} />
-            <Divider className={style.reviewDivider} />
+            {index < visibleReviews.length - 1 && (
+              <Divider className={style.reviewDivider} />
+            )}
           </div>
         ))}
+        {!showAll && reviews.length > 2 && (
+          <div className={style.showAllReviews}>
+            <Button
+              onClick={handleShowAllReviewsClick}
+              className={style.showAllReviewsButton}
+            >
+              <Typography variant='body1' className={style.showAllText}>
+                Show all {reviews.length} reviews
+              </Typography>
+            </Button>
+            <Divider className={style.reviewDivider} />
+          </div>
+        )}
       </div>
     </div>
   )

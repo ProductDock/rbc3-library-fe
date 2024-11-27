@@ -5,6 +5,7 @@ import editIcon from './../../../../assets/editIcon.svg'
 import deleteIcon from './../../../../assets/deleteIcon.svg'
 import starGrey from './../../../../assets/ratingStarGrey.svg'
 import starYellow from './../../../../assets/ratingStarYellow.svg'
+import user from './../../../../assets/user.svg'
 import { Review } from '../../../../shared/types'
 
 interface ReviewProps {
@@ -12,31 +13,44 @@ interface ReviewProps {
 }
 
 const ReviewComponent = ({ review }: ReviewProps) => {
-  const loggedUserId = '1'
+  function formatReviewDate(dateTime: string): string {
+    const date = new Date(dateTime)
+    if (isNaN(date.getTime())) {
+      return 'Invalid Date'
+    }
+
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+    }
+    return date.toLocaleDateString('en-US', options)
+  }
+
+  function capitalizeFirstLetter(seniorities: string[]): string[] {
+    return seniorities.map(seniority => {
+      return (
+        seniority.charAt(0).toUpperCase() + seniority.slice(1).toLowerCase()
+      )
+    })
+  }
 
   return (
     <div className={style.reviewWrapper}>
       <div className={style.reviewTopSectionWrapper}>
         <div className={style.avatarWrapper}>
           <div className={style.avatarImgWrapper}>
-            <img src={review.user.imageUrl} alt='avatar_img' />
+            <img src={user} alt='avatar_img' />
           </div>
           <div className={style.nameAndDate}>
             <Typography variant='body1' className={style.nameText}>
-              {review.user.fullName}
+              {'Anonymus user'}
             </Typography>
             <Typography variant='body1' className={style.dateText}>
-              {review.dateTime}
+              {formatReviewDate(review.dateTime)}
             </Typography>
           </div>
         </div>
-        <div
-          className={
-            loggedUserId === review.user.id
-              ? style.actionIconsWrapper
-              : style.hideActionIcons
-          }
-        >
+        <div className={style.actionIconsWrapper}>
           <IconButton>
             <img src={editIcon} alt='edit_icon' />
           </IconButton>
@@ -63,7 +77,7 @@ const ReviewComponent = ({ review }: ReviewProps) => {
         <Typography variant='body1' className={style.recommendedTo}>
           Recommended to
           <Typography component='span' className={style.recommendedBold}>
-            : {review.recommendedFor.seniority.join(', ')}
+            : {capitalizeFirstLetter(review.seniorities).join(', ')}
           </Typography>
         </Typography>
       </div>
