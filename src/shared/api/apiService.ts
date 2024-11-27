@@ -1,8 +1,18 @@
 import { BookWithFile } from '../../pages/AddNewBooksForm/AddNewBooksForm'
 import { API_URL, DATA_FETCH_ERROR } from '../constants'
-import { ApiService, BooksObject, Headers, ImageObject } from '../types'
+import { ApiService, BooksObject, Headers, ImageObject, Review } from '../types'
 
 class Service implements ApiService {
+  addReview(bookId: string, review: Review) {
+    return fetch(`${API_URL}/books/${bookId}/reviews`, {
+      method: 'POST',
+      body: JSON.stringify(review),
+      headers: this.getHeaders(),
+    })
+      .then(response => Service.handleErrors(response))
+      .then(response => response.json)
+  }
+
   uploadImage(file: File): Promise<ImageObject> {
     const formData = new FormData()
     formData.append('image', file)

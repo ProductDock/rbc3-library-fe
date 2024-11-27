@@ -12,7 +12,8 @@ import { StarRating } from './StarRating'
 import { RecomendationCheckBox } from './RecomendationCheckBox'
 import TextField from '@mui/material/TextField'
 import close from '../../assets/closeBlack.svg'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import apiService from '../../shared/api/apiService'
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& input::placeholder': {
@@ -26,30 +27,61 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 interface ReviewFormProps {
   open: boolean
   toggleDrawer: (newOpen: boolean) => void
+  bookId: string
 }
 
 export const ReviewForm: React.FC<ReviewFormProps> = ({
   open,
   toggleDrawer,
+  bookId,
 }) => {
   const matches = useMediaQuery('(min-width:700px)')
 
-  const [reviewText, setReviewText] = useState('')
+  const [content, setContent] = useState('')
   const [rating, setRating] = useState<number>(0)
-  const [recommendation, setRecommendation] = useState<string[]>([])
+  const [seniorities, setSeniorities] = useState<string[]>([])
+  const [dateTime, setDateTime] = useState('')
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setReviewText(event.target.value)
+    setContent(event.target.value)
+  }
+
+  useEffect(() => {
+    const today = new Date()
+    const month = today.getMonth() + 1
+    const year = today.getFullYear()
+    const formattedDate = `${year}-${
+      month < 10 ? '0' + month : month
+    }-01T00:00:00`
+    setDateTime(formattedDate)
+  }, [])
+
+  const seniorityToSnakeCase = (categories: string[]): string[] => {
+    return categories.map(category => category.toLocaleUpperCase())
   }
 
   const handleSubmit = () => {
     const reviewData = {
       rating,
-      recommendation,
-      reviewText,
+      seniorities: seniorityToSnakeCase(seniorities),
+      content,
+      dateTime,
+      bookId,
     }
 
-    console.log('Review submitted:', reviewData)
+    apiService
+      .addReview(bookId, reviewData)
+      .then(data => {
+        console.log('Review added successfully:', data)
+        setRating(0)
+        setContent('')
+        setSeniorities([])
+        setDateTime('')
+        toggleDrawer(false)
+      })
+      .catch(error => {
+        console.error('Error submitting review:', error)
+      })
   }
 
   const formContent = (
@@ -90,8 +122,8 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             </div>
             <div>
               <RecomendationCheckBox
-                value={recommendation}
-                onChange={setRecommendation}
+                value={seniorities}
+                onChange={setSeniorities}
               />
             </div>
           </div>

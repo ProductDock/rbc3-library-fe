@@ -78,15 +78,15 @@ export type User = {
 }
 
 export type Review = {
-  id: string
   rating: number
   content: string
-  recommendedFor: {
-    seniority: string[]
-  }
+  seniorities: string[]
   dateTime: string
   bookId: string
-  user: User
+}
+
+export type ReviewWithId = Review & {
+  id: string
 }
 
 export type ImageObject = {

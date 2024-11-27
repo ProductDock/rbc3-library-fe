@@ -4,14 +4,19 @@ import { ReviewComponent } from './ReviewComponent'
 import reviewStar from './../../../assets/totalReviewStar.svg'
 import { useState } from 'react'
 import { ReviewForm } from '../../ReviewForm'
-import { Review } from '../../../shared/types'
+import { ReviewWithId } from '../../../shared/types'
 
 type ReviewListProps = {
-  reviews: Review[]
+  reviews: ReviewWithId[]
   averageRating: number
+  bookId: string
 }
 
-const ReviewList: React.FC<ReviewListProps> = ({ reviews, averageRating }) => {
+const ReviewList: React.FC<ReviewListProps> = ({
+  reviews,
+  averageRating,
+  bookId,
+}) => {
   const roundedAverageRating = averageRating.toFixed(1)
 
   const [open, setOpen] = useState(false)
@@ -47,7 +52,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ reviews, averageRating }) => {
               Leave a review
             </Typography>
           </Button>
-          <ReviewForm open={open} toggleDrawer={toggleDrawer} />
+          <ReviewForm open={open} toggleDrawer={toggleDrawer} bookId={bookId} />
         </div>
       </div>
       <div>

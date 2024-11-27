@@ -9,7 +9,7 @@ import { ReviewList } from './ReviewList'
 import styles from './BookDetailsPage.module.css'
 import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Review } from '../../shared/types'
+import { Review, ReviewWithId } from '../../shared/types'
 
 const BookDetailsPage = () => {
   const location = useLocation()
@@ -18,7 +18,7 @@ const BookDetailsPage = () => {
   const authorName = bookData?.authors?.[0]?.fullName
   const categories: string[] = bookData?.bookCategories || []
 
-  const [reviews, setReviews] = useState<Review[]>([])
+  const [reviews, setReviews] = useState<ReviewWithId[]>([])
   const [averageRating, setAverageRating] = useState<number>(0)
 
   useEffect(() => {
@@ -137,7 +137,11 @@ const BookDetailsPage = () => {
             </div>
             <Divider className={styles.leftLower} />
             <div>
-              <ReviewList reviews={reviews} averageRating={averageRating} />
+              <ReviewList
+                reviews={reviews}
+                averageRating={averageRating}
+                bookId={bookData.id}
+              />
             </div>
           </div>
 
