@@ -141,6 +141,7 @@ const BookDetailsPage = () => {
             <Divider className={styles.leftLower} />
             <div className={styles.reviews}>
               <ReviewList
+                setReviews={setReviews}
                 reviews={reviews}
                 averageRating={averageRating}
                 bookId={bookData.id}

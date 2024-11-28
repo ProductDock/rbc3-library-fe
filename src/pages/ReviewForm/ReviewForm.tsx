@@ -14,6 +14,7 @@ import TextField from '@mui/material/TextField'
 import close from '../../assets/closeBlack.svg'
 import { useEffect, useState } from 'react'
 import apiService from '../../shared/api/apiService'
+import { ReviewWithId } from '../../shared/types'
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& input::placeholder': {
@@ -25,12 +26,16 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 }))
 
 interface ReviewFormProps {
+  setReviews: (review: ReviewWithId[]) => void
   open: boolean
   toggleDrawer: (newOpen: boolean) => void
   bookId: string
+  reviews: ReviewWithId[]
 }
 
 export const ReviewForm: React.FC<ReviewFormProps> = ({
+  reviews,
+  setReviews,
   open,
   toggleDrawer,
   bookId,
@@ -72,6 +77,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
     apiService
       .addReview(bookId, reviewData)
       .then(data => {
+        setReviews([...reviews, data])
         console.log('Review added successfully:', data)
         setRating(0)
         setContent('')

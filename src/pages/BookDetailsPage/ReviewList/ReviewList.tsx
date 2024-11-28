@@ -10,9 +10,11 @@ type ReviewListProps = {
   reviews: ReviewWithId[]
   averageRating: number
   bookId: string
+  setReviews: (review: ReviewWithId[]) => void
 }
 
 const ReviewList: React.FC<ReviewListProps> = ({
+  setReviews,
   reviews,
   averageRating,
   bookId,
@@ -60,7 +62,13 @@ const ReviewList: React.FC<ReviewListProps> = ({
               Leave a review
             </Typography>
           </Button>
-          <ReviewForm open={open} toggleDrawer={toggleDrawer} bookId={bookId} />
+          <ReviewForm
+            reviews={reviews}
+            setReviews={setReviews}
+            open={open}
+            toggleDrawer={toggleDrawer}
+            bookId={bookId}
+          />
         </div>
       </div>
       <div className={style.currentReviews}>

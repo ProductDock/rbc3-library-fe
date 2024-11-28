@@ -1,6 +1,13 @@
 import { BookWithFile } from '../../pages/AddNewBooksForm/AddNewBooksForm'
 import { API_URL, DATA_FETCH_ERROR } from '../constants'
-import { ApiService, BooksObject, Headers, ImageObject, Review } from '../types'
+import {
+  ApiService,
+  BooksObject,
+  Headers,
+  ImageObject,
+  Review,
+  ReviewWithId,
+} from '../types'
 
 class Service implements ApiService {
   fetchBookReviews = async (bookId: string) => {
@@ -13,14 +20,14 @@ class Service implements ApiService {
       .then(response => response.json())
   }
 
-  addReview(bookId: string, review: Review) {
+  addReview(bookId: string, review: Review): Promise<ReviewWithId> {
     return fetch(`${API_URL}/books/${bookId}/reviews`, {
       method: 'POST',
       body: JSON.stringify(review),
       headers: this.getHeaders(),
     })
       .then(response => Service.handleErrors(response))
-      .then(response => response.json)
+      .then(response => response.json())
   }
 
   uploadImage(file: File): Promise<ImageObject> {
