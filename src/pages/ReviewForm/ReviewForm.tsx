@@ -15,6 +15,7 @@ import close from '../../assets/closeBlack.svg'
 import { useEffect, useState } from 'react'
 import apiService from '../../shared/api/apiService'
 import { ReviewWithId } from '../../shared/types'
+import Snackbar from '@mui/material/Snackbar'
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& input::placeholder': {
@@ -46,6 +47,8 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   const [rating, setRating] = useState<number>(0)
   const [seniorities, setSeniorities] = useState<string[]>([])
   const [dateTime, setDateTime] = useState('')
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setContent(event.target.value)
@@ -78,20 +81,36 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
       .addReview(bookId, reviewData)
       .then(data => {
         setReviews([...reviews, data])
-        console.log('Review added successfully:', data)
+        setSnackbarMessage('Review added successfully')
+        setOpenSnackbar(true)
         setRating(0)
         setContent('')
         setSeniorities([])
         setDateTime('')
         toggleDrawer(false)
       })
-      .catch(error => {
-        console.error('Error submitting review:', error)
+      .catch(() => {
+        setSnackbarMessage('Error submitting review:')
+        setOpenSnackbar(true)
       })
+  }
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false)
   }
 
   const formContent = (
     <>
+      <Snackbar
+        open={openSnackbar}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        autoHideDuration={6000}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      />
       <div className={styles.reviewFormContainer}>
         <div className={styles.formContainer}>
           <div className={styles.closeBar} onClick={() => toggleDrawer(false)}>

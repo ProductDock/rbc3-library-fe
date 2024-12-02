@@ -1,6 +1,6 @@
-import { http, HttpResponse } from 'msw'
+import { http, passthrough, HttpResponse } from 'msw'
 // import booksFixture from '../mocks/fixtures/booksFixture.json'
-// import reviewsFixture from '../mocks/fixtures/reviewsFixture.json'
+import reviewsFixture from '../mocks/fixtures/reviewsFixture.json'
 
 export const handlers = [
   // http.get('http://localhost:8080/books', () => {
@@ -8,9 +8,12 @@ export const handlers = [
   //   return HttpResponse.json(booksFixture)
   // }),
 
-  // http.get('*/reviews*', () => {
-  //   return HttpResponse.json(reviewsFixture)
-  // }),
+  http.get('*/reviews/*', ({ request }) => {
+    if (request.headers.get('Content-Type') === 'application/json') {
+      return passthrough()
+    }
+    return HttpResponse.json(reviewsFixture)
+  }),
 
   http.post('http://localhost:3000/add-book', () => {
     return HttpResponse.json(

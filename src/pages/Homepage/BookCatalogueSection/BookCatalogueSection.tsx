@@ -17,6 +17,7 @@ import { useMediaQuery } from '@mui/material'
 import { BookCatalogueCardOfficeManager } from '../../../components/BookCardOfficeManager'
 import { BooksList, BooksObject } from '../../../shared/types'
 import ApiService from '../../../shared/api/apiService'
+import Snackbar from '@mui/material/Snackbar'
 
 import styles from './BookCatalogueSection.module.css'
 import classNames from 'classnames'
@@ -59,6 +60,8 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
   const [pageSize] = useState<number>(12)
   const [isLastPage, setIsLastPage] = useState(false)
   const [totalNumberOfBooks, setTotalNumberOfBooks] = useState(0)
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
 
   useEffect(() => {
     setBooksData([])
@@ -105,7 +108,8 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
         }
       })
       .catch(() => {
-        console.log('Ups')
+        setSnackbarMessage('Error fetching books')
+        setOpenSnackbar(true)
       })
   }, [currentPage, pageSize])
 
@@ -154,6 +158,10 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
       .catch(error => {
         console.error('Error fetching book details:', error)
       })
+  }
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false)
   }
 
   return (
@@ -341,6 +349,16 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
           </Typography>
         </Button>
       </div>
+      <Snackbar
+        open={openSnackbar}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        autoHideDuration={6000}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      />
     </div>
   )
 }
