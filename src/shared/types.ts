@@ -50,6 +50,7 @@ export type BooksObject = {
 }
 
 export type BooksList = {
+  averageRating: number
   bookStatus: Status
   id: string
   title: string

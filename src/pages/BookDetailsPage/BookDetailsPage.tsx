@@ -37,7 +37,9 @@ const BookDetailsPage = () => {
       .catch(error => {
         console.error('Error fetching reviews:', error)
       })
-  }, [bookData.id])
+  }, [bookData.id, reviews])
+
+  const roundedAverageRating = averageRating.toFixed(1)
 
   const categoryFromSnakeCase = (category: string): string => {
     return category
@@ -56,6 +58,7 @@ const BookDetailsPage = () => {
             author={authorName}
             title={bookData.title}
             status={bookData.bookStatus}
+            rating={roundedAverageRating}
             image={`http://localhost:8080/books/photo/${bookData.id}`}
           />
         ) : (
@@ -96,7 +99,7 @@ const BookDetailsPage = () => {
                 <BookStatusPanel
                   layoutDirection={'rating-left'}
                   status={bookData.bookStatus}
-                  rating={bookData.averageRating}
+                  rating={roundedAverageRating}
                 />
               </div>
               <Divider className={styles.leftMiddle} />
@@ -143,7 +146,7 @@ const BookDetailsPage = () => {
               <ReviewList
                 setReviews={setReviews}
                 reviews={reviews}
-                averageRating={averageRating}
+                averageRating={roundedAverageRating}
                 bookId={bookData.id}
               />
             </div>

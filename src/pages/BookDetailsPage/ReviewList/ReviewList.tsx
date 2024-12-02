@@ -8,7 +8,7 @@ import { ReviewWithId } from '../../../shared/types'
 
 type ReviewListProps = {
   reviews: ReviewWithId[]
-  averageRating: number
+  averageRating: string
   bookId: string
   setReviews: (review: ReviewWithId[]) => void
 }
@@ -19,8 +19,6 @@ const ReviewList: React.FC<ReviewListProps> = ({
   averageRating,
   bookId,
 }) => {
-  const roundedAverageRating = averageRating.toFixed(1)
-
   const [showAll, setShowAll] = useState(false)
 
   const visibleReviews = showAll ? reviews : reviews.slice(0, 2)
@@ -44,7 +42,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
             alt='review_star'
           />
           <Typography variant='h6' className={style.ratingText}>
-            {roundedAverageRating}
+            {averageRating}
           </Typography>
           <Typography variant='h6' className={style.ratingDot}>
             ·
