@@ -157,7 +157,6 @@ const BookForm: React.FC<BookFormProps> = ({
         ),
         numberOfAvailableCopies,
         description,
-        imageUrl,
       },
       file: imageFile,
     }
@@ -168,8 +167,7 @@ const BookForm: React.FC<BookFormProps> = ({
 
     apiService
       .addBooks(booksToAdd)
-      .then(results => {
-        console.log('Books added successfully:', results)
+      .then(() => {
         if (setAddedBooks != undefined) setAddedBooks([])
       })
       .catch(error => {

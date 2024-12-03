@@ -13,7 +13,7 @@ export interface ApiService {
 
   addBook(bookWithFile: BookWithFile): Promise<BooksObject>
 
-  uploadImage(file: File): Promise<ImageObject>
+  uploadImage(file: File, bookId: string): Promise<string>
 }
 
 export type Headers = {
@@ -21,6 +21,7 @@ export type Headers = {
 }
 
 export type BooksObject = {
+  id: string
   content: BooksList[]
   pageable: {
     pageNumber: number
