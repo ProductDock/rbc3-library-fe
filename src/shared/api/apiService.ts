@@ -4,7 +4,6 @@ import {
   ApiService,
   BooksObject,
   Headers,
-  ImageObject,
   Review,
   ReviewWithId,
 } from '../types'
