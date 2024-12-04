@@ -13,40 +13,64 @@ const labels = [
   { label: 'Senior', value: 'Senior', checked: false },
 ]
 
-export default function RecomendationCheckBox() {
+interface RecommendationCheckBoxProps {
+  value: string[]
+  onChange: (newValue: string[]) => void
+}
+
+const RecomendationCheckBox: React.FC<RecommendationCheckBoxProps> = ({
+  value,
+  onChange,
+}) => {
   const [checkBoxState, setCheckBoxState] = useState(labels)
 
   useEffect(() => {
-    return () => {
-      const newCheckboxState = checkBoxState.map(el => {
-        el.checked = false
-        return el
-      })
-      setCheckBoxState(newCheckboxState)
-    }
-  }, [])
+    const updatedCheckboxState = checkBoxState.map(item => ({
+      ...item,
+      checked: value.includes(item.value),
+    }))
+    setCheckBoxState(updatedCheckboxState)
+  }, [value])
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
     const isChecked = event.target.checked
+    let newCheckBoxState = [...checkBoxState]
+
     if (index === 0) {
-      const newCheckBoxState = checkBoxState.map(el => {
-        el.checked = isChecked
-        return el
-      })
-      setCheckBoxState([...newCheckBoxState])
+      const areAllOthersChecked = newCheckBoxState
+        .slice(1)
+        .every(el => el.checked)
+
+      if (areAllOthersChecked) {
+        newCheckBoxState = newCheckBoxState.map(el => ({
+          ...el,
+          checked: false,
+        }))
+      } else {
+        newCheckBoxState = newCheckBoxState.map(el => ({
+          ...el,
+          checked: isChecked,
+        }))
+      }
     } else {
-      const newCheckBoxState = [...checkBoxState]
-      const element = newCheckBoxState[index]
-      element.checked = isChecked
+      newCheckBoxState[index].checked = isChecked
       newCheckBoxState[0].checked = newCheckBoxState
         .slice(1)
         .every(el => el.checked)
-      setCheckBoxState([...newCheckBoxState])
     }
+
+    setCheckBoxState(newCheckBoxState)
+
+    const selectedRecommendations = newCheckBoxState
+      .filter(el => el.checked && el.value !== 'Select all')
+      .map(el => el.value)
+
+    onChange(selectedRecommendations)
   }
+
   return (
     <div className={styles.checkBoxWrapper}>
       {checkBoxState.map((item, index) => (
@@ -54,8 +78,8 @@ export default function RecomendationCheckBox() {
           <Checkbox
             checked={item.checked}
             indeterminate={
-              index == 0 &&
-              checkBoxState[index].checked === false &&
+              index === 0 &&
+              !checkBoxState[0].checked &&
               checkBoxState.slice(1).some(el => el.checked)
             }
             indeterminateIcon={
@@ -76,3 +100,5 @@ export default function RecomendationCheckBox() {
     </div>
   )
 }
+
+export default RecomendationCheckBox

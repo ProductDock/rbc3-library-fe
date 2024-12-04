@@ -4,15 +4,28 @@ import { ReviewComponent } from './ReviewComponent'
 import reviewStar from './../../../assets/totalReviewStar.svg'
 import { useState } from 'react'
 import { ReviewForm } from '../../ReviewForm'
-import { Review } from '../../../shared/types'
+import { ReviewWithId } from '../../../shared/types'
 
 type ReviewListProps = {
-  reviews: Review[]
-  averageRating: number
+  reviews: ReviewWithId[]
+  averageRating: string
+  bookId: string
+  setReviews: (review: ReviewWithId[]) => void
 }
 
-const ReviewList: React.FC<ReviewListProps> = ({ reviews, averageRating }) => {
-  const roundedAverageRating = averageRating.toFixed(1)
+const ReviewList: React.FC<ReviewListProps> = ({
+  setReviews,
+  reviews,
+  averageRating,
+  bookId,
+}) => {
+  const [showAll, setShowAll] = useState(false)
+
+  const visibleReviews = showAll ? reviews : reviews.slice(0, 2)
+
+  const handleShowAllReviewsClick = () => {
+    setShowAll(true)
+  }
 
   const [open, setOpen] = useState(false)
   const toggleDrawer = (newOpen: boolean) => {
@@ -29,7 +42,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ reviews, averageRating }) => {
             alt='review_star'
           />
           <Typography variant='h6' className={style.ratingText}>
-            {roundedAverageRating}
+            {averageRating}
           </Typography>
           <Typography variant='h6' className={style.ratingDot}>
             ·
@@ -47,16 +60,37 @@ const ReviewList: React.FC<ReviewListProps> = ({ reviews, averageRating }) => {
               Leave a review
             </Typography>
           </Button>
-          <ReviewForm open={open} toggleDrawer={toggleDrawer} />
+          <ReviewForm
+            reviews={reviews}
+            setReviews={setReviews}
+            open={open}
+            toggleDrawer={toggleDrawer}
+            bookId={bookId}
+          />
         </div>
       </div>
-      <div>
-        {reviews.map(review => (
+      <div className={style.currentReviews}>
+        {visibleReviews.map((review, index) => (
           <div key={review.id}>
             <ReviewComponent review={review} />
-            <Divider className={style.reviewDivider} />
+            {index < visibleReviews.length - 1 && (
+              <Divider className={style.reviewDivider} />
+            )}
           </div>
         ))}
+        {!showAll && reviews.length > 2 && (
+          <div className={style.showAllReviews}>
+            <Button
+              onClick={handleShowAllReviewsClick}
+              className={style.showAllReviewsButton}
+            >
+              <Typography variant='body1' className={style.showAllText}>
+                Show all {reviews.length} reviews
+              </Typography>
+            </Button>
+            <Divider className={style.reviewDivider} />
+          </div>
+        )}
       </div>
     </div>
   )
