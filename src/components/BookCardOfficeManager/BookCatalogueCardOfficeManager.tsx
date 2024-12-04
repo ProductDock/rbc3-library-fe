@@ -9,6 +9,7 @@ interface BookProps {
   author: string[]
   image: string
   status: Status
+  rating: string
 }
 
 const BookCatalogueCardOfficeManager: React.FC<BookProps> = ({
@@ -17,6 +18,7 @@ const BookCatalogueCardOfficeManager: React.FC<BookProps> = ({
   author,
   image,
   status,
+  rating,
 }) => {
   const matches = useMediaQuery('(min-width:1100px)')
 
@@ -27,6 +29,7 @@ const BookCatalogueCardOfficeManager: React.FC<BookProps> = ({
           onClick={onClick}
           title={title}
           author={author}
+          rating={rating}
           image={image}
           status={status}
         />
@@ -36,6 +39,7 @@ const BookCatalogueCardOfficeManager: React.FC<BookProps> = ({
           inFavorites={false}
           isAdmin={true}
           title={title}
+          rating={rating}
           author={author}
           image={image}
           status={status}

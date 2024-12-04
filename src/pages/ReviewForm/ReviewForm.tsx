@@ -12,6 +12,10 @@ import { StarRating } from './StarRating'
 import { RecomendationCheckBox } from './RecomendationCheckBox'
 import TextField from '@mui/material/TextField'
 import close from '../../assets/closeBlack.svg'
+import { useEffect, useState } from 'react'
+import apiService from '../../shared/api/apiService'
+import { ReviewWithId } from '../../shared/types'
+import Snackbar from '@mui/material/Snackbar'
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& input::placeholder': {
@@ -23,18 +27,90 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 }))
 
 interface ReviewFormProps {
+  setReviews: (review: ReviewWithId[]) => void
   open: boolean
   toggleDrawer: (newOpen: boolean) => void
+  bookId: string
+  reviews: ReviewWithId[]
 }
 
 export const ReviewForm: React.FC<ReviewFormProps> = ({
+  reviews,
+  setReviews,
   open,
   toggleDrawer,
+  bookId,
 }) => {
   const matches = useMediaQuery('(min-width:700px)')
 
+  const [content, setContent] = useState('')
+  const [rating, setRating] = useState<number>(0)
+  const [seniorities, setSeniorities] = useState<string[]>([])
+  const [dateTime, setDateTime] = useState('')
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+
+  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(event.target.value)
+  }
+
+  useEffect(() => {
+    const today = new Date()
+    const month = today.getMonth() + 1
+    const year = today.getFullYear()
+    const formattedDate = `${year}-${
+      month < 10 ? '0' + month : month
+    }-01T00:00:00`
+    setDateTime(formattedDate)
+  }, [])
+
+  const seniorityToSnakeCase = (categories: string[]): string[] => {
+    return categories.map(category => category.toLocaleUpperCase())
+  }
+
+  const handleSubmit = () => {
+    const reviewData = {
+      rating,
+      seniorities: seniorityToSnakeCase(seniorities),
+      content,
+      dateTime,
+      bookId,
+    }
+
+    apiService
+      .addReview(bookId, reviewData)
+      .then(data => {
+        setReviews([...reviews, data])
+        setSnackbarMessage('Review added successfully')
+        setOpenSnackbar(true)
+        setRating(0)
+        setContent('')
+        setSeniorities([])
+        setDateTime('')
+        toggleDrawer(false)
+      })
+      .catch(() => {
+        setSnackbarMessage('Error submitting review:')
+        setOpenSnackbar(true)
+      })
+  }
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false)
+  }
+
   const formContent = (
     <>
+      <Snackbar
+        open={openSnackbar}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        autoHideDuration={6000}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      />
       <div className={styles.reviewFormContainer}>
         <div className={styles.formContainer}>
           <div className={styles.closeBar} onClick={() => toggleDrawer(false)}>
@@ -55,7 +131,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 <span className={styles.star}>*</span>
               </Typography>
               <div>
-                <StarRating />
+                <StarRating rating={rating} onChange={setRating} />
               </div>
             </div>
           </div>
@@ -70,7 +146,10 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
               </Typography>
             </div>
             <div>
-              <RecomendationCheckBox />
+              <RecomendationCheckBox
+                value={seniorities}
+                onChange={setSeniorities}
+              />
             </div>
           </div>
           <Divider />
@@ -88,6 +167,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 rows={4}
                 className={styles.textArea}
                 placeholder='What is your personal opinion about this book'
+                onChange={handleTextChange}
                 slotProps={{
                   input: {
                     sx: {
@@ -117,7 +197,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 Cancel
               </Typography>
             </Button>
-            <Button className={styles.submitButton}>
+            <Button className={styles.submitButton} onClick={handleSubmit}>
               <Typography variant='h6' className={styles.submitButtonText}>
                 Submit
               </Typography>

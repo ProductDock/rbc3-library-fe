@@ -15,6 +15,7 @@ type BookCardProps = {
   title?: string
   author?: string[]
   status: Status
+  rating: string
   image: string
 }
 
@@ -25,6 +26,7 @@ const BookCard: React.FC<BookCardProps> = ({
   title,
   author,
   status,
+  rating,
   image,
 }) => {
   return (
@@ -46,6 +48,7 @@ const BookCard: React.FC<BookCardProps> = ({
           <div className={styles.bookStatusPanel}>
             <div className={styles.statusPanel}>
               <BookStatusPanel
+                rating={rating}
                 layoutDirection={'rating-left'}
                 status={status || 'status placeholder'}
               />
