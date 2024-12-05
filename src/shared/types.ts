@@ -21,7 +21,7 @@ export interface ApiService {
 
   addBook(bookWithFile: BookWithFile): Promise<BooksObject>
 
-  uploadImage(file: File): Promise<ImageObject>
+  uploadImage(file: File, bookId: string): Promise<string>
 }
 
 export type Headers = {
@@ -29,6 +29,7 @@ export type Headers = {
 }
 
 export type BooksObject = {
+  id: string
   content: BooksList[]
   pageable: {
     pageNumber: number
@@ -58,6 +59,7 @@ export type BooksObject = {
 }
 
 export type BooksList = {
+  averageRating: number
   bookStatus: Status
   id: string
   title: string
@@ -86,15 +88,15 @@ export type User = {
 }
 
 export type Review = {
-  id: string
   rating: number
   content: string
-  recommendedFor: {
-    seniority: string[]
-  }
+  seniorities: string[]
   dateTime: string
   bookId: string
-  user: User
+}
+
+export type ReviewWithId = Review & {
+  id: string
 }
 
 export type ImageObject = {

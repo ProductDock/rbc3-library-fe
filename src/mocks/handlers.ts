@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw'
+import { http, passthrough, HttpResponse } from 'msw'
 // import booksFixture from '../mocks/fixtures/booksFixture.json'
 import reviewsFixture from '../mocks/fixtures/reviewsFixture.json'
 
@@ -8,7 +8,10 @@ export const handlers = [
   //   return HttpResponse.json(booksFixture)
   // }),
 
-  http.get('*/reviews*', () => {
+  http.get('*/reviews/*', ({ request }) => {
+    if (request.headers.get('Content-Type') === 'application/json') {
+      return passthrough()
+    }
     return HttpResponse.json(reviewsFixture)
   }),
 
@@ -18,6 +21,16 @@ export const handlers = [
       {
         status: 200,
         statusText: 'Added book',
+      }
+    )
+  }),
+
+  http.post('http://localhost:3000/book/id/reviews', () => {
+    return HttpResponse.json(
+      { message: 'Review added successfully' },
+      {
+        status: 200,
+        statusText: 'Added review',
       }
     )
   }),

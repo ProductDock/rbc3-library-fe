@@ -9,6 +9,7 @@ interface BookProps {
   title: string
   author: string[]
   image: string
+  rating: string
   status: Status
 }
 
@@ -17,6 +18,7 @@ const BookCardOfficeManager: React.FC<BookProps> = ({
   title,
   author,
   image,
+  rating,
   status,
 }) => {
   return (
@@ -35,7 +37,11 @@ const BookCardOfficeManager: React.FC<BookProps> = ({
             {title}
           </Typography>
           <div className={styles.bookStatusPanelAdmin}>
-            <BookStatusPanel layoutDirection={'status-left'} status={status} />
+            <BookStatusPanel
+              layoutDirection={'status-left'}
+              status={status}
+              rating={rating}
+            />
           </div>
         </div>
         <div className={styles.bookManagmentIconsView}>

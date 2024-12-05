@@ -17,6 +17,7 @@ import { useMediaQuery } from '@mui/material'
 import { BookCatalogueCardOfficeManager } from '../../../components/BookCardOfficeManager'
 import { BooksList, BooksObject } from '../../../shared/types'
 import ApiService from '../../../shared/api/apiService'
+import Snackbar from '@mui/material/Snackbar'
 
 import styles from './BookCatalogueSection.module.css'
 import classNames from 'classnames'
@@ -60,6 +61,8 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
   const isFirstLoad = useRef(true)
   const [isLastPage, setIsLastPage] = useState(false)
   const [totalNumberOfBooks, setTotalNumberOfBooks] = useState(0)
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
 
   useEffect(() => {
     setBooksData([])
@@ -74,7 +77,6 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
 
     const categoriesWithoutAll = selectedCategories
       .filter(el => el !== 'All')
-
       .map(el => {
         if (el.split(' ').length !== 0) {
           return el.split(' ').join('_')
@@ -87,28 +89,46 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
     ApiService.fetchBooksData({
       currentPage,
       pageSize,
-      categoriesWithoutAll: categoriesWithoutAll,
+      categoriesWithoutAll,
       statuses,
     })
-      .then((booksObject: BooksObject) => {
+      .then(async (booksObject: BooksObject) => {
         const slicedBookList =
           (booksObject.content && booksObject.content?.slice(0, pageSize)) || []
 
-        if (booksObject.pageable.pageNumber == 0) {
-          setBooksData(slicedBookList)
+        const booksWithRatings = await Promise.all(
+          slicedBookList.map(async book => {
+            try {
+              const reviewsData = await ApiService.fetchBookReviews(book.id)
+              const totalRating = reviewsData.content.reduce(
+                (acc: number, review: { rating: number }) =>
+                  acc + review.rating,
+                0
+              )
+              const averageRating =
+                totalRating / reviewsData.content.length || 0
+              console.log(`Book ID: ${book.id}, Rating: ${averageRating}`)
+              book.averageRating = averageRating
+              return book
+            } catch (error) {
+              console.error('Error fetching reviews for book', book.id, error)
+              return book
+            }
+          })
+        )
+
+        if (currentPage === 0) {
+          setBooksData(booksWithRatings)
         } else {
-          setBooksData(prevSlicedBookList => [
-            ...prevSlicedBookList,
-            ...slicedBookList,
-          ])
+          setBooksData(prevBooks => [...prevBooks, ...booksWithRatings])
         }
 
         setTotalNumberOfBooks(booksObject.totalElements)
-
         setIsLastPage(booksObject.last)
       })
       .catch(() => {
-        console.log('Ups')
+        setSnackbarMessage('Error fetching books')
+        setOpenSnackbar(true)
       })
   }, [currentPage, pageSize, selectedCategories, bookStatus])
 
@@ -161,6 +181,9 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
       .catch(error => {
         console.error('Error fetching book details:', error)
       })
+  }
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false)
   }
 
   const handleFilterChange = (categories: string[], statuses: string[]) => {
@@ -308,6 +331,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
                   author={book.authors.map(author => author.fullName)}
                   image={`http://localhost:8080/books/photo/${book.id}`}
                   status={book.bookStatus}
+                  rating={book.averageRating.toFixed(1)}
                   onClick={() => navigateToBookDetailsPage(book.id)}
                 />
                 <Divider className={styles.dividerView} />
@@ -326,6 +350,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
                 author={book.authors.map(author => author.fullName)}
                 onClick={() => navigateToBookDetailsPage(book.id)}
                 status={book.bookStatus}
+                rating={book.averageRating.toFixed(1)}
                 image={`http://localhost:8080/books/photo/${book.id}`}
               />
             ))}
@@ -352,6 +377,16 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
           </Typography>
         </Button>
       </div>
+      <Snackbar
+        open={openSnackbar}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        autoHideDuration={6000}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      />
     </div>
   )
 }

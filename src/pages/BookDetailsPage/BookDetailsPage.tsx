@@ -9,7 +9,8 @@ import { ReviewList } from './ReviewList'
 import styles from './BookDetailsPage.module.css'
 import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Review } from '../../shared/types'
+import { ReviewWithId } from '../../shared/types'
+import apiService from '../../shared/api/apiService'
 
 const BookDetailsPage = () => {
   const location = useLocation()
@@ -18,23 +19,27 @@ const BookDetailsPage = () => {
   const authorName = bookData?.authors?.[0]?.fullName
   const categories: string[] = bookData?.bookCategories || []
 
-  const [reviews, setReviews] = useState<Review[]>([])
+  const [reviews, setReviews] = useState<ReviewWithId[]>([])
   const [averageRating, setAverageRating] = useState<number>(0)
 
   useEffect(() => {
-    fetch(`http://localhost:3000/reviews?bookId=${bookData.id}`)
-      .then(response => response.json())
-      .then(data => {
-        setReviews(data)
+    apiService
+      .fetchBookReviews(bookData.id)
+      .then(reviewsData => {
+        setReviews(reviewsData.content)
 
-        const totalRating = data.reduce(
-          (acc: number, review: Review) => acc + review.rating,
+        const totalRating = reviewsData.content.reduce(
+          (acc: number, review: { rating: number }) => acc + review.rating,
           0
         )
-        setAverageRating(totalRating / data.length || 0)
+        setAverageRating(totalRating / reviewsData.content.length || 0)
       })
-      .catch(error => console.error('Error fetching reviews:', error))
-  }, [bookData.id])
+      .catch(error => {
+        console.error('Error fetching reviews:', error)
+      })
+  }, [bookData.id, reviews])
+
+  const roundedAverageRating = averageRating.toFixed(1)
 
   const categoryFromSnakeCase = (category: string): string => {
     return category
@@ -53,6 +58,7 @@ const BookDetailsPage = () => {
             author={authorName}
             title={bookData.title}
             status={bookData.bookStatus}
+            rating={roundedAverageRating}
             image={`http://localhost:8080/books/photo/${bookData.id}`}
           />
         ) : (
@@ -93,7 +99,7 @@ const BookDetailsPage = () => {
                 <BookStatusPanel
                   layoutDirection={'rating-left'}
                   status={bookData.bookStatus}
-                  rating={bookData.averageRating}
+                  rating={roundedAverageRating}
                 />
               </div>
               <Divider className={styles.leftMiddle} />
@@ -136,8 +142,13 @@ const BookDetailsPage = () => {
               ))}
             </div>
             <Divider className={styles.leftLower} />
-            <div>
-              <ReviewList reviews={reviews} averageRating={averageRating} />
+            <div className={styles.reviews}>
+              <ReviewList
+                setReviews={setReviews}
+                reviews={reviews}
+                averageRating={roundedAverageRating}
+                bookId={bookData.id}
+              />
             </div>
           </div>
 

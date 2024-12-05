@@ -7,7 +7,7 @@ import styles from './BookStatusPanel.module.css'
 type BookStatusPanelProps = {
   layoutDirection: 'rating-left' | 'status-left'
   status: Status
-  rating?: number | null
+  rating?: string
 }
 
 export const BookStatusPanel: React.FC<BookStatusPanelProps> = ({
@@ -19,13 +19,13 @@ export const BookStatusPanel: React.FC<BookStatusPanelProps> = ({
     <div className={styles.statusPanel}>
       {layoutDirection === 'rating-left' ? (
         <>
-          <BookRating rating={rating || 2.5} />
-          <BookStatus status={status} />
+          <BookRating rating={rating || '0.0'} />
+          <BookStatus status={status || Status.AVAILABLE} />
         </>
       ) : (
         <>
-          <BookStatus status={status} />
-          <BookRating rating={rating || 2.5} />
+          <BookStatus status={status || Status.AVAILABLE} />
+          <BookRating rating={rating || '0.0'} />
         </>
       )}
     </div>
