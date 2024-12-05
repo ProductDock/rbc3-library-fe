@@ -37,7 +37,7 @@ const BookDetailsPage = () => {
       .catch(error => {
         console.error('Error fetching reviews:', error)
       })
-  }, [bookData.id, reviews])
+  }, [bookData.id])
 
   const roundedAverageRating = averageRating.toFixed(1)
 
@@ -148,6 +148,7 @@ const BookDetailsPage = () => {
                 reviews={reviews}
                 averageRating={roundedAverageRating}
                 bookId={bookData.id}
+                setAverageRating={setAverageRating}
               />
             </div>
           </div>

@@ -9,6 +9,7 @@ import { ReviewWithId } from '../../../shared/types'
 type ReviewListProps = {
   reviews: ReviewWithId[]
   averageRating: string
+  setAverageRating: (rating: number) => void
   bookId: string
   setReviews: (review: ReviewWithId[]) => void
 }
@@ -18,6 +19,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
   reviews,
   averageRating,
   bookId,
+  setAverageRating,
 }) => {
   const [showAll, setShowAll] = useState(false)
 
@@ -66,6 +68,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
             open={open}
             toggleDrawer={toggleDrawer}
             bookId={bookId}
+            setAverageRating={setAverageRating}
           />
         </div>
       </div>
