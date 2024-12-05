@@ -32,6 +32,7 @@ interface ReviewFormProps {
   toggleDrawer: (newOpen: boolean) => void
   bookId: string
   reviews: ReviewWithId[]
+  setAverageRating: (rating: number) => void
 }
 
 export const ReviewForm: React.FC<ReviewFormProps> = ({
@@ -40,6 +41,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   open,
   toggleDrawer,
   bookId,
+  setAverageRating,
 }) => {
   const matches = useMediaQuery('(min-width:700px)')
 
@@ -80,7 +82,18 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
     apiService
       .addReview(bookId, reviewData)
       .then(data => {
-        setReviews([...reviews, data])
+        const updatedReviews = [...reviews, data]
+        setReviews(updatedReviews)
+
+        const totalRating = updatedReviews.reduce(
+          (acc: number, review: { rating: number }) => acc + review.rating,
+          0
+        )
+        const newAverageRating = totalRating / updatedReviews.length || 0
+        const roundedAverageRating = Math.round(newAverageRating * 2) / 2
+        const finalAverageRating = Number(roundedAverageRating)
+
+        setAverageRating(finalAverageRating)
         setSnackbarMessage('Review added successfully')
         setOpenSnackbar(true)
         setRating(0)

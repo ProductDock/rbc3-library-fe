@@ -11,6 +11,9 @@ import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp'
 import close from '../../../../assets/closeBlack.svg'
 
 import styles from './FiltersSideBar.module.css'
+import { useEffect, useState } from 'react'
+
+import ApiService from '../../../../shared/api/apiService'
 
 interface SidebarProps {
   open: boolean
@@ -22,22 +25,49 @@ interface SidebarProps {
   statuses: string[]
   selectedStatuses: string[]
   setSelectedStatuses: React.Dispatch<React.SetStateAction<string[]>>
+  onFilterChange: (categories: string[], statuses: string[]) => void
 }
 const SideBar = ({
   open,
   toggleDrawer,
   categories,
   selectedCategories,
-  setSelectedCategories,
   statuses,
   selectedStatuses,
-  setSelectedStatuses,
+  onFilterChange,
 }: SidebarProps) => {
+  const [temporarySelectedCategories, setTemporarySelectedCategories] =
+    useState(selectedCategories)
+  const [temporarySelectedStatuses, setTemporarySelectedStatuses] =
+    useState(selectedStatuses)
+  const [appliedCategories, setAppliedCategories] = useState<string[]>([])
+  const [appliedStatuses, setAppliedStatuses] = useState<string[]>([])
+  const [numOfBooks, setNumOfBooks] = useState<number>()
+  useEffect(() => {
+    const categories = temporarySelectedCategories
+      .filter(el => el !== 'All')
+      .map(el => {
+        if (el.split(' ').length !== 0) {
+          return el.split(' ').join('_').toString()
+        }
+        return el
+      })
+
+    const statuses = temporarySelectedStatuses.map(el =>
+      el.split(' ')[0].toString()
+    )
+
+    ApiService.fetchBooksWithoutPagination({
+      categories,
+      statuses,
+    }).then(el => setNumOfBooks(el.totalElements))
+  }, [temporarySelectedCategories, temporarySelectedStatuses])
+
   const handleCategoryToggle = (category: string) => {
     if (category === 'All') {
-      setSelectedCategories(['All'])
+      setTemporarySelectedCategories(['All'])
     } else {
-      setSelectedCategories(prevSelected => {
+      setTemporarySelectedCategories(prevSelected => {
         if (prevSelected.includes('All')) {
           return [...prevSelected.filter(cat => cat !== 'All'), category]
         } else {
@@ -50,11 +80,24 @@ const SideBar = ({
   }
 
   const handleStatusToggle = (status: string) => {
-    setSelectedStatuses(prevSelected =>
+    setTemporarySelectedStatuses(prevSelected =>
       prevSelected.includes(status)
         ? prevSelected.filter(st => st !== status)
         : [...prevSelected, status]
     )
+  }
+
+  const handleApply = () => {
+    onFilterChange(temporarySelectedCategories, temporarySelectedStatuses)
+    setAppliedCategories([...temporarySelectedCategories])
+    setAppliedStatuses([...temporarySelectedStatuses])
+    toggleDrawer(false)
+  }
+
+  const handleClose = () => {
+    setTemporarySelectedCategories([...appliedCategories])
+    setTemporarySelectedStatuses([...appliedStatuses])
+    toggleDrawer(false)
   }
 
   const DrawerList = (
@@ -79,7 +122,7 @@ const SideBar = ({
                 key={category}
                 control={
                   <Checkbox
-                    checked={selectedCategories.includes(category)}
+                    checked={temporarySelectedCategories.includes(category)}
                     onChange={() => handleCategoryToggle(category)}
                     size='small'
                     icon={
@@ -109,7 +152,7 @@ const SideBar = ({
                 key={status}
                 control={
                   <Checkbox
-                    checked={selectedStatuses.includes(status)}
+                    checked={temporarySelectedStatuses.includes(status)}
                     onChange={() => handleStatusToggle(status)}
                     size='small'
                     icon={
@@ -127,15 +170,12 @@ const SideBar = ({
             ))}
           </div>
         </div>
-        <Button className={styles.showButton}>
+        <Button className={styles.showButton} onClick={handleApply}>
           <Typography variant='h6' className={styles.showButtonText}>
-            Show 46 results
+            Show {numOfBooks} results
           </Typography>
         </Button>
-        <Button
-          onClick={() => toggleDrawer(false)}
-          className={styles.cancelButton}
-        >
+        <Button onClick={handleClose} className={styles.cancelButton}>
           <Typography variant='h6' className={styles.cancelButtonText}>
             Cancel
           </Typography>
