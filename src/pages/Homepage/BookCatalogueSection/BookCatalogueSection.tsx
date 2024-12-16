@@ -301,7 +301,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
                   key={index}
                   title={book.title}
                   author={book.authors.map(author => author.fullName)}
-                  image={`http://localhost:8080/books/photo/${book.id}`}
+                  image={`http://localhost:8080/books/${book.id}/image`}
                   status={book.bookStatus}
                   rating={book.averageRating.toFixed(1)}
                   onClick={() => navigateToBookDetailsPage(book.id)}
@@ -323,7 +323,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
                 onClick={() => navigateToBookDetailsPage(book.id)}
                 status={book.bookStatus}
                 rating={book.averageRating.toFixed(1)}
-                image={`http://localhost:8080/books/photo/${book.id}`}
+                image={`http://localhost:8080/books/${book.id}/image`}
               />
             ))}
         </div>
