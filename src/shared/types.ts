@@ -14,6 +14,10 @@ export interface ApiService {
   addBook(bookWithFile: BookWithFile): Promise<BooksObject>
 
   uploadImage(file: File): Promise<ImageObject>
+
+  login(UserDto: UserDto): Promise<Response>
+
+  getGoogleUserInfo(accessToken: string): Promise<Response>
 }
 
 export type Headers = {
@@ -70,14 +74,6 @@ export type BooksList = {
   bookCategories: string[]
 }
 
-export type User = {
-  id: string
-  fullName: string
-  email: string
-  imageUrl: string
-  role: string
-}
-
 export type Review = {
   rating: number
   content: string
@@ -92,4 +88,10 @@ export type ReviewWithId = Review & {
 
 export type ImageObject = {
   imagePath: string
+}
+export type UserDto = {
+  fullName: string
+  googleID: string
+  email: string
+  imageUrl: string
 }

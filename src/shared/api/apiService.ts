@@ -1,5 +1,5 @@
 import { BookWithFile } from '../../pages/AddNewBooksForm/AddNewBooksForm'
-import { API_URL, DATA_FETCH_ERROR } from '../constants'
+import { API_URL, DATA_FETCH_ERROR, GOOGLE_BASE_URL } from '../constants'
 import {
   ApiService,
   BooksObject,
@@ -7,6 +7,7 @@ import {
   ImageObject,
   Review,
   ReviewWithId,
+  UserDto,
 } from '../types'
 
 class Service implements ApiService {
@@ -105,6 +106,29 @@ class Service implements ApiService {
     }
     return response
   }
-}
 
+  login(body: UserDto): Promise<Response> {
+    return fetch(`${API_URL}/users/login`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }
+
+  getGoogleUserInfo(accessToken: string): Promise<Response> {
+    return fetch(
+      `${GOOGLE_BASE_URL}/oauth2/v1/userinfo?access_token=${accessToken}`,
+      {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/json',
+        },
+      }
+    )
+  }
+}
 export default new Service()
