@@ -25,7 +25,7 @@ export type Book = {
   bookCategories: string[]
   numberOfAvailableCopies: number
   description: string
-  imageUrl: string
+  imageUrl?: string
 }
 
 const AddNewBooksForm = () => {

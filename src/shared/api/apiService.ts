@@ -4,7 +4,6 @@ import {
   ApiService,
   BooksObject,
   Headers,
-  ImageObject,
   Review,
   ReviewWithId,
   UserDto,
@@ -31,15 +30,18 @@ class Service implements ApiService {
       .then(response => response.json())
   }
 
-  uploadImage(file: File): Promise<ImageObject> {
+  uploadImage(file: File, bookId: string): Promise<string> {
     const formData = new FormData()
     formData.append('image', file)
-    return fetch(`${API_URL}/books/upload-image`, {
+
+    return fetch(`${API_URL}/books/upload-image/${bookId}`, {
       method: 'POST',
       body: formData,
     })
       .then(response => Service.handleErrors(response))
-      .then(responce => responce.json())
+      .then(() => {
+        return `${API_URL}/images/${bookId}`
+      })
   }
 
   addBook(bookWithFile: BookWithFile): Promise<BooksObject> {
@@ -49,20 +51,16 @@ class Service implements ApiService {
       headers: this.getHeaders(),
     })
       .then(response => Service.handleErrors(response))
-      .then(responce => responce.json())
+      .then(response => response.json())
   }
 
   addBooks(booksWithFile: BookWithFile[]): Promise<BooksObject[]> {
     return Promise.all(
       booksWithFile.map(bookWithFile => {
-        if (bookWithFile.file) {
-          return this.uploadImage(bookWithFile.file).then(ImageObject => {
-            bookWithFile.book.imageUrl = ImageObject.imagePath
-            console.log(ImageObject)
-            return this.addBook(bookWithFile)
-          })
-        }
-        return this.addBook(bookWithFile)
+        return this.addBook(bookWithFile).then(book => {
+          if (bookWithFile.file) this.uploadImage(bookWithFile.file, book.id)
+          return book
+        })
       })
     )
   }
