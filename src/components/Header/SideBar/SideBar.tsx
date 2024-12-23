@@ -12,6 +12,9 @@ import close from '../../../assets/closeWhite.svg'
 import LogoutIcon from '@mui/icons-material/Logout'
 
 import styles from './SideBar.module.css'
+import { useUserContext } from '../../../context/UserContext'
+import { useNavigate } from 'react-router-dom'
+import { googleLogout } from '@react-oauth/google'
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& input::placeholder': {
@@ -27,6 +30,20 @@ interface SidebarProps {
 }
 
 const SideBar = ({ open, toggleDrawer }: SidebarProps) => {
+  const { profile, setProfile, setUser } = useUserContext()
+  const navigate = useNavigate()
+
+  const navigateToLoginPage = () => {
+    navigate('/login')
+  }
+
+  const logOut = () => {
+    googleLogout()
+    setUser(undefined)
+    setProfile(undefined)
+    navigateToLoginPage()
+  }
+
   const DrawerList = (
     <>
       <div className={styles.closeBar}>
@@ -77,15 +94,19 @@ const SideBar = ({ open, toggleDrawer }: SidebarProps) => {
         <div className={styles.loginWrapper}>
           <Divider />
           <Typography variant='h5' className={styles.loggedUsername}>
-            Milena Pavlovic
+            {profile?.name}
           </Typography>
           <Typography variant='body1' className={styles.loggedEmail}>
-            milena.pavlovic@productdock.com
+            {profile?.email}
           </Typography>
           <Divider />
           <div className={styles.logoutWrapper}>
             <LogoutIcon className={styles.logoutIcon} />
-            <Typography variant='body1' className={styles.logoutText}>
+            <Typography
+              variant='body1'
+              className={styles.logoutText}
+              onClick={logOut}
+            >
               Sign out
             </Typography>
           </div>
