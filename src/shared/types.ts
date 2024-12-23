@@ -14,7 +14,6 @@ export interface ApiService {
   addBook(bookWithFile: BookWithFile): Promise<BooksObject>
 
   uploadImage(file: File, bookId: string): Promise<string>
-  uploadImage(file: File): Promise<ImageObject>
 
   login(UserDto: UserDto): Promise<Response>
 
