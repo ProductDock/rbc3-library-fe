@@ -33,7 +33,7 @@ class Service implements ApiService {
     const formData = new FormData()
     formData.append('image', file)
 
-    return fetch(`${API_URL}/books/upload-image/${bookId}`, {
+    return fetch(`${API_URL}/books/${bookId}/image`, {
       method: 'POST',
       body: formData,
     })
