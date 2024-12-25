@@ -1,10 +1,12 @@
 import { createContext, useContext, useState, ReactNode } from 'react'
 
 export interface User {
+  googleID: string
   access_token: string
 }
 
 export interface Profile {
+  role: string
   name: string
   email: string
   picture: string

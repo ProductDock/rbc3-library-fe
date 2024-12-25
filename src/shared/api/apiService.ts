@@ -1,3 +1,4 @@
+import { Profile } from '../../context/UserContext'
 import { BookWithFile } from '../../pages/AddNewBooksForm/AddNewBooksForm'
 import { API_URL, DATA_FETCH_ERROR, GOOGLE_BASE_URL } from '../constants'
 import {
@@ -105,7 +106,7 @@ class Service implements ApiService {
     return response
   }
 
-  login(body: UserDto): Promise<Response> {
+  login(body: UserDto): Promise<UserDto> {
     return fetch(`${API_URL}/users/login`, {
       method: 'POST',
       body: JSON.stringify(body),
@@ -113,9 +114,11 @@ class Service implements ApiService {
         'Content-Type': 'application/json',
       },
     })
+      .then(response => Service.handleErrors(response))
+      .then(response => response.json())
   }
 
-  getGoogleUserInfo(accessToken: string): Promise<Response> {
+  getGoogleUserInfo(accessToken: string): Promise<Profile> {
     return fetch(
       `${GOOGLE_BASE_URL}/oauth2/v1/userinfo?access_token=${accessToken}`,
       {
@@ -127,6 +130,19 @@ class Service implements ApiService {
         },
       }
     )
+      .then(response => Service.handleErrors(response))
+      .then(response => response.json())
+  }
+
+  getUser(googleID: string): Promise<UserDto> {
+    return fetch(`${API_URL}/users/${googleID}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => Service.handleErrors(response))
+      .then(response => response.json())
   }
 }
 export default new Service()

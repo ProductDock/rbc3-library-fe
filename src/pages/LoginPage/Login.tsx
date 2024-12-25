@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Profile, User, useUserContext } from '../../context/UserContext'
 import { UserDto } from '../../shared/types'
 import apiService from '../../shared/api/apiService'
+
 export const Login = () => {
   const { user, setUser, setProfile } = useUserContext()
   const navigate = useNavigate()
@@ -13,34 +14,52 @@ export const Login = () => {
     navigate('/')
   }
 
+  const navigateToAdminPage = () => {
+    navigate('/admin')
+  }
+
   const login = useGoogleLogin({
-    onSuccess: codeResponse => setUser(codeResponse as User),
+    onSuccess: codeResponse => setUser(codeResponse as unknown as User),
     onError: error => console.log('Login Failed:', error),
   })
 
-  const saveProfile = (profile: Profile) => {
+  const saveProfile = (profile: Profile): Promise<UserDto> => {
     setProfile(profile)
     const userDto: UserDto = {
       fullName: profile.name,
       googleID: profile.id,
       email: profile.email,
       imageUrl: profile.picture,
+      role: profile.role,
     }
-    apiService.login(userDto)
+    return apiService.login(userDto)
+  }
+
+  const handleGoogleLogin = async (user: User) => {
+    try {
+      const googleUser = await apiService.getGoogleUserInfo(user.access_token)
+      let userRes = await apiService.getUser(googleUser.id)
+      if (!userRes.googleID) {
+        userRes = await saveProfile(googleUser)
+      }
+
+      if (userRes.role === 'ADMIN') {
+        navigateToAdminPage()
+      } else {
+        navigateToHomePage()
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error)
+      navigateToHomePage()
+    }
   }
 
   useEffect(() => {
     if (user) {
-      apiService
-        .getGoogleUserInfo(user.access_token)
-        .then(response => response.json())
-        .then(response => saveProfile(response as Profile))
-        .then(() => navigateToHomePage())
-        .catch(error => console.log('Profile fetch error:', error))
+      handleGoogleLogin(user)
     }
-  }, [user, setProfile, navigateToHomePage])
+  }, [user, setProfile, navigate])
 
-  console.log(user)
   return (
     <div>
       <button className={styles.loginButton} onClick={() => login()}>
