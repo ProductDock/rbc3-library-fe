@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -58,6 +58,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
   const [booksData, setBooksData] = useState<Array<BooksList>>([])
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [pageSize] = useState<number>(12)
+  const isFirstLoad = useRef(true)
   const [isLastPage, setIsLastPage] = useState(false)
   const [totalNumberOfBooks, setTotalNumberOfBooks] = useState(0)
   const [openSnackbar, setOpenSnackbar] = useState(false)
@@ -69,7 +70,28 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
   }, [])
 
   useEffect(() => {
-    ApiService.fetchBooksData({ currentPage, pageSize })
+    if (isFirstLoad.current) {
+      isFirstLoad.current = false
+      return
+    }
+
+    const categoriesWithoutAll = selectedCategories
+      .filter(el => el !== 'All')
+      .map(el => {
+        if (el.split(' ').length !== 0) {
+          return el.split(' ').join('_')
+        }
+        return el
+      })
+
+    const statuses = bookStatus.map(el => el.split(' ')[0].toString())
+
+    ApiService.fetchBooksData({
+      currentPage,
+      pageSize,
+      categoriesWithoutAll,
+      statuses,
+    })
       .then(async (booksObject: BooksObject) => {
         const slicedBookList =
           (booksObject.content && booksObject.content?.slice(0, pageSize)) || []
@@ -85,11 +107,8 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
               )
               const averageRating =
                 totalRating / reviewsData.content.length || 0
-
               console.log(`Book ID: ${book.id}, Rating: ${averageRating}`)
-
               book.averageRating = averageRating
-
               return book
             } catch (error) {
               console.error('Error fetching reviews for book', book.id, error)
@@ -97,29 +116,32 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
             }
           })
         )
-        if (currentPage == 0) {
+
+        if (currentPage === 0) {
           setBooksData(booksWithRatings)
         } else {
           setBooksData(prevBooks => [...prevBooks, ...booksWithRatings])
         }
+
         setTotalNumberOfBooks(booksObject.totalElements)
-        if (booksObject.last === true) {
-          setIsLastPage(true)
-        }
+        setIsLastPage(booksObject.last)
       })
       .catch(() => {
         setSnackbarMessage('Error fetching books')
         setOpenSnackbar(true)
       })
-  }, [currentPage, pageSize])
+  }, [currentPage, pageSize, selectedCategories, bookStatus])
 
   const handleChange = (event: SelectChangeEvent<typeof bookStatus>) => {
     const {
       target: { value },
     } = event
+
+    setCurrentPage(0)
     setBookStatus(typeof value === 'string' ? value.split(',') : value)
   }
   const handleCategoryClick = (category: string) => {
+    setCurrentPage(0)
     if (category === 'All') {
       setSelectedCategories(['All'])
     } else {
@@ -135,6 +157,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
     }
   }
   const toggleDrawer = (newOpen: boolean) => () => {
+    setCurrentPage(0)
     setOpen(newOpen)
   }
   const handleShowMore = useCallback(() => {
@@ -159,9 +182,13 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
         console.error('Error fetching book details:', error)
       })
   }
-
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false)
+  }
+
+  const handleFilterChange = (categories: string[], statuses: string[]) => {
+    setSelectedCategories(categories)
+    setBookStatus(statuses)
   }
 
   return (
@@ -216,6 +243,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
         statuses={statuses}
         selectedStatuses={bookStatus}
         setSelectedStatuses={setBookStatus}
+        onFilterChange={handleFilterChange}
       />
 
       <Divider className={styles.dividerCatalogue} />
@@ -301,7 +329,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
                   key={index}
                   title={book.title}
                   author={book.authors.map(author => author.fullName)}
-                  image={`http://localhost:8080/books/photo/${book.id}`}
+                  image={`http://localhost:8080/books/${book.id}/image`}
                   status={book.bookStatus}
                   rating={book.averageRating.toFixed(1)}
                   onClick={() => navigateToBookDetailsPage(book.id)}
@@ -323,7 +351,7 @@ export const BookCatalogueSection: React.FC<BookCatalogueProps> = ({
                 onClick={() => navigateToBookDetailsPage(book.id)}
                 status={book.bookStatus}
                 rating={book.averageRating.toFixed(1)}
-                image={`http://localhost:8080/books/photo/${book.id}`}
+                image={`http://localhost:8080/books/${book.id}/image`}
               />
             ))}
         </div>

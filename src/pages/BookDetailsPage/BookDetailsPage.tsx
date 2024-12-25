@@ -37,7 +37,7 @@ const BookDetailsPage = () => {
       .catch(error => {
         console.error('Error fetching reviews:', error)
       })
-  }, [bookData.id, reviews])
+  }, [bookData.id])
 
   const roundedAverageRating = averageRating.toFixed(1)
 
@@ -59,7 +59,7 @@ const BookDetailsPage = () => {
             title={bookData.title}
             status={bookData.bookStatus}
             rating={roundedAverageRating}
-            image={`http://localhost:8080/books/photo/${bookData.id}`}
+            image={`http://localhost:8080/books/${bookData.id}/image`}
           />
         ) : (
           <div className={styles.bookInfoWrapper}>
@@ -110,7 +110,7 @@ const BookDetailsPage = () => {
               </div>
               <div className={styles.bookImage}>
                 <img
-                  src={`http://localhost:8080/books/photo/${bookData.id}`}
+                  src={`http://localhost:8080/books/${bookData.id}/image`}
                   alt='book'
                   className={styles.image}
                 />
@@ -148,6 +148,7 @@ const BookDetailsPage = () => {
                 reviews={reviews}
                 averageRating={roundedAverageRating}
                 bookId={bookData.id}
+                setAverageRating={setAverageRating}
               />
             </div>
           </div>

@@ -50,7 +50,7 @@ const BookCard: React.FC<BookCardProps> = ({
               <BookStatusPanel
                 rating={rating}
                 layoutDirection={'rating-left'}
-                status={status || 'status placeholder'}
+                status={status}
               />
             </div>
             <div>{isAdmin && <Divider className={styles.adminDivider} />}</div>
