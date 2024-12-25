@@ -11,6 +11,14 @@ export interface ApiService {
     pageSize: number
   }): Promise<Record<string, string>>
 
+  fetchBooksWithoutPagination({
+    categories,
+    statuses,
+  }: {
+    categories: string[]
+    statuses: string[]
+  }): Promise<BooksObject>
+
   addBook(bookWithFile: BookWithFile): Promise<BooksObject>
 
   uploadImage(file: File, bookId: string): Promise<string>
