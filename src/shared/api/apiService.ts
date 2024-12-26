@@ -177,15 +177,23 @@ class Service implements ApiService {
       .then(response => response.json())
   }
 
-  getUser(googleID: string): Promise<UserDto> {
-    return fetch(`${API_URL}/users/${googleID}`, {
+  async getUser(googleID: string) {
+    const response = await fetch(`${API_URL}/users/${googleID}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
-      .then(response => Service.handleErrors(response))
-      .then(response => response.json())
+    if (response.status >= 500) {
+      Service.handleErrors(response)
+    }
+
+    const userDto: UserDto = await response.json()
+
+    return {
+      code: response.status,
+      data: userDto,
+    }
   }
 }
 export default new Service()

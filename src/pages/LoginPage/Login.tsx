@@ -38,12 +38,21 @@ export const Login = () => {
   const handleGoogleLogin = async (user: User) => {
     try {
       const googleUser = await apiService.getGoogleUserInfo(user.access_token)
-      let userRes = await apiService.getUser(googleUser.id)
-      if (!userRes.googleID) {
-        userRes = await saveProfile(googleUser)
+      const userRes = await apiService.getUser(googleUser.id)
+      let userDto = userRes.data
+      if (userRes.code === 404) {
+        userDto = await saveProfile(googleUser)
+      }
+      const profile: Profile = {
+        role: userDto.role,
+        name: userDto.fullName,
+        email: userDto.email,
+        picture: userDto.imageUrl,
+        id: userDto.googleID,
       }
 
-      if (userRes.role === 'ADMIN') {
+      setProfile(profile)
+      if (userDto.role === 'ADMIN') {
         navigateToAdminPage()
       } else {
         navigateToHomePage()
