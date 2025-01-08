@@ -100,6 +100,7 @@ export type ImageObject = {
   imagePath: string
 }
 export type UserDto = {
+  id?: string
   role: string
   fullName: string
   googleID: string

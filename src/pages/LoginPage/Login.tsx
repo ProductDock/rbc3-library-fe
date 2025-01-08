@@ -51,6 +51,8 @@ export const Login = () => {
         id: userDto.googleID,
       }
 
+      localStorage.setItem('Profile', JSON.stringify(profile))
+
       setProfile(profile)
       if (userDto.role === 'ADMIN') {
         navigateToAdminPage()

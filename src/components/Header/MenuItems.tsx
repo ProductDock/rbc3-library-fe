@@ -16,12 +16,18 @@ import notifications from '../../assets/notifications.svg'
 import logout from '../../assets/logout.svg'
 
 import styles from './Header.module.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import menuIcon from '../../assets/menu.svg'
 import { SideBar } from './SideBar'
-import { useUserContext } from '../../context/UserContext'
 import { googleLogout } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
+import { useUserContext } from '../../context/UserContext'
+
+interface Profile {
+  name: string
+  email: string
+  picture: string
+}
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& input::placeholder': {
@@ -33,9 +39,17 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 }))
 
 export const MenuItems = () => {
+  const { setUser } = useUserContext()
   const [open, setOpen] = useState(false)
-  const { profile, setProfile, setUser } = useUserContext()
+  const [profile, setProfile] = useState<Profile | null>(null)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const savedProfile = localStorage.getItem('Profile')
+    if (savedProfile) {
+      setProfile(JSON.parse(savedProfile))
+    }
+  }, [])
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen)
@@ -55,13 +69,12 @@ export const MenuItems = () => {
   }
 
   const logOut = () => {
-    googleLogout()
+    localStorage.removeItem('Profile')
     setUser(undefined)
-    setProfile(undefined)
+    googleLogout()
     navigateToLoginPage()
   }
 
-  console.log(profile)
   return (
     <>
       <Stack
