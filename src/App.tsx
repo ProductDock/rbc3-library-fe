@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
 import { Homepage } from './pages/Homepage'
 import { LoginPage } from './pages/LoginPage'
 import { AuthorisedLayout } from './pages/AuthorisedLayout'
@@ -11,48 +11,76 @@ import { BookDetailsPage } from './pages/BookDetailsPage'
 import { AddNewBooksForm } from './pages/AddNewBooksForm'
 import { Profile, UserProvider } from './context/UserContext'
 
-function App() {
-  const isAdmin = () => {
-    const localStorageProfile = localStorage.getItem('Profile')
-    if (localStorageProfile) {
-      const profile: Profile = JSON.parse(localStorageProfile)
-      return profile.role === 'ADMIN'
-    }
+const isAdmin = () => {
+  const localStorageProfile = localStorage.getItem('Profile')
+  if (localStorageProfile) {
+    const profile: Profile = JSON.parse(localStorageProfile)
+    return profile.role === 'ADMIN'
   }
-  const isLoggedIn = () => {
-    const localStorageProfile = localStorage.getItem('Profile')
-    return localStorageProfile ? true : false
+}
+const isLoggedIn = () => {
+  const localStorageProfile = localStorage.getItem('Profile')
+  if (localStorageProfile) {
+    const profile: Profile = JSON.parse(localStorageProfile)
+    return profile.role == 'EMPLOYEE'
   }
+  return false
+}
+const protectedUserLoader = () => {
+  if (!isLoggedIn()) {
+    return redirect('/login')
+  }
+  return null
+}
 
+const protectedAdminLoader = () => {
+  if (!isLoggedIn) return redirect('/login')
+  if (!isAdmin()) {
+    return redirect('/')
+  }
+  return null
+}
+function App() {
+  const router = createBrowserRouter([
+    { Component: LoginPage, path: 'login' },
+    {
+      Component: AuthorisedLayout,
+      children: [
+        {
+          path: '/',
+          Component: Homepage,
+          loader: protectedUserLoader,
+          index: true,
+        },
+        {
+          path: 'add-books',
+          Component: AddNewBooksForm,
+          loader: protectedAdminLoader,
+        },
+
+        {
+          path: 'admin',
+          Component: ManagerHomepage,
+          loader: protectedAdminLoader,
+        },
+        {
+          path: 'book/:id',
+          Component: BookDetailsPage,
+          loader: protectedUserLoader,
+        },
+        {
+          path: 'testing',
+          Component: TestingPage,
+        },
+      ],
+    },
+  ])
   return (
     <>
       <UserProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Routes>
-            <Route
-              path='/'
-              element={
-                isLoggedIn() ? <AuthorisedLayout /> : <Navigate to='/login' />
-              }
-            >
-              <Route
-                index
-                element={isLoggedIn() ? <Homepage /> : <Navigate to='/login' />}
-              />
-              <Route
-                path='/add-books'
-                element={isAdmin() ? <AddNewBooksForm /> : <Navigate to='/' />}
-              />
-              <Route
-                path='/admin'
-                element={isAdmin() ? <ManagerHomepage /> : <Navigate to='/' />}
-              />
-              <Route path='/book/:id' element={<BookDetailsPage />} />
-            </Route>
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/testing' element={<TestingPage />} />
-          </Routes>
+          <RouterProvider router={router} />
         </ThemeProvider>
       </UserProvider>
     </>
