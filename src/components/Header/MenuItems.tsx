@@ -97,7 +97,10 @@ export const MenuItems = () => {
           {profile ? (
             <>
               <IconButton className={styles.logoIcon} onClick={handleClick}>
-                <Avatar src={profile.picture} />
+                <Avatar
+                  sx={{ filter: 'grayscale(100%)' }}
+                  src={profile.picture}
+                />
               </IconButton>
               <Menu
                 anchorEl={anchorEl}

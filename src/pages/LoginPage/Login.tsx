@@ -48,7 +48,7 @@ export const Login = () => {
         name: userDto.fullName,
         email: userDto.email,
         picture: userDto.imageUrl,
-        id: userDto.googleID,
+        id: userDto.id || '',
       }
 
       localStorage.setItem('Profile', JSON.stringify(profile))

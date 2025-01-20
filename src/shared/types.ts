@@ -27,6 +27,8 @@ export interface ApiService {
   login(UserDto: UserDto): Promise<UserDto>
 
   getGoogleUserInfo(accessToken: string): Promise<Profile>
+
+  getUserById(userId: string): Promise<UserDto>
 }
 
 export type Headers = {
@@ -90,10 +92,16 @@ export type Review = {
   seniorities: string[]
   dateTime: string
   bookId: string
+  imageUrl?: string
+  userFullName?: string
 }
 
 export type ReviewWithId = Review & {
-  id: string
+  id?: string
+}
+
+export type ReviewWithUserId = Review & {
+  userId: string
 }
 
 export type ImageObject = {

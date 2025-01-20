@@ -11,6 +11,14 @@ import {
 } from '../types'
 
 class Service implements ApiService {
+  getUserById(userId: string): Promise<UserDto> {
+    return fetch(`${API_URL}/users/${userId}/getUser`, {
+      method: 'GET',
+      headers: this.getHeaders(),
+    })
+      .then(response => Service.handleErrors(response))
+      .then(response => response.json())
+  }
   fetchBooksWithoutPagination({
     categories,
     statuses,

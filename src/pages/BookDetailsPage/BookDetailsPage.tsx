@@ -9,7 +9,7 @@ import { ReviewList } from './ReviewList'
 import styles from './BookDetailsPage.module.css'
 import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { ReviewWithId } from '../../shared/types'
+import { ReviewWithId, ReviewWithUserId } from '../../shared/types'
 import apiService from '../../shared/api/apiService'
 
 const BookDetailsPage = () => {
@@ -26,8 +26,8 @@ const BookDetailsPage = () => {
     apiService
       .fetchBookReviews(bookData.id)
       .then(reviewsData => {
-        setReviews(reviewsData.content)
-
+        setReviewWithUserData(reviewsData.content)
+        console.log('review', reviewsData.content)
         const totalRating = reviewsData.content.reduce(
           (acc: number, review: { rating: number }) => acc + review.rating,
           0
@@ -37,10 +37,20 @@ const BookDetailsPage = () => {
       .catch(error => {
         console.error('Error fetching reviews:', error)
       })
-  }, [bookData.id])
+  }, [bookData.id, averageRating])
 
-  const roundedAverageRating = averageRating.toFixed(1)
+  const roundedAverageRating = (Math.round(averageRating * 2) / 2).toFixed(1)
 
+  const setReviewWithUserData = async (reviewsData: ReviewWithUserId[]) => {
+    const reviewWithUser = []
+    for (const review of reviewsData) {
+      const user = await apiService.getUserById(review.userId)
+
+      const userData = { imageUrl: user.imageUrl, userFullName: user.fullName }
+      reviewWithUser.push({ ...review, ...userData })
+    }
+    setReviews(reviewWithUser)
+  }
   const categoryFromSnakeCase = (category: string): string => {
     return category
       .replace(/_/g, ' ')

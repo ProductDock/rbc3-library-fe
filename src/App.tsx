@@ -22,7 +22,7 @@ const isLoggedIn = () => {
   const localStorageProfile = localStorage.getItem('Profile')
   if (localStorageProfile) {
     const profile: Profile = JSON.parse(localStorageProfile)
-    return profile.role == 'EMPLOYEE'
+    return profile.role == 'EMPLOYEE' || profile.role == 'ADMIN'
   }
   return false
 }

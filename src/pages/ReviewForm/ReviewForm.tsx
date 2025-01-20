@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react'
 import apiService from '../../shared/api/apiService'
 import { ReviewWithId } from '../../shared/types'
 import Snackbar from '@mui/material/Snackbar'
+import { Profile } from '../../context/UserContext'
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& input::placeholder': {
@@ -51,10 +52,24 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   const [dateTime, setDateTime] = useState('')
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
+  const [userId, setUserId] = useState<string | null>(null)
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setContent(event.target.value)
   }
+
+  useEffect(() => {
+    const storedProfile = localStorage.getItem('Profile')
+    if (storedProfile) {
+      try {
+        const profile: Profile = JSON.parse(storedProfile)
+        console.log(profile)
+        setUserId(profile.id)
+      } catch (error) {
+        console.error('Error parsing profile from localStorage:', error)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     const today = new Date()
@@ -77,6 +92,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
       content,
       dateTime,
       bookId,
+      userId,
     }
 
     apiService
