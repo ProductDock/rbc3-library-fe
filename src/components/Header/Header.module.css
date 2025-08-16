@@ -15,6 +15,42 @@
   padding: 0;
 }
 
+.dropDownMenu {
+  width: 100%;
+  padding: 15px;
+}
+
+.userEmail {
+  color: var(--mui-palette-neutral-400);
+  font-weight: 400;
+}
+
+.userName {
+  font-weight: 600;
+}
+
+.dropDownNotificationMenu {
+  margin-top: 16px;
+  margin-left: 10px;
+  margin-right: 32px;
+}
+
+.notificationsIcon {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15px;
+}
+
+.signOutIcon {
+  display: flex;
+  flex-direction: row;
+  margin-top: 24px;
+}
+
+.menuNotification {
+  margin-left: 8px;
+}
+
 .box {
   flex-grow: 1;
 }
@@ -27,8 +63,8 @@
 .notificationBadge {
   background: var(--mui-palette-secondary-300);
   z-index: 2;
-  margin-left: 30px;
-  margin-top: -42px;
+  margin-left: 29px;
+  margin-top: -53px;
   width: 16px;
   height: 16px;
   border: 2px solid var(--mui-palette-neutral-50);
@@ -36,8 +72,21 @@
   position: absolute;
 }
 
+.notificationMenuBadge {
+  background: var(--mui-palette-secondary-300);
+  z-index: 2;
+  margin-left: 8px;
+  margin-top: -14px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--mui-palette-neutral-50);
+  border-radius: 50%;
+  position: absolute;
+}
+
 .logoIcon {
   padding: 0;
+  padding-bottom: 10px;
 }
 
 .divider {

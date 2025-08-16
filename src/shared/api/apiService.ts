@@ -1,14 +1,24 @@
+import { Profile } from '../../context/UserContext'
 import { BookWithFile } from '../../pages/AddNewBooksForm/AddNewBooksForm'
-import { API_URL, DATA_FETCH_ERROR } from '../constants'
+import { API_URL, DATA_FETCH_ERROR, GOOGLE_BASE_URL } from '../constants'
 import {
   ApiService,
   BooksObject,
   Headers,
   Review,
   ReviewWithId,
+  UserDto,
 } from '../types'
 
 class Service implements ApiService {
+  getUserById(userId: string): Promise<UserDto> {
+    return fetch(`${API_URL}/users/${userId}/getUser`, {
+      method: 'GET',
+      headers: this.getHeaders(),
+    })
+      .then(response => Service.handleErrors(response))
+      .then(response => response.json())
+  }
   fetchBooksWithoutPagination({
     categories,
     statuses,
@@ -146,6 +156,52 @@ class Service implements ApiService {
     }
     return response
   }
-}
 
+  login(body: UserDto): Promise<UserDto> {
+    return fetch(`${API_URL}/users/login`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => Service.handleErrors(response))
+      .then(response => response.json())
+  }
+
+  getGoogleUserInfo(accessToken: string): Promise<Profile> {
+    return fetch(
+      `${GOOGLE_BASE_URL}/oauth2/v1/userinfo?access_token=${accessToken}`,
+      {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/json',
+        },
+      }
+    )
+      .then(response => Service.handleErrors(response))
+      .then(response => response.json())
+  }
+
+  async getUser(googleID: string) {
+    const response = await fetch(`${API_URL}/users/${googleID}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status >= 500) {
+      Service.handleErrors(response)
+    }
+
+    const userDto: UserDto = await response.json()
+
+    return {
+      code: response.status,
+      data: userDto,
+    }
+  }
+}
 export default new Service()

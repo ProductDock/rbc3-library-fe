@@ -2,6 +2,7 @@ import { Typography, useMediaQuery } from '@mui/material'
 import LoginPagePhoto from '../../assets/LoginPagePhoto.svg'
 import CircleLogo from '../../assets/homePageStamp.svg'
 import styles from './LoginPage.module.css'
+import { Login } from './Login'
 
 export default function LoginPage() {
   const matches = useMediaQuery('(min-width:1100px)')
@@ -43,9 +44,7 @@ export default function LoginPage() {
           Looking for the next book to read? Explore our collection and discover
           your new favorite that perfectly matches your interests.
         </Typography>
-        <button type='button' className={styles.loginButton}>
-          Sign in with Google
-        </button>
+        <Login />
       </div>
     </div>
   )

@@ -79,6 +79,7 @@
   }
 
   .logoutText {
+    cursor: pointer;
     padding-bottom: 48px;
   }
 

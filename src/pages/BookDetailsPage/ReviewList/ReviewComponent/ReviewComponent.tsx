@@ -1,11 +1,10 @@
 import style from './ReviewComponent.module.css'
 import Typography from '@mui/material/Typography'
-import { Divider, IconButton } from '@mui/material'
+import { Avatar, Divider, IconButton } from '@mui/material'
 import editIcon from './../../../../assets/editIcon.svg'
 import deleteIcon from './../../../../assets/deleteIcon.svg'
 import starGrey from './../../../../assets/ratingStarGrey.svg'
 import starYellow from './../../../../assets/ratingStarYellow.svg'
-import user from './../../../../assets/user.svg'
 import { Review } from '../../../../shared/types'
 
 interface ReviewProps {
@@ -39,11 +38,19 @@ const ReviewComponent = ({ review }: ReviewProps) => {
       <div className={style.reviewTopSectionWrapper}>
         <div className={style.avatarWrapper}>
           <div className={style.avatarImgWrapper}>
-            <img src={user} alt='avatar_img' />
+            <Avatar
+              sx={{
+                height: '58.8px',
+                width: '58.8px',
+                filter: 'grayscale(100%)',
+              }}
+              src={review.imageUrl}
+              alt='avatar_img'
+            />
           </div>
           <div className={style.nameAndDate}>
             <Typography variant='body1' className={style.nameText}>
-              {'Anonymus user'}
+              {review.userFullName}
             </Typography>
             <Typography variant='body1' className={style.dateText}>
               {formatReviewDate(review.dateTime)}

@@ -1,6 +1,7 @@
 import { BookWithFile } from '../pages/AddNewBooksForm/AddNewBooksForm'
 
 import { Status } from '../components/BookStatusPanel/BookStatus/Status'
+import { Profile } from '../context/UserContext'
 
 export interface ApiService {
   fetchBooksData({
@@ -22,6 +23,12 @@ export interface ApiService {
   addBook(bookWithFile: BookWithFile): Promise<BooksObject>
 
   uploadImage(file: File, bookId: string): Promise<string>
+
+  login(UserDto: UserDto): Promise<UserDto>
+
+  getGoogleUserInfo(accessToken: string): Promise<Profile>
+
+  getUserById(userId: string): Promise<UserDto>
 }
 
 export type Headers = {
@@ -79,26 +86,32 @@ export type BooksList = {
   bookCategories: string[]
 }
 
-export type User = {
-  id: string
-  fullName: string
-  email: string
-  imageUrl: string
-  role: string
-}
-
 export type Review = {
   rating: number
   content: string
   seniorities: string[]
   dateTime: string
   bookId: string
+  imageUrl?: string
+  userFullName?: string
 }
 
 export type ReviewWithId = Review & {
-  id: string
+  id?: string
+}
+
+export type ReviewWithUserId = Review & {
+  userId: string
 }
 
 export type ImageObject = {
   imagePath: string
+}
+export type UserDto = {
+  id?: string
+  role: string
+  fullName: string
+  googleID: string
+  email: string
+  imageUrl: string
 }
